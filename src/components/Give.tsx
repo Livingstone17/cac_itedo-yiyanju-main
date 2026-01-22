@@ -11,12 +11,12 @@ const GiveSection: React.FC = () => {
       accountName: "Christ Apostolic Church - Itedo Yiyanju",
       icon: Building2,
     },
-    {
-      name: "Zenith Bank",
-      accountNumber: "1010503530",
-      accountName: "CAC Itedo Yiyanju",
-      icon: Building2,
-    },
+    // {
+    //   name: "Zenith Bank",
+    //   accountNumber: "1010503530",
+    //   accountName: "CAC Itedo Yiyanju",
+    //   icon: Building2,
+    // },
     {
       name: "GTB",
       accountNumber: "0019268524",
@@ -68,52 +68,63 @@ const GiveSection: React.FC = () => {
 
         {/* Give From Nigeria */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-church-text mb-8 flex items-center gap-2">
+          {/* <h3 className="text-2xl font-bold text-church-text mb-8 flex items-center gap-2">
             <Heart className="w-6 h-6 text-church-gold" />
             Give From Nigeria
-          </h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Bank Accounts */}
-            {nigeriaOptions.map((option, index) => (
-              <Card key={index} className="shadow-soft border-church-blue/10">
-                <CardHeader>
-                  <CardTitle className="text-lg text-church-text flex items-center gap-2">
-                    <Building2 className="w-5 h-5 text-church-gold" />
-                    {option.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div>
-                    <p className="text-sm text-church-text-light">Account Number</p>
-                    <p className="text-lg font-semibold text-church-text">{option.accountNumber}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-church-text-light">Account Name</p>
-                    <p className="text-sm text-church-text">{option.accountName}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          </h3> */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            {/* Empty Column 1 */}
+            <div></div>
 
-            {/* Paystack */}
-            <Card className="shadow-soft border-church-blue/10">
-              <CardHeader>
-                <CardTitle className="text-lg text-church-text">Paystack</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <p className="text-sm text-church-text-light mb-2">Currency</p>
-                  <p className="text-lg font-semibold text-church-gold">Naira (₦)</p>
-                </div>
-                <Button
-                  variant="hero"
-                  className="w-full"
-                  onClick={() => window.open("https://paystack.com/pay/your-link", "_blank")}
-                >
-                  Give Now
-                </Button>
-              </CardContent>
-            </Card>
+            {/* Middle Column - Bank Cards */}
+            <div className="lg:col-span-3">
+              <div className="grid md:grid-cols-3 gap-6">
+                {/* Bank Accounts */}
+                {nigeriaOptions.map((option, index) => (
+                  <Card key={index} className="shadow-soft border-church-blue/10">
+                    <CardHeader>
+                      <CardTitle className="text-lg text-church-text flex items-center gap-2">
+                        <Building2 className="w-5 h-5 text-church-gold" />
+                        {option.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <div>
+                        <p className="text-sm text-church-text-light">Account Number</p>
+                        <p className="text-lg font-semibold text-church-text">{option.accountNumber}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-church-text-light">Account Name</p>
+                        <p className="text-sm text-church-text">{option.accountName}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+
+                {/* Paystack */}
+                <Card className="shadow-soft border-church-blue/10">
+                  <CardHeader>
+                    <CardTitle className="text-lg text-church-text">Paystack</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <p className="text-sm text-church-text-light mb-2">Currency</p>
+                      <p className="text-lg font-semibold text-church-gold">Naira (₦)</p>
+                    </div>
+                    <Button
+                      variant="hero"
+                      className="w-full"
+                      onClick={() => window.open("https://paystack.com/pay/your-link", "_blank")}
+                    >
+                      Give Now
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            {/* Empty Column 2 */}
+            <div></div>
           </div>
         </div>
 

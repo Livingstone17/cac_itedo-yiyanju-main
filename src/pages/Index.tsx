@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import LiveStream from "@/components/LiveStream";
 import Sermons from "@/components/Sermons";
@@ -12,8 +11,7 @@ import ProgramsSection from "@/components/Programs";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <Navigation />
+    <div className="min-h-screen pt-16">
       <Hero />
       <WelcomeSection />
       <ProgramsSection />

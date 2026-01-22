@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Listen from "./pages/LiveStream";
 import Sermons from "./pages/Sermons";
+import Navigation from "./components/Navigation";
 import WhatsAppButton from "./components/Whatsapp";
 
 const queryClient = new QueryClient();
@@ -17,6 +18,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <Navigation />
         <Routes>
           <Route path="/" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

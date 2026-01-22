@@ -56,7 +56,7 @@ const ProgramsSection = () => {
                 <img
                   src={Prayer}
                   alt="Weekly Meetings"
-                  className=" shadow-lg w-full h-auto object-cover"
+                  className="rounded-lg shadow-lg w-full h-auto object-cover"
                 />
               </div>
 
