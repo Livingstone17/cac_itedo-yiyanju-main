@@ -17,7 +17,7 @@ const Index = () => {
       <Hero />
       <WelcomeSection />
       <ProgramsSection />
-      <UpcomingEvents />
+      {/* <UpcomingEvents /> */}
       {/* <LiveStream /> */}
       {/* <Sermons /> */}
       <About />

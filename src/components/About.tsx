@@ -36,7 +36,7 @@ const About = () => {
     const lng = 3.3792; // Replace with your church longitude
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const isAndroid = /Android/.test(navigator.userAgent);
-  
+
     if (isIOS) {
       // Open in Apple Maps
       window.open(`http://maps.apple.com/?daddr=${lat},${lng}`, "_blank");
@@ -48,7 +48,7 @@ const About = () => {
       window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, "_blank");
     }
   };
-  
+
 
   const stats = [
     { number: "20+", label: "Years of Ministry" },
@@ -61,10 +61,10 @@ const About = () => {
     <section id="about" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-church-text mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-church-text mb-6">
             About <span className="text-church-gold">CAC Itedo Yiyanju</span>
           </h2>
-          <p className="text-xl text-church-text-light max-w-2xl mx-auto">
+          <p className="text-base text-church-text-light max-w-2xl mx-auto">
             We are a vibrant community of believers committed to loving God, loving people, and making a difference in our world.
           </p>
         </div>
@@ -75,17 +75,17 @@ const About = () => {
             <h3 className="text-3xl font-bold text-church-text mb-6">Our Story</h3>
             <div className="space-y-4 text-church-text-light">
               <p>
-                Founded in 2002, CAC Itedo Yiyanju began as a small group of families with a big vision: 
-                to create a place where everyone could experience God's love and find their purpose. 
+                Founded in 2002, CAC Itedo Yiyanju began as a small group of families with a big vision:
+                to create a place where everyone could experience God's love and find their purpose.
                 What started in a living room has grown into a thriving community of over 500 members.
               </p>
               <p>
-                We believe that church should be a place of healing, hope, and transformation. 
-                Through authentic worship, practical teaching, and genuine community, we've seen 
+                We believe that church should be a place of healing, hope, and transformation.
+                Through authentic worship, practical teaching, and genuine community, we've seen
                 countless lives changed by the power of God's love.
               </p>
               <p>
-                Today, we're not just a church—we're a family committed to making a lasting 
+                Today, we're not just a church—we're a family committed to making a lasting
                 impact in our city and beyond. Join us as we continue this incredible journey together.
               </p>
             </div>
@@ -109,7 +109,7 @@ const About = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-church-blue/30 to-transparent"></div>
             </div>
-            
+
             {/* Stats Overlay */}
             <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-large p-6 border border-church-blue/10">
               <div className="grid grid-cols-2 gap-4 text-center">

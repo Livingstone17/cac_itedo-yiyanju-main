@@ -1,218 +1,4 @@
-// import { Button } from "@/components/ui/button";
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// import { Input } from "@/components/ui/input";
-// import { Textarea } from "@/components/ui/textarea";
-// import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 
-// const Contact = () => {
-//   const contactInfo = [
-//     {
-//       title: "Visit Us",
-//       content: "5, Itedo Yiyanju Close,\nAlagbado, Lagos",
-//       icon: MapPin,
-//       color: "bg-church-blue",
-//     },
-//     {
-//       title: "Call Us",
-//       content: "(234) 803-307-2838\n(234) 806-983-1978",
-//       icon: Phone,
-//       color: "bg-church-gold",
-//     },
-//     {
-//       title: "Email Us",
-//       content: "cacitedoyiyanju@gmail.com",
-//       icon: Mail,
-//       color: "bg-accent",
-//     },
-//   ];
-
-//   const servicesTimes = [
-//     { service: "Sunday Morning Worship", time: "7:00 AM" },
-//     { service: "Tuesday Bible Study", time: "5:00 PM" },
-//     { service: "Thursday Prayer Meeting", time: "8:00 AM" },
-//     { service: "Friday Youth Vigil", time: "11:00 PM" },
-//   ];
-
-//   return (
-//     <section id="contact" className="py-20 bg-gradient-subtle">
-//       <div className="container mx-auto px-4">
-//         <div className="text-center mb-16">
-//           <h2 className="text-4xl md:text-5xl font-bold text-church-text mb-6">
-//             Get in <span className="text-church-gold">Touch</span>
-//           </h2>
-//           <p className="text-xl text-church-text-light max-w-2xl mx-auto">
-//             We'd love to hear from you! Reach out with any questions or to learn more about our community.
-//           </p>
-//         </div>
-
-//         <div className="grid lg:grid-cols-3 gap-8">
-//           {/* Contact Information */}
-//           <div className="lg:col-span-1 space-y-6">
-//             <h3 className="text-2xl font-bold text-church-text mb-6">Contact Information</h3>
-
-//             {contactInfo.map((info, index) => {
-//               const IconComponent = info.icon;
-//               return (
-//                 <Card key={index} className="shadow-soft border-church-blue/10">
-//                   <CardContent className="p-6">
-//                     <div className="flex items-start space-x-4">
-//                       <div className={`w-12 h-12 ${info.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
-//                         <IconComponent className="w-6 h-6 text-white" />
-//                       </div>
-//                       <div>
-//                         <h4 className="font-semibold text-church-text mb-2">{info.title}</h4>
-//                         <p className="text-church-text-light text-sm whitespace-pre-line">{info.content}</p>
-//                       </div>
-//                     </div>
-//                   </CardContent>
-//                 </Card>
-//               );
-//             })}
-
-//             {/* Service Times */}
-//             <Card className="shadow-soft border-church-blue/10">
-//               <CardHeader className="pb-3">
-//                 <CardTitle className="flex items-center text-church-text">
-//                   <Clock className="w-5 h-5 mr-2 text-church-gold" />
-//                   Service Times
-//                 </CardTitle>
-//               </CardHeader>
-//               <CardContent className="pt-0">
-//                 <div className="space-y-3">
-//                   {servicesTimes.map((service, index) => (
-//                     <div key={index} className="flex justify-between items-center">
-//                       <span className="text-church-text text-sm">{service.service}</span>
-//                       <span className="text-church-gold font-semibold text-sm">{service.time}</span>
-//                     </div>
-//                   ))}
-//                 </div>
-//               </CardContent>
-//             </Card>
-//           </div>
-
-//           {/* Contact Form */}
-//           <div className="lg:col-span-2">
-//             <Card className="shadow-large border-0">
-//               <CardHeader>
-//                 <CardTitle className="text-2xl text-church-text">Send us a Message</CardTitle>
-//               </CardHeader>
-//               <CardContent className="space-y-6">
-//                 <div className="grid md:grid-cols-2 gap-4">
-//                   <div>
-//                     <label className="text-sm font-medium text-church-text mb-2 block">First Name</label>
-//                     <Input placeholder="Your first name" className="border-church-blue/20" />
-//                   </div>
-//                   <div>
-//                     <label className="text-sm font-medium text-church-text mb-2 block">Last Name</label>
-//                     <Input placeholder="Your last name" className="border-church-blue/20" />
-//                   </div>
-//                 </div>
-
-//                 <div className="grid md:grid-cols-2 gap-4">
-//                   <div>
-//                     <label className="text-sm font-medium text-church-text mb-2 block">Email</label>
-//                     <Input type="email" placeholder="your.email@example.com" className="border-church-blue/20" />
-//                   </div>
-//                   <div>
-//                     <label className="text-sm font-medium text-church-text mb-2 block">Phone</label>
-//                     <Input type="tel" placeholder="(555) 123-4567" className="border-church-blue/20" />
-//                   </div>
-//                 </div>
-
-//                 <div>
-//                   <label className="text-sm font-medium text-church-text mb-2 block">Subject</label>
-//                   <Input placeholder="What's this about?" className="border-church-blue/20" />
-//                 </div>
-
-//                 <div>
-//                   <label className="text-sm font-medium text-church-text mb-2 block">Message</label>
-//                   <Textarea
-//                     placeholder="Tell us how we can help you..."
-//                     className="min-h-[120px] border-church-blue/20"
-//                   />
-//                 </div>
-
-//                 <Button variant="hero" size="lg" className="w-full shadow-large">
-//                   <Send className="w-5 h-5 mr-2" />
-//                   Send Message
-//                 </Button>
-
-//                 <p className="text-sm text-church-text-light text-center">
-//                   We'll get back to you within 24 hours. For urgent matters, please call us directly.
-//                 </p>
-//               </CardContent>
-//             </Card>
-//           </div>
-//         </div>
-
-//         {/* Map Section */}
-//         {/* <div className="mt-16">
-//           <Card className="overflow-hidden shadow-large border-0">
-//             <div className="aspect-video bg-church-cream flex items-center justify-center">
-//               <div className="text-center text-church-text-light">
-//                 <MapPin className="w-16 h-16 mx-auto mb-4 text-church-gold" />
-//                 <h4 className="text-xl font-semibold text-church-text mb-2">Find Us Here</h4>
-//                 <p>5, Itedo Yiyanju Close,\nAlagbado, Lagos</p>
-//                 <Button variant="church-primary" size="sm" className="mt-4">
-//                   Get Directions
-//                 </Button>
-//               </div>
-//             </div>
-//           </Card>
-//         </div> */}
-//         {/* Map Section */}
-//         <div className="mt-16">
-//           <Card className="overflow-hidden shadow-large border-0">
-//             <div className="relative aspect-video">
-//               {/* Google Maps Embed */}
-//               {/* <iframe
-//         src={`https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=6.5244,3.3792`} 
-//         // Replace with your lat,lng OR "CAC Itedo Yiyanju, Alagbado Lagos"
-//         width="100%"
-//         height="100%"
-//         style={{ border: 0 }}
-//         allowFullScreen
-//         loading="lazy"
-//       ></iframe> */}
-//               <iframe
-//                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7992498029625!2d3.2491340759097!3d6.671779193323303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b99e6e2162077%3A0x510b8a2a2b7e1897!2sChrist%20Apostolic%20Church%2C%20Itedo%20Yiyanju!5e0!3m2!1sen!2sng!4v1758877020761!5m2!1sen!2sng"
-//                 width="100%"
-//                 height="100%"
-//                 style={{ border: 0 }}
-//                 allowFullScreen={true}
-//                 loading="lazy"
-//                 referrerPolicy="no-referrer-when-downgrade"
-//               >
-
-//               </iframe>
-//               {/* Overlay with Button */}
-//               <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white">
-//                 <h4 className="text-2xl font-bold mb-2">Find Us Here</h4>
-//                 <p className="text-sm">5, Itedo Yiyanju Close, Alagbado, Lagos</p>
-//                 <Button
-//                   variant="church-primary"
-//                   size="sm"
-//                   className="mt-4"
-//                   onClick={() =>
-//                     window.open(
-//                       `https://www.google.com/maps/dir/?api=1&destination=6.67181,3.25171`,
-//                       "_blank"
-//                     )
-//                   }
-//                 >
-//                   Get Directions
-//                 </Button>
-//               </div>
-//             </div>
-//           </Card>
-//         </div>
-
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Contact;
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -292,14 +78,14 @@ const Contact = () => {
 
   const otherBranches = [
     {
-      name: "CAC Itedo Yiyanju – Ikorodu Branch",
+      name: "CAC Itedo Yiyanju – Ikorodu Worship Centre",
       address:
         "Beside Dampress Secondary School, New Covenant Estate, Eyebeere, Gbaga off Ijede Road, Ikorodu Lagos",
       mapUrl: "https://maps.app.goo.gl/q2e2kC3fWugVhw7y7",
       serviceTime: "Service Time: 8:00 AM every Sunday",
     },
     {
-      name: "CAC Itedo Yiyanju – Ifo Branch",
+      name: "CAC Itedo Yiyanju – Ifo Worship Centre",
       address:
         "Ayoola Street,After Better land school,Balogun Tuntun,Gasline Ososun road, Ifo Ogun State",
       mapUrl: "https://maps.app.goo.gl/aD42amXhC632U6GX7",
@@ -312,10 +98,10 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         {/* Section Heading */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-church-text mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-church-text mb-6">
             Get in <span className="text-church-gold">Touch</span>
           </h2>
-          <p className="text-xl text-church-text-light max-w-2xl mx-auto">
+          <p className="text-base text-church-text-light max-w-2xl mx-auto">
             We'd love to hear from you! Reach out with any questions or to learn
             more about our community.
           </p>
@@ -531,8 +317,9 @@ const Contact = () => {
         {/* Other Branches Section */}
         <div className="mt-16">
           <h3 className="text-2xl font-bold text-church-text mb-8 text-center">
-            Our Other Branches
+            Our Worship Centres
           </h3>
+          <p className="text-center text-church-text">We are one church with multiple branches across Lagos and beyond.</p>
           <div className="grid md:grid-cols-2 gap-6">
             {otherBranches.map((branch, index) => (
               <a

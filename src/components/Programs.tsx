@@ -1,80 +1,107 @@
 import React from "react";
+import Prayer from "@/assets/prayer.jpg";
+import { FaChalkboardUser, FaUsers, FaBookBible, FaHandsPraying } from "react-icons/fa6";
 
-const programs = [
+const ProgramsSection = () => {
+  const weeklyMeetings = [
     {
       title: "Sunday School",
-      description: "Join us at 7:00 AM every Sunday for this adventure into the Word.",
-      image: "/assets/programs/sunday-school.jpg",
+      time: "7:00 AM",
+      day: "Sunday",
+      icon: FaChalkboardUser,
     },
     {
       title: "Sunday Service",
-      description:
-        "Enrich your walk with God. Sunday service begins at 8:00 AM with Sunday School.",
-      image: "/assets/programs/sunday-service.jpg",
+      time: "8:00 AM",
+      day: "Sunday",
+      icon: FaUsers,
     },
     {
       title: "Bible Study",
-      description:
-        "Join us online and onsite at 5:00 PM every Tuesday for an experience in the Word of God.",
-      image: "/assets/programs/epistle-life.jpg",
+      time: "5:00 PM",
+      day: "Tuesday",
+      icon: FaBookBible,
     },
     {
       title: "Prayer Meeting",
-      description:
-        "Holds every Thursday by 8AM.",
-      image: "/assets/programs/season-of-the-spirit.jpg",
+      time: "8:00 AM",
+      day: "Thursday",
+      icon: FaHandsPraying,
     },
   ];
-  
-  const ProgramsSection = () => {
-    return (
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-6">
-          {/* Section Heading */}
-          {/* <div className="text-center mb-12">
-            <p className="text-sm font-semibold text-orange-600 tracking-wider uppercase">
-              Grow Deeper in Faith!
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Attend soul-transforming meetings
-            </h2>
-          </div> */}
-           <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-church-text mb-6">
+
+  return (
+    <section className="py-16 bg-white">
+      <div className="container mx-auto px-6">
+        {/* Section Heading */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-church-text mb-6">
             Our <span className="text-church-gold">Weekly Meetings</span>
           </h2>
-          <p className="text-xl text-church-text-light max-w-2xl mx-auto">
-          Attend soul-transforming meetings
+          <p className="text-base text-church-text-light max-w-2xl mx-auto">
+            Fellowship with us every week!
           </p>
         </div>
-  
-          {/* Programs Grid */}
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {programs.map((program, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-lg  hover:shadow-xl transition overflow-hidden"
-              >
+
+        {/* 3-Column Grid Layout: 1-2-1 */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          {/* Empty Column 1 */}
+          <div></div>
+
+          {/* Middle Column - Image and Programs */}
+          <div className="lg:col-span-3">
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+              {/* Image Section - Left Side */}
+              <div className="flex justify-center">
                 <img
-                  src={program.image}
-                  alt={program.title}
-                  className="w-full h-56 object-cover"
+                  src={Prayer}
+                  alt="Weekly Meetings"
+                  className="rounded-lg shadow-lg w-full h-auto object-cover"
                 />
-                <div className="p-5">
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {program.title}
-                  </h3>
-                  <p className="mt-2 text-gray-600 text-sm leading-relaxed">
-                    {program.description}
-                  </p>
-                </div>
               </div>
-            ))}
+
+              {/* Programs List - Right Side */}
+              <div>
+                {weeklyMeetings.map((meeting, index) => {
+                  const IconComponent = meeting.icon;
+                  return (
+                    <div key={index}>
+                      <div className="py-4 flex gap-4">
+                        {/* Icon */}
+                        <div className="flex-shrink-0">
+                          <div className="w-12 h-12 bg-church-gold/10 rounded-lg flex items-center justify-center">
+                            <IconComponent className="w-6 h-6 text-church-gold" />
+                          </div>
+                        </div>
+                        {/* Program Details */}
+                        <div className="flex-1">
+                          <h3 className="text-lg font-semibold text-church-text mb-1">
+                            {meeting.title}
+                          </h3>
+                          <div className="flex items-center gap-4 text-church-text-light">
+                            <span className="text-sm font-medium">{meeting.day}</span>
+                            <span className="text-sm font-semibold text-church-gold">
+                              {meeting.time}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      {index < weeklyMeetings.length - 1 && (
+                        <div className="border-b border-church-blue/10"></div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
+
+          {/* Empty Column 2 */}
+          <div></div>
         </div>
-      </section>
-    );
-  };
-  
-  export default ProgramsSection;
-  
+      </div>
+    </section>
+  );
+};
+
+export default ProgramsSection;
