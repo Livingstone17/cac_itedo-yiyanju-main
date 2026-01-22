@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 const GiveSection: React.FC = () => {
   const nigeriaOptions = [
     {
-      name: "First Bank",
-      accountNumber: "3073249455",
-      accountName: "CAC Itedo Yiyanju",
+      name: "Globus Bank",
+      accountNumber: "1000229170",
+      accountName: "Christ Apostolic Church - Itedo Yiyanju",
       icon: Building2,
     },
     {
@@ -19,8 +19,8 @@ const GiveSection: React.FC = () => {
     },
     {
       name: "GTB",
-      accountNumber: "0022824627",
-      accountName: "CAC Itedo Yiyanju",
+      accountNumber: "0019268524",
+      accountName: "Christ Apos Chr Itedo Yiyanju",
       icon: Building2,
     },
   ];
@@ -54,7 +54,7 @@ const GiveSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-white" id="give">
+    <section className="py-8 bg-white" id="give">
       <div className="container mx-auto px-6">
         {/* Section Heading */}
         <div className="text-center mb-16">

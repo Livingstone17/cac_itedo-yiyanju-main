@@ -58,7 +58,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-background">
+    <section id="about" className="py-8 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-church-text mb-6">
@@ -76,16 +76,16 @@ const About = () => {
             <div className="space-y-4 text-church-text-light">
               <p>
                 Founded in 2002, CAC Itedo Yiyanju began as a small group of families with a big vision:
-                to create a place where everyone could experience God's love and find their purpose.
-                What started in a living room has grown into a thriving community of over 500 members.
+                to create a place where everyone could experience God's love, be liberated from the hold of darkness, and find their purpose in God.
+                What started in a living room has grown into a thriving community of over 1000 members.
               </p>
               <p>
-                We believe that church should be a place of healing, hope, and transformation.
-                Through authentic worship, practical teaching, and genuine community, we've seen
+                We believe that church should be a place of healing, hope, light, communion and transformation.
+                Through authentic worship, practical teaching, word-based prayers and genuine community, we've seen
                 countless lives changed by the power of God's love.
               </p>
               <p>
-                Today, we're not just a church—we're a family committed to making a lasting
+                Today, we're not just a church, we're a family committed to making a lasting
                 impact in our city and beyond. Join us as we continue this incredible journey together.
               </p>
             </div>

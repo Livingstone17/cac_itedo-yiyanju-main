@@ -94,7 +94,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-gradient-subtle">
+    <section id="contact" className="py-8 bg-gradient-subtle">
       <div className="container mx-auto px-4">
         {/* Section Heading */}
         <div className="text-center mb-16">
@@ -315,41 +315,42 @@ const Contact = () => {
         </div>
 
         {/* Other Branches Section */}
-        <div className="mt-16">
+        <div className="mt-16 mb-5">
           <h3 className="text-2xl font-bold text-church-text mb-8 text-center">
             Our Worship Centres
           </h3>
-          <p className="text-center text-church-text">We are one church with multiple branches across Lagos and beyond.</p>
-          <div className="grid md:grid-cols-2 gap-6">
-            {otherBranches.map((branch, index) => (
-              <a
-                key={index}
-                href={branch.mapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block group"
-              >
-                <Card className="shadow-soft border-church-blue/10 transition-transform transform group-hover:scale-105 group-hover:shadow-lg cursor-pointer">
-                  <CardContent className="p-6 text-center">
-                    <h4 className="font-semibold text-lg text-church-text mb-2">
-                      {branch.name}
-                    </h4>
-                    <p className="text-church-text-light text-sm mb-4">
-                      {branch.address}
-                    </p>
-                    <p className="text-church-text-light text-sm mb-4">
-                      {branch.serviceTime}
-                    </p>
-                    <Button variant="church-primary" size="sm">
-                      Get Directions
-                    </Button>
-                  </CardContent>
-                </Card>
-              </a>
-            ))}
-          </div>
+          <p className="text-base text-church-text-light max-w-2xl mx-auto text-center">We are one church with multiple branches across Lagos and beyond.</p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {otherBranches.map((branch, index) => (
+            <a
+              key={index}
+              href={branch.mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group"
+            >
+              <Card className="shadow-soft border-church-blue/10 transition-transform transform group-hover:scale-105 group-hover:shadow-lg cursor-pointer">
+                <CardContent className="p-6 text-center">
+                  <h4 className="font-semibold text-lg text-church-text mb-2">
+                    {branch.name}
+                  </h4>
+                  <p className="text-church-text-light text-sm mb-4">
+                    {branch.address}
+                  </p>
+                  <p className="text-church-text-light text-sm mb-4">
+                    {branch.serviceTime}
+                  </p>
+                  <Button variant="church-primary" size="sm">
+                    Get Directions
+                  </Button>
+                </CardContent>
+              </Card>
+            </a>
+          ))}
         </div>
       </div>
+      {/* </div> */}
     </section>
   );
 };

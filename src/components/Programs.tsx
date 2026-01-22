@@ -1,5 +1,5 @@
 import React from "react";
-import Prayer from "@/assets/prayer.jpg";
+import Prayer from "@/assets/program.jpg";
 import { FaChalkboardUser, FaUsers, FaBookBible, FaHandsPraying } from "react-icons/fa6";
 
 const ProgramsSection = () => {
@@ -56,7 +56,7 @@ const ProgramsSection = () => {
                 <img
                   src={Prayer}
                   alt="Weekly Meetings"
-                  className="rounded-lg shadow-lg w-full h-auto object-cover"
+                  className=" shadow-lg w-full h-auto object-cover"
                 />
               </div>
 
@@ -70,7 +70,7 @@ const ProgramsSection = () => {
                         {/* Icon */}
                         <div className="flex-shrink-0">
                           <div className="w-12 h-12 bg-church-gold/10 rounded-lg flex items-center justify-center">
-                            <IconComponent className="w-6 h-6 text-church-gold" />
+                            <IconComponent className="w-6 h-6 text-church-black" />
                           </div>
                         </div>
                         {/* Program Details */}
