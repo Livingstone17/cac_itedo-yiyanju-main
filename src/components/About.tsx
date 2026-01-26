@@ -125,7 +125,7 @@ const About = () => {
         </div>
 
         {/* Values */}
-        <div className="mb-20">
+        <div className="mb-2 py-12" style={{ backgroundColor: "#F5F5EF", marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", paddingLeft: "calc(50vw - 50%)", paddingRight: "calc(50vw - 50%)" }}>
           <h3 className="text-3xl font-bold text-church-text text-center mb-12">Our Core Values</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((value, index) => {

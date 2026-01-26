@@ -20,7 +20,6 @@ const Navigation = () => {
   const navigate = useNavigate();
 
   const navigationItems = [
-    { label: "Home", href: "/", icon: Church },
     { label: "Live Stream", dropdown: true, icon: Video },
     { label: "Sermons", href: "/sermons", icon: Users },
     { label: "About Us", href: "#about", icon: Users },
@@ -47,14 +46,17 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
+          >
             <div className="w-10 h-10 bg-gradient-accent rounded-lg flex items-center justify-center shadow-soft">
               <img src={logo} alt="Church Logo" />
             </div>
             <span className="text-xl font-bold text-church-text">
               Itedo Yiyanju
             </span>
-          </div>
+          </button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8 relative">

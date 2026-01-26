@@ -31,7 +31,7 @@ const ProgramsSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16" style={{ backgroundColor: "#F5F5EF", marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", paddingLeft: "calc(50vw - 50%)", paddingRight: "calc(50vw - 50%)" }}>
       <div className="container mx-auto px-6">
         {/* Section Heading */}
         <div className="text-center mb-16">

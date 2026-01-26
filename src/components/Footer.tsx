@@ -20,7 +20,7 @@ const Footer = () => {
   const quickLinks = [
     { label: "About Us", href: "#about", type: "anchor" },
     { label: "Sermons", href: "/sermons", type: "route" },
-    { label: "Events", href: "#events", type: "anchor" },
+    { label: "Give", href: "/give", type: "route" },
     { label: "Contact", href: "#contact", type: "anchor" },
   ];
 
