@@ -1,7 +1,6 @@
 import Hero from "@/components/Hero";
 import LiveStream from "@/components/LiveStream";
 import Sermons from "@/components/Sermons";
-import Give from "@/components/Give";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -19,7 +18,6 @@ const Index = () => {
       {/* <LiveStream /> */}
       {/* <Sermons /> */}
       <About />
-      <Give />
       <Contact />
       <Footer />
     </div>
@@ -27,6 +25,3 @@ const Index = () => {
 };
 
 export default Index;
-// 
-
-//git remote set-url origin https://github.com/Livingstone17/cac_itedo-yiyanju

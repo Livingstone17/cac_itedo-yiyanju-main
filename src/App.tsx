@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Listen from "./pages/LiveStream";
 import Sermons from "./pages/Sermons";
+import Give from "./pages/Give";
 import Navigation from "./components/Navigation";
 import WhatsAppButton from "./components/Whatsapp";
 
@@ -24,6 +25,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="/listen/:type" element={<Listen />} />
           <Route path="/sermons" element={<Sermons />} />
+          <Route path="/give" element={<Give />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <WhatsAppButton />

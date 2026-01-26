@@ -24,7 +24,7 @@ const Navigation = () => {
     { label: "Live Stream", dropdown: true, icon: Video },
     { label: "Sermons", href: "/sermons", icon: Users },
     { label: "About Us", href: "#about", icon: Users },
-    { label: "Give Online", href: "#give", icon: Heart },
+    { label: "Give Online", href: "/give", icon: Heart },
     { label: "Contact Us", href: "#contact", icon: Phone },
   ];
 
@@ -62,7 +62,7 @@ const Navigation = () => {
               item.dropdown ? (
                 <div key={item.label} className="relative">
                   <button
-                    className="flex items-center space-x-1 text-church-text-light hover:text-church-text transition-colors duration-300 font-regular"
+                    className="flex  text-sm items-center space-x-1 text-church-text-light hover:text-church-text transition-colors duration-300 font-normal"
                     onClick={() => setIsLiveDropdownOpen(!isLiveDropdownOpen)}
                   >
                     <span>{item.label}</span>
@@ -72,7 +72,7 @@ const Navigation = () => {
                     <div className="absolute top-full mt-2 bg-white border border-border rounded-lg shadow-lg w-40">
                       <a
                         href="/listen/video"
-                        className="flex items-center px-4 py-2 text-sm text-church-text-light hover:bg-gray-100 hover:text-church-text"
+                        className="flex items-center px-4 py-2 text-xs text-church-text-light hover:bg-gray-100 hover:text-church-text"
                       >
                         <Video className="w-4 h-4 mr-2" />
                         Watch Us Live
@@ -97,7 +97,7 @@ const Navigation = () => {
                       handleAnchorClick(item.href);
                     }
                   }}
-                  className="text-church-text-light hover:text-church-text transition-colors duration-300 font-medium"
+                  className="text-church-text-light hover:text-church-text transition-colors duration-300 font-normal"
                 >
                   {item.label}
                 </a>
@@ -130,7 +130,7 @@ const Navigation = () => {
                         className="flex items-center space-x-3 text-church-text-light hover:text-church-text transition-colors duration-300 py-2 w-full text-left"
                       >
                         <IconComponent className="w-5 h-5" />
-                        <span className="font-medium">{item.label}</span>
+                        <span className="font-normal">{item.label}</span>
                         <ChevronDown className="w-4 h-4 ml-auto" />
                       </button>
                       {isLiveDropdownOpen && (
@@ -172,7 +172,7 @@ const Navigation = () => {
                     }}
                   >
                     <IconComponent className="w-5 h-5" />
-                    <span className="font-medium">{item.label}</span>
+                    <span className="font-normal">{item.label}</span>
                   </a>
                 );
               })}
