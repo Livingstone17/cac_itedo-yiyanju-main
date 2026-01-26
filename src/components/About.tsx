@@ -7,25 +7,25 @@ const About = () => {
   const values = [
     {
       title: "Love",
-      description: "We believe love is the foundation of everything we do, reflecting God's heart for humanity.",
+      description: "Our love isn’t fleeting—it’s fierce, faithful, and fixed on Jesus. We live with undying commitment to God and His eternal purposes, loving Him above all and extending His grace to a hurting world.",
       icon: Heart,
       color: "bg-red-500",
     },
     {
-      title: "Community",
-      description: "We foster authentic relationships and support one another through life's journey.",
+      title: "INTIMACY",
+      description: "We pursue more than religion—we seek relationship. In the presence of the Holy Spirit, we cultivate daily intimacy with God through prayer, worship, and surrendered living, allowing Him to lead, heal, and speak clearly in our lives.",
       icon: Users,
       color: "bg-church-blue",
     },
     {
-      title: "Purpose",
-      description: "We help people discover and live out God's unique calling on their lives.",
+      title: "TRANSFORMATION",
+      description: "When heaven touches earth, everything changes. Through biblical teaching, authentic discipleship, and the power of the cross, we witness radical transformation—in individuals, families, and entire communities—fulfilling God’s purpose for every believer.",
       icon: Compass,
       color: "bg-church-gold",
     },
     {
-      title: "Growth",
-      description: "We encourage spiritual maturity through biblical teaching and practical application.",
+      title: "KINGDOM INFLUENCE",
+      description: "We’re raising world-changers who don’t just adapt to culture—they transform it. Empowered by the Holy Spirit and grounded in kingdom principles, our Christian community advances society through justice, innovation, and Christ-centered leadership.",
       icon: BookOpen,
       color: "bg-green-500",
     },

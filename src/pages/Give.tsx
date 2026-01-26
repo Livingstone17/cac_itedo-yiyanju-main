@@ -229,7 +229,7 @@ const GivePage: React.FC = () => {
                                     </Card>
 
                                     {/* Flutterwave */}
-                                    <Card className="shadow-soft border-church-blue/10 hover:shadow-md transition">
+                                    {/* <Card className="shadow-soft border-church-blue/10 hover:shadow-md transition">
                                         <CardContent className="p-6 flex items-center justify-between">
                                             <div>
                                                 <h4 className="text-lg font-semibold text-church-text mb-2">Flutterwave</h4>
@@ -242,7 +242,7 @@ const GivePage: React.FC = () => {
                                                 Give Now
                                             </Button>
                                         </CardContent>
-                                    </Card>
+                                    </Card> */}
                                 </div>
                             </div>
 
