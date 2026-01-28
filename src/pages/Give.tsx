@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Heart, Building2, DollarSign, Copy, Check, MapPin } from "lucide-react";
+import { Heart, Building2, DollarSign, Copy, Check, MapPin, Clock10 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/Footer";
 import globusLogo from "@/assets/globus.png";
 import gtbLogo from "@/assets/gtb.png";
+import givingImage from "@/assets/giving.jpg";
 
 const GivePage: React.FC = () => {
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
@@ -28,7 +29,7 @@ const GivePage: React.FC = () => {
 
     const branches = [
         {
-            name: "CAC Itedo Yiyanju – Main Campus",
+            name: "CAC Itedo Yiyanju – Head Quarters",
             address: "5, Itedo Yiyanju Close, Alagbado, Lagos",
             serviceTime: "Service Time: 8:00 AM every Sunday",
             bankAccounts: [
@@ -105,8 +106,20 @@ const GivePage: React.FC = () => {
     return (
         <div className="min-h-screen pt-16">
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-church-blue to-church-blue/90 text-white py-20 px-6">
-                <div className="container mx-auto text-center">
+            <section
+                className="relative text-white py-20 px-6 overflow-hidden"
+                style={{
+                    backgroundImage: `url(${givingImage})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundAttachment: "fixed",
+                }}
+            >
+                {/* Black Overlay */}
+                <div className="absolute inset-0 bg-black/60"></div>
+
+                {/* Content */}
+                <div className="relative z-10 container mx-auto text-center">
                     <div className="max-w-3xl mx-auto">
                         <h1 className="text-5xl md:text-6xl font-bold mb-6">
                             Your Generosity
@@ -122,13 +135,6 @@ const GivePage: React.FC = () => {
                                 onClick={() => document.getElementById("giving-options")?.scrollIntoView({ behavior: "smooth" })}
                             >
                                 Give Now
-                            </Button>
-                            <Button
-                                variant="outline"
-                                size="lg"
-                                className="border-white text-white hover:bg-white/10"
-                            >
-                                Other Ways to Give
                             </Button>
                         </div>
                     </div>
@@ -300,14 +306,14 @@ const GivePage: React.FC = () => {
                                             <p className="text-church-text-light">{branches[selectedCampus].address}</p>
                                         </div>
                                         <div className="flex gap-3">
-                                            <Heart className="w-5 h-5 text-church-gold flex-shrink-0 mt-0.5" />
+                                            <Clock10 className="w-5 h-5 text-church-gold flex-shrink-0 mt-0.5" />
                                             <p className="text-church-text-light">{branches[selectedCampus].serviceTime}</p>
                                         </div>
                                     </div>
 
                                     {/* Branch Account Details */}
                                     <div className="border-t border-church-blue/10 py-6">
-                                        <h4 className="font-semibold text-church-text mb-4">Bank Accounts for This Campus</h4>
+                                        <h4 className="font-semibold text-church-text mb-4">Bank Accounts for This Branch</h4>
                                         <div className="space-y-4">
                                             {branches[selectedCampus].bankAccounts.map((account, idx) => (
                                                 <div key={idx} className="bg-church-cream/50 rounded-lg p-4 space-y-2">

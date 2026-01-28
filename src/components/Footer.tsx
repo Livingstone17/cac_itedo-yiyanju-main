@@ -181,7 +181,7 @@ const Footer = () => {
               &copy; {new Date().getFullYear()} CAC Itedo Yiyanju. All rights
               reserved.
             </p>
-            <div className="flex space-x-6 text-sm">
+            {/* <div className="flex space-x-6 text-sm">
               <a
                 href="/privacy"
                 className="text-white/60 hover:text-church-gold transition-colors"
@@ -194,7 +194,7 @@ const Footer = () => {
               >
                 Terms of Service
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

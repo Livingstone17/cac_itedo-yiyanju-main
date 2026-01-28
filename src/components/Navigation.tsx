@@ -20,10 +20,10 @@ const Navigation = () => {
   const navigate = useNavigate();
 
   const navigationItems = [
+    { label: "About Us", href: "#about", icon: Users },
     { label: "Live Stream", dropdown: true, icon: Video },
     { label: "Sermons", href: "/sermons", icon: Users },
-    { label: "About Us", href: "#about", icon: Users },
-    { label: "Give Online", href: "/give", icon: Heart },
+    { label: "Give", href: "/give", icon: Heart },
     { label: "Contact Us", href: "#contact", icon: Phone },
   ];
 
