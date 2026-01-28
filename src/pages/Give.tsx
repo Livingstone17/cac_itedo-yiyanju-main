@@ -53,12 +53,6 @@ const GivePage: React.FC = () => {
             serviceTime: "Service Time: 8:00 AM every Sunday",
             bankAccounts: [
                 {
-                    bank: "Globus Bank",
-                    logo: globusLogo,
-                    accountNumber: "1000229171",
-                    accountName: "CAC Itedo Yiyanju Ikorodu",
-                },
-                {
                     bank: "GTB",
                     logo: gtbLogo,
                     accountNumber: "0019268525",
@@ -75,12 +69,6 @@ const GivePage: React.FC = () => {
                     bank: "Globus Bank",
                     logo: globusLogo,
                     accountNumber: "1000229172",
-                    accountName: "CAC Itedo Yiyanju Ifo",
-                },
-                {
-                    bank: "GTB",
-                    logo: gtbLogo,
-                    accountNumber: "0019268526",
                     accountName: "CAC Itedo Yiyanju Ifo",
                 },
             ],
@@ -122,8 +110,8 @@ const GivePage: React.FC = () => {
                 <div className="relative z-10 container mx-auto text-center">
                     <div className="max-w-3xl mx-auto">
                         <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                            Your Generosity
-                            <span className="block text-church-gold">Our Mission</span>
+                            Your Offering.
+                            <span className="block text-church-gold">His Harvest.</span>
                         </h1>
                         <p className="text-xl text-white/90 mb-8">
                             Partner with God in purpose: give your tithes, offerings, and seeds to help us reach souls with the life-changing gospel.

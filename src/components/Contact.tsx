@@ -99,11 +99,10 @@ const Contact = () => {
         {/* Section Heading */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-church-text mb-6">
-            Get in <span className="text-church-gold">Touch</span>
+            Need Prayers <span className="text-church-gold">?</span>
           </h2>
-          <p className="text-base text-church-text-light max-w-2xl mx-auto">
-            We'd love to hear from you! Reach out with any questions or to learn
-            more about our community.
+          <p className="text-base text-church-text-light  mx-auto">
+            When life feels overwhelming—and all you have are questions—it’s easy to feel like hope is out of reach. But here’s the miracle: prayer changes everything. It doesn’t just change your circumstances; it transforms your heart and reconnects you with the God who’s always listening. No matter what you’re facing, we’re here to stand in faith with you. Let us pray for you today!
           </p>
         </div>
 
