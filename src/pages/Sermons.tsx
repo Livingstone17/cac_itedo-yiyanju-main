@@ -194,50 +194,31 @@ import { Input } from "@/components/ui/input";
 import { Play, Calendar, User, Search } from "lucide-react";
 import Footer from "@/components/Footer";
 
-
-const API_KEY = import.meta.env.VITE_API_KEY;
-const CHANNEL_ID = import.meta.env.VITE_CHANNEL_ID;
-
 const Sermons = () => {
   const [allVideos, setAllVideos] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const itemsPerPage = 10;
 
   const fetchAllVideos = async () => {
     setLoading(true);
+    setError(null);
     try {
-      let allItems: any[] = [];
-      let nextPageToken: string | null = null;
+      // Calls your backend (proxied via Vite during dev)
+      const res = await fetch('/api/sermons');
 
-      // Fetch up to 5 pages (50 videos total) to have a good search pool
-      for (let i = 0; i < 5; i++) {
-        const url = new URL("https://www.googleapis.com/youtube/v3/search");
-        url.searchParams.append("part", "snippet");
-        url.searchParams.append("channelId", CHANNEL_ID);
-        url.searchParams.append("maxResults", "50");
-        url.searchParams.append("order", "date");
-        url.searchParams.append("type", "video");
-        url.searchParams.append("key", API_KEY);
-        if (nextPageToken) url.searchParams.append("pageToken", nextPageToken);
-
-        const res = await fetch(url.toString());
-        const data = await res.json();
-
-        if (data.items) {
-          allItems = [...allItems, ...data.items];
-        }
-
-        nextPageToken = data.nextPageToken || null;
-        if (!nextPageToken) break;
+      if (!res.ok) {
+        throw new Error(`Failed to load sermons: ${res.status} ${res.statusText}`);
       }
 
-      setAllVideos(allItems);
-      setCurrentPage(0);
-      console.log(`Fetched ${allItems.length} videos from YouTube channel`);
-    } catch (err) {
-      console.error("Error fetching YouTube videos:", err);
+      const data = await res.json();
+      setAllVideos(data.videos || []);
+      console.log(`✅ Loaded ${data.videos?.length || 0} sermons (source: ${data.source || 'unknown'})`);
+    } catch (err: any) {
+      console.error("Error fetching sermons:", err);
+      setError(err.message || "Unable to load sermons. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -303,12 +284,35 @@ const Sermons = () => {
                 )}
               </div>
 
-              {filteredVideos.length === 0 ? (
+              {/* Error State */}
+              {error && !loading && (
+                <div className="text-center py-12">
+                  <p className="text-red-600 mb-2">⚠️ {error}</p>
+                  <Button onClick={fetchAllVideos} variant="outline">
+                    Retry
+                  </Button>
+                </div>
+              )}
+
+              {/* Loading State */}
+              {loading && (
+                <div className="text-center py-12">
+                  <p className="text-church-text-light">Loading sermons...</p>
+                </div>
+              )}
+
+              {/* No Results */}
+              {!loading && !error && filteredVideos.length === 0 && (
                 <div className="text-center py-12">
                   <p className="text-church-text-light mb-2">No sermons found</p>
-                  <p className="text-sm text-church-text-light">Try searching with different keywords or dates</p>
+                  <p className="text-sm text-church-text-light">
+                    Try searching with different keywords or dates
+                  </p>
                 </div>
-              ) : (
+              )}
+
+              {/* Sermons Grid */}
+              {!loading && !error && filteredVideos.length > 0 && (
                 <>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {paginatedVideos.map((video) => (
@@ -333,7 +337,9 @@ const Sermons = () => {
                         </div>
 
                         <CardHeader>
-                          <Badge variant="secondary" className="text-xs">YouTube Sermon</Badge>
+                          <Badge variant="secondary" className="text-xs">
+                            YouTube Sermon
+                          </Badge>
                           <CardTitle className="line-clamp-2 text-church-text">
                             {video.snippet.title}
                           </CardTitle>
@@ -386,4 +392,3 @@ const Sermons = () => {
 };
 
 export default Sermons;
-
