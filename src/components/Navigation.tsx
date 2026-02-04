@@ -22,6 +22,7 @@ const Navigation = () => {
   const navigationItems = [
     { label: "About Us", href: "#about", icon: Users },
     { label: "Live Stream", dropdown: true, icon: Video },
+    { label: "Events", href: "/events", icon: Users },
     { label: "Sermons", href: "/sermons", icon: Users },
     { label: "Give", href: "/give", icon: Heart },
     { label: "Contact Us", href: "#contact", icon: Phone },

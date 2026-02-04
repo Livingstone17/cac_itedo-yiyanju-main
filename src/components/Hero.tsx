@@ -71,20 +71,19 @@
 // export default Hero;
 
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Calendar } from "lucide-react";
+import { Play, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, EffectFlip } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/effect-fade";
+import "swiper/css/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import heroImage1 from "@/assets/church.png";
 import heroImage2 from "@/assets/church1.jpg";
-// import heroImage3 from "@/assets/church2.jpg";
 import heroImage4 from "@/assets/church3.jpg";
 import heroImage5 from "@/assets/church4.jpg";
 import heroImage6 from "@/assets/church7.jpg";
@@ -111,6 +110,8 @@ const openMaps = () => {
 };
 
 const Hero = () => {
+  const swiperRef = useRef(null);
+
   useEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -158,14 +159,31 @@ const Hero = () => {
     >
       {/* Background Carousel */}
       <Swiper
-        modules={[Autoplay, Pagination, EffectFlip]}
-        effect="flip"
-        autoplay={{ delay: 10000, disableOnInteraction: false }}
+        ref={swiperRef}
+        modules={[Autoplay, Pagination, Navigation]}
+        direction="horizontal"
+        slidesPerView={1}
+        speed={1000}
+        autoplay={{ delay: 6000, disableOnInteraction: false }}
+        pagination={{
+          clickable: true,
+          dynamicBullets: true,
+          dynamicMainBullets: 3
+        }}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        }}
         loop={true}
-        className="absolute inset-0"
+        className="absolute inset-0 w-full h-full"
+      // style={{
+      //   "--swiper-pagination-bottom": "30px",
+      //   "--swiper-pagination-bullet-size": "12px",
+      //   "--swiper-pagination-bullet-inactive-opacity": "0.5"
+      // } as React.CSSProperties}
       >
-        {[heroImage1,heroImage2,heroImage4,heroImage5,heroImage6,heroImage7,heroImage8].map((image, idx) => (
-          <SwiperSlide key={idx}>
+        {[heroImage1, heroImage2, heroImage4, heroImage5, heroImage6, heroImage7, heroImage8].map((image, idx) => (
+          <SwiperSlide key={idx} className="relative">
             <img
               src={image}
               alt={`Hero Slide ${idx + 1}`}

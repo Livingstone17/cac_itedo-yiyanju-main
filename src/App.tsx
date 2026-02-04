@@ -10,6 +10,7 @@ import Sermons from "./pages/Sermons";
 import Give from "./pages/Give";
 import Navigation from "./components/Navigation";
 import WhatsAppButton from "./components/Whatsapp";
+import Events from "./pages/Events";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="/listen/:type" element={<Listen />} />
+          <Route path="/events" element={<Events />} />
           <Route path="/sermons" element={<Sermons />} />
           <Route path="/give" element={<Give />} />
           <Route path="*" element={<NotFound />} />
