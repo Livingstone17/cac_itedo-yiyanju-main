@@ -186,26 +186,16 @@ const Contact = () => {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium text-church-text mb-2 block">
-                        First Name
+                        Name
                       </label>
                       <Input
                         name="firstName"
-                        placeholder="Your first name"
+                        placeholder="Your name"
                         className="border-church-blue/20"
                         required
                       />
                     </div>
-                    <div>
-                      <label className="text-sm font-medium text-church-text mb-2 block">
-                        Last Name
-                      </label>
-                      <Input
-                        name="lastName"
-                        placeholder="Your last name"
-                        className="border-church-blue/20"
-                        required
-                      />
-                    </div>
+
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
@@ -228,21 +218,10 @@ const Contact = () => {
                       <Input
                         type="tel"
                         name="phone"
-                        placeholder="(555) 123-4567"
+                        placeholder="+234 800 000 0000"
                         className="border-church-blue/20"
                       />
                     </div>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium text-church-text mb-2 block">
-                      Subject
-                    </label>
-                    <Input
-                      name="subject"
-                      placeholder="What's this about?"
-                      className="border-church-blue/20"
-                    />
                   </div>
 
                   <div>
