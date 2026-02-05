@@ -183,20 +183,20 @@ const Contact = () => {
                   }}
                   className="space-y-6"
                 >
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium text-church-text mb-2 block">
-                        Name
-                      </label>
-                      <Input
-                        name="firstName"
-                        placeholder="Your name"
-                        className="border-church-blue/20"
-                        required
-                      />
-                    </div>
-
+                  {/* <div className="grid md:grid-cols-2 gap-4"> */}
+                  <div>
+                    <label className="text-sm font-medium text-church-text mb-2 block">
+                      Name
+                    </label>
+                    <Input
+                      name="firstName"
+                      placeholder="Your name"
+                      className="border-church-blue/20"
+                      required
+                    />
                   </div>
+
+                  {/* </div> */}
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
