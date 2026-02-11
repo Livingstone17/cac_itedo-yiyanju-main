@@ -39,6 +39,10 @@ export default function EventsPage() {
     const [events, setEvents] = useState<ParsedEvent[]>([]);
     const [groupedEvents, setGroupedEvents] = useState<GroupedEvents>({});
     const [loading, setLoading] = useState(true);
+    const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [availableMonths, setAvailableMonths] = useState<string[]>([]);
+    const [availableCategories, setAvailableCategories] = useState<string[]>([]);
 
     useEffect(() => {
         fetch('/api/events')
@@ -47,6 +51,19 @@ export default function EventsPage() {
                 const processedEvents = processEvents(data.events || []);
                 setEvents(processedEvents);
                 groupEventsByMonth(processedEvents);
+
+                // Extract unique months and categories
+                const months = Array.from(new Set(processedEvents.map(e =>
+                    e.parsedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })
+                ))).sort();
+                const categories = Array.from(new Set(processedEvents
+                    .filter(e => e.category)
+                    .map(e => e.category!)
+                    .sort()
+                ));
+
+                setAvailableMonths(months);
+                setAvailableCategories(categories);
                 setLoading(false);
             })
             .catch(err => {
@@ -329,6 +346,38 @@ export default function EventsPage() {
         });
     };
 
+    const getFilteredAndGroupedEvents = () => {
+        let filtered = events;
+
+        // Filter by selected month
+        if (selectedMonth) {
+            filtered = filtered.filter(event => {
+                const eventMonth = event.parsedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+                return eventMonth === selectedMonth;
+            });
+        }
+
+        // Filter by selected category
+        if (selectedCategory) {
+            filtered = filtered.filter(event => event.category?.toLowerCase() === selectedCategory.toLowerCase());
+        }
+
+        // Group by month
+        const grouped: GroupedEvents = {};
+        filtered.forEach(event => {
+            const monthKey = event.parsedDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+            });
+            if (!grouped[monthKey]) {
+                grouped[monthKey] = [];
+            }
+            grouped[monthKey].push(event);
+        });
+
+        return grouped;
+    };
+
     const getCategoryColor = (category?: string) => {
         const colors: Record<string, string> = {
             worship: 'bg-blue-100 text-blue-800',
@@ -377,109 +426,171 @@ export default function EventsPage() {
                         </p>
                     </div>
 
+                    {/* Filters Section */}
+                    <div className="mb-12 p-6 bg-white rounded-lg border border-border">
+                        <h3 className="text-lg font-semibold text-church-text mb-6">Filter Events</h3>
+
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* Month Filter */}
+                            <div>
+                                <label htmlFor="month-filter" className="text-sm font-medium text-church-text mb-3 block">
+                                    By Month
+                                </label>
+                                <select
+                                    id="month-filter"
+                                    value={selectedMonth || ''}
+                                    onChange={(e) => setSelectedMonth(e.target.value || null)}
+                                    className="w-full px-4 py-2 border border-border rounded-lg bg-white text-church-text focus:outline-none focus:ring-2 focus:ring-church-gold transition-all"
+                                >
+                                    <option value="">All Months</option>
+                                    {availableMonths.map(month => (
+                                        <option key={month} value={month}>
+                                            {month}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Category Filter */}
+                            <div>
+                                <label htmlFor="category-filter" className="text-sm font-medium text-church-text mb-3 block">
+                                    By Category
+                                </label>
+                                <select
+                                    id="category-filter"
+                                    value={selectedCategory || ''}
+                                    onChange={(e) => setSelectedCategory(e.target.value || null)}
+                                    className="w-full px-4 py-2 border border-border rounded-lg bg-white text-church-text focus:outline-none focus:ring-2 focus:ring-church-gold transition-all capitalize"
+                                >
+                                    <option value="">All Categories</option>
+                                    {availableCategories.map(category => (
+                                        <option key={category} value={category}>
+                                            {category.charAt(0).toUpperCase() + category.slice(1)}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Events grouped by month */}
-                    <div className="space-y-12">
-                        {Object.entries(groupedEvents).map(([monthKey, monthEvents]) => (
-                            <div key={monthKey} className="mb-12">
-                                <h2 className="text-2xl font-bold text-church-text mb-8 pb-4 border-b-2 border-church-gold/30">
-                                    {monthKey}
-                                </h2>
+                    {(() => {
+                        const filteredAndGrouped = getFilteredAndGroupedEvents();
+                        const hasEvents = Object.keys(filteredAndGrouped).length > 0;
 
-                                <div className="space-y-6">
-                                    {monthEvents.map((event) => (
-                                        <div key={event.id} className="group border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 bg-white">
-                                            <div className="grid md:grid-cols-3 gap-6 p-6">
-                                                {/* Event Image */}
-                                                {event.banner && (
-                                                    <div className="md:col-span-1">
-                                                        <div className="relative w-full h-48 md:h-full rounded-lg overflow-hidden bg-gradient-to-br from-church-blue to-church-blue/80">
-                                                            <img
-                                                                src={event.banner}
-                                                                alt={event.title}
-                                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                )}
+                        if (!hasEvents) {
+                            return (
+                                <div className="text-center py-12">
+                                    <p className="text-lg text-church-text-light">No events match your filters.</p>
+                                </div>
+                            );
+                        }
 
-                                                {/* Event Details */}
-                                                <div className={event.banner ? "md:col-span-2" : "md:col-span-3"}>
-                                                    <div className="flex items-start justify-between mb-3">
-                                                        <h3 className="text-2xl font-bold text-church-text hover:text-church-gold transition-colors flex-1">
-                                                            {event.title}
-                                                        </h3>
-                                                        {event.category && (
-                                                            <Badge className={`ml-2 flex-shrink-0 ${getCategoryColor(event.category)}`}>
-                                                                {event.category}
-                                                            </Badge>
-                                                        )}
-                                                    </div>
+                        return (
+                            <div className="space-y-12">
+                                {Object.entries(filteredAndGrouped).map(([monthKey, monthEvents]) => (
+                                    <div key={monthKey} className="mb-12">
+                                        <h2 className="text-2xl font-bold text-church-text mb-8 pb-4 border-b-2 border-church-gold/30">
+                                            {monthKey}
+                                        </h2>
 
-                                                    <p className="text-church-text-light mb-6 leading-relaxed">
-                                                        {event.description}
-                                                    </p>
-
-                                                    <div className="space-y-3">
-                                                        {/* Date and Time */}
-                                                        <div className="flex items-center gap-3">
-                                                            <Calendar className="w-5 h-5 text-church-gold flex-shrink-0" />
-                                                            <span className="text-church-text font-medium">
-                                                                {formatDate(event.parsedDate)}
-                                                            </span>
-                                                            {event.isRecurring && (
-                                                                <span className="text-xs text-church-text-light italic ml-2">
-                                                                    ({event.recurrenceInfo})
-                                                                </span>
-                                                            )}
-                                                        </div>
-
-                                                        {/* Time */}
-                                                        <div className="flex items-center gap-3">
-                                                            <Clock className="w-5 h-5 text-church-gold flex-shrink-0" />
-                                                            <span className="text-church-text">
-                                                                {formatTime(event.parsedDate)} – {formatTime(event.parsedEndDate)}
-                                                            </span>
-                                                        </div>
-
-                                                        {/* Location */}
-                                                        <div className="flex items-start gap-3">
-                                                            <MapPin className="w-5 h-5 text-church-gold flex-shrink-0 mt-0.5" />
-                                                            <span className="text-church-text">
-                                                                {event.location}
-                                                            </span>
-                                                        </div>
-
-                                                        {/* Online indicator and link */}
-                                                        {event.isOnline && (
-                                                            <div className="flex items-center gap-3 pt-1">
-                                                                <span className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
-                                                                    Online Event
-                                                                </span>
+                                        <div className="space-y-6">
+                                            {monthEvents.map((event) => (
+                                                <div key={event.id} className="group border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 bg-white">
+                                                    <div className="grid md:grid-cols-3 gap-6 p-6">
+                                                        {/* Event Image */}
+                                                        {event.banner && (
+                                                            <div className="md:col-span-1">
+                                                                <div className="relative w-full h-48 md:h-full rounded-lg overflow-hidden bg-gradient-to-br from-church-blue to-church-blue/80">
+                                                                    <img
+                                                                        src={event.banner}
+                                                                        alt={event.title}
+                                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                                                    />
+                                                                </div>
                                                             </div>
                                                         )}
 
-                                                        {event.isOnline && event.youtubeLiveUrl && (
-                                                            <div className="flex items-center gap-3 pt-2">
-                                                                <LinkIcon className="w-5 h-5 text-church-gold flex-shrink-0" />
-                                                                <a
-                                                                    href={event.youtubeLiveUrl}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="text-church-gold font-semibold hover:text-church-gold/80 transition-colors"
-                                                                >
-                                                                    Watch Live on YouTube →
-                                                                </a>
+                                                        {/* Event Details */}
+                                                        <div className={event.banner ? "md:col-span-2" : "md:col-span-3"}>
+                                                            <div className="flex items-start justify-between mb-3">
+                                                                <h3 className="text-2xl font-bold text-church-text hover:text-church-gold transition-colors flex-1">
+                                                                    {event.title}
+                                                                </h3>
+                                                                {event.category && (
+                                                                    <Badge className={`ml-2 flex-shrink-0 ${getCategoryColor(event.category)}`}>
+                                                                        {event.category}
+                                                                    </Badge>
+                                                                )}
                                                             </div>
-                                                        )}
+
+                                                            <p className="text-church-text-light mb-6 leading-relaxed">
+                                                                {event.description}
+                                                            </p>
+
+                                                            <div className="space-y-3">
+                                                                {/* Date and Time */}
+                                                                <div className="flex items-center gap-3">
+                                                                    <Calendar className="w-5 h-5 text-church-gold flex-shrink-0" />
+                                                                    <span className="text-church-text font-medium">
+                                                                        {formatDate(event.parsedDate)}
+                                                                    </span>
+                                                                    {event.isRecurring && (
+                                                                        <span className="text-xs text-church-text-light italic ml-2">
+                                                                            ({event.recurrenceInfo})
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+
+                                                                {/* Time */}
+                                                                <div className="flex items-center gap-3">
+                                                                    <Clock className="w-5 h-5 text-church-gold flex-shrink-0" />
+                                                                    <span className="text-church-text">
+                                                                        {formatTime(event.parsedDate)} – {formatTime(event.parsedEndDate)}
+                                                                    </span>
+                                                                </div>
+
+                                                                {/* Location */}
+                                                                <div className="flex items-start gap-3">
+                                                                    <MapPin className="w-5 h-5 text-church-gold flex-shrink-0 mt-0.5" />
+                                                                    <span className="text-church-text">
+                                                                        {event.location}
+                                                                    </span>
+                                                                </div>
+
+                                                                {/* Online indicator and link */}
+                                                                {event.isOnline && (
+                                                                    <div className="flex items-center gap-3 pt-1">
+                                                                        <span className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
+                                                                            Online Event
+                                                                        </span>
+                                                                    </div>
+                                                                )}
+
+                                                                {event.isOnline && event.youtubeLiveUrl && (
+                                                                    <div className="flex items-center gap-3 pt-2">
+                                                                        <LinkIcon className="w-5 h-5 text-church-gold flex-shrink-0" />
+                                                                        <a
+                                                                            href={event.youtubeLiveUrl}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="text-church-gold font-semibold hover:text-church-gold/80 transition-colors"
+                                                                        >
+                                                                            Watch Live on YouTube →
+                                                                        </a>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            ))}
                                         </div>
-                                    ))}
-                                </div>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        );
+                    })()}
                 </div>
             </section>
             <Footer />
