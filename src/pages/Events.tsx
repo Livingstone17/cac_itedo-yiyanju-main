@@ -1,6 +1,6 @@
-// components/Events.tsx or pages/Events.tsx
 import { useEffect, useState } from 'react';
-import { Calendar, MapPin, Link as LinkIcon, Clock } from "lucide-react";
+import { Calendar, MapPin, Link as LinkIcon, Clock, Tag } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import Footer from '@/components/Footer';
 
 interface ChurchEvent {
@@ -10,17 +10,33 @@ interface ChurchEvent {
     date: string;
     endDate: string;
     location: string;
+    category?: string;
     isOnline: boolean;
     youtubeLiveUrl: string | null;
     banner?: string;
 }
 
+interface ParsedEvent extends ChurchEvent {
+    parsedDate: Date;
+    parsedEndDate: Date;
+    isRecurring: boolean;
+    recurrenceInfo?: string;
+}
+
 interface GroupedEvents {
-    [month: string]: ChurchEvent[];
+    [month: string]: ParsedEvent[];
+}
+
+interface ParsedDateResult {
+    isRecurring: boolean;
+    startDate?: Date;
+    endDate?: Date;
+    occurrences?: Array<[Date, Date]>;
+    recurrenceInfo?: string;
 }
 
 export default function EventsPage() {
-    const [events, setEvents] = useState<ChurchEvent[]>([]);
+    const [events, setEvents] = useState<ParsedEvent[]>([]);
     const [groupedEvents, setGroupedEvents] = useState<GroupedEvents>({});
     const [loading, setLoading] = useState(true);
 
@@ -28,11 +44,9 @@ export default function EventsPage() {
         fetch('/api/events')
             .then(res => res.json())
             .then(data => {
-                const sortedEvents = (data.events || []).sort((a: ChurchEvent, b: ChurchEvent) =>
-                    new Date(a.date).getTime() - new Date(b.date).getTime()
-                );
-                setEvents(sortedEvents);
-                groupEventsByMonth(sortedEvents);
+                const processedEvents = processEvents(data.events || []);
+                setEvents(processedEvents);
+                groupEventsByMonth(processedEvents);
                 setLoading(false);
             })
             .catch(err => {
@@ -41,10 +55,252 @@ export default function EventsPage() {
             });
     }, []);
 
-    const groupEventsByMonth = (eventsList: ChurchEvent[]) => {
+    const processEvents = (eventsList: ChurchEvent[]): ParsedEvent[] => {
+        const processed: ParsedEvent[] = [];
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Reset to start of today
+
+        const next13Months = new Date(today);
+        next13Months.setMonth(next13Months.getMonth() + 13);
+        next13Months.setHours(23, 59, 59, 999); // End of day 13 months from now
+
+        eventsList.forEach(event => {
+            const parsed = parseEventDate(event.date, event.endDate);
+
+            if (parsed.isRecurring && parsed.occurrences && parsed.occurrences.length > 0) {
+                // Generate occurrences for the next 12+ months
+                parsed.occurrences.forEach(([startDate, endDate]) => {
+                    const startTime = new Date(startDate).getTime();
+                    const todayTime = today.getTime();
+                    const nextTime = next13Months.getTime();
+
+                    if (startTime >= todayTime && startTime <= nextTime) {
+                        processed.push({
+                            ...event,
+                            parsedDate: startDate,
+                            parsedEndDate: endDate,
+                            isRecurring: true,
+                            recurrenceInfo: parsed.recurrenceInfo,
+                        });
+                    }
+                });
+            } else if (!parsed.isRecurring && parsed.startDate && parsed.endDate) {
+                // Single date event
+                const startTime = parsed.startDate.getTime();
+                const todayTime = today.getTime();
+                const nextTime = next13Months.getTime();
+
+                if (startTime >= todayTime && startTime <= nextTime) {
+                    processed.push({
+                        ...event,
+                        parsedDate: parsed.startDate,
+                        parsedEndDate: parsed.endDate,
+                        isRecurring: false,
+                    });
+                }
+            }
+        });
+
+        return processed.sort((a, b) => a.parsedDate.getTime() - b.parsedDate.getTime());
+    };
+
+    const parseEventDate = (dateStr: string, endDateStr: string): ParsedDateResult => {
+        // Check if it's a recurring pattern
+        if (dateStr.toLowerCase().includes('every')) {
+            return parseRecurringPattern(dateStr, endDateStr);
+        }
+
+        // Otherwise, it's an ISO date
+        try {
+            const startDate = new Date(dateStr);
+            const endDate = new Date(endDateStr);
+            if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+                return { startDate, endDate, isRecurring: false };
+            }
+        } catch {
+            // Fall through to return error result
+        }
+
+        return { isRecurring: false };
+    };
+
+    const parseRecurringPattern = (dateStr: string, endDateStr: string): ParsedDateResult => {
+        const occurrences: Array<[Date, Date]> = [];
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const next12Months = new Date(today);
+        next12Months.setMonth(next12Months.getMonth() + 13);
+
+        let recurrenceInfo = dateStr;
+        let month = today.getMonth();
+        let year = today.getFullYear();
+
+        // Check if endDate is also a recurring pattern or a fixed date relative to startDate
+        const isEndDateRecurring = endDateStr.toLowerCase().includes('every');
+
+        // Generate occurrences for the next 13 months
+        for (let i = 0; i < 13; i++) {
+            const startDate = calculateOccurrenceDate(dateStr, year, month);
+
+            if (startDate) {
+                let endDate: Date | null = null;
+
+                if (isEndDateRecurring) {
+                    // End date is also a recurring pattern
+                    endDate = calculateOccurrenceDate(endDateStr, year, month);
+                    // If end date is before start date (e.g., last wednesday to last friday),
+                    // move it to next month if needed
+                    if (endDate && endDate < startDate) {
+                        const nextMonth = month + 1 > 11 ? 0 : month + 1;
+                        const nextYear = month + 1 > 11 ? year + 1 : year;
+                        endDate = calculateOccurrenceDate(endDateStr, nextYear, nextMonth);
+                    }
+                } else {
+                    // End date is a fixed ISO date
+                    try {
+                        endDate = new Date(endDateStr);
+                        if (isNaN(endDate.getTime())) {
+                            endDate = null;
+                        }
+                    } catch {
+                        endDate = null;
+                    }
+                }
+
+                // Use start date as end date if we couldn't parse end date
+                if (!endDate) {
+                    endDate = new Date(startDate);
+                }
+
+                if (startDate >= today && startDate <= next12Months) {
+                    occurrences.push([startDate, endDate]);
+                }
+            }
+
+            month++;
+            if (month > 11) {
+                month = 0;
+                year++;
+            }
+        }
+
+        return { isRecurring: true, occurrences: occurrences.length > 0 ? occurrences : [], recurrenceInfo };
+    };
+
+    const calculateOccurrenceDate = (pattern: string, year: number, month: number): Date | null => {
+        const pattern_lower = pattern.toLowerCase();
+
+        // Parse time from pattern
+        const timeMatch = pattern.match(/(\d{1,2}):(\d{2})\s*(am|pm)?/i);
+        let hours = 9, minutes = 0;
+        if (timeMatch) {
+            hours = parseInt(timeMatch[1]);
+            minutes = parseInt(timeMatch[2]);
+            const period = timeMatch[3]?.toUpperCase();
+            if (period === 'PM' && hours < 12) {
+                hours += 12;
+            } else if (period === 'AM' && hours === 12) {
+                hours = 0; // 12 AM is midnight (00:00)
+            }
+        }
+
+        let resultDate: Date | null = null;
+
+        // Parse ordinal + day patterns (1st Monday, 2nd Saturday, 3rd Monday, etc.)
+        const ordinalDayMatch = pattern_lower.match(/(\d+)(?:st|nd|rd|th)\s+(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i);
+        if (ordinalDayMatch) {
+            const ordinal = parseInt(ordinalDayMatch[1]);
+            const dayName = ordinalDayMatch[2].toLowerCase();
+            const dayOfWeek = getDayOfWeek(dayName);
+            if (dayOfWeek >= 0 && ordinal > 0 && ordinal <= 5) {
+                resultDate = getNthDayOfMonth(year, month, dayOfWeek, ordinal);
+            }
+        } else if (pattern_lower.includes('last monday')) {
+            resultDate = getLastDayOfWeekInMonth(year, month, 1); // Monday is 1
+        } else if (pattern_lower.includes('last tuesday')) {
+            resultDate = getLastDayOfWeekInMonth(year, month, 2); // Tuesday is 2
+        } else if (pattern_lower.includes('last wednesday')) {
+            resultDate = getLastDayOfWeekInMonth(year, month, 3); // Wednesday is 3
+        } else if (pattern_lower.includes('last thursday')) {
+            resultDate = getLastDayOfWeekInMonth(year, month, 4); // Thursday is 4
+        } else if (pattern_lower.includes('last friday')) {
+            resultDate = getLastDayOfWeekInMonth(year, month, 5); // Friday is 5
+        } else if (pattern_lower.includes('last saturday')) {
+            resultDate = getLastDayOfWeekInMonth(year, month, 6); // Saturday is 6
+        } else if (pattern_lower.includes('last sunday')) {
+            resultDate = getLastDayOfWeekInMonth(year, month, 0); // Sunday is 0
+        } else {
+            // Parse specific dates like "15th of the month"
+            const dateMatch = pattern.match(/(\d{1,2})(?:st|nd|rd|th)?(?:\s+of\s+the\s+month)?/);
+            if (dateMatch) {
+                const day = parseInt(dateMatch[1]);
+                const lastDay = new Date(year, month + 1, 0).getDate();
+                if (day > 0 && day <= lastDay) {
+                    resultDate = new Date(year, month, day);
+                }
+            }
+        }
+
+        // Set the time on the result date
+        if (resultDate) {
+            resultDate.setHours(hours, minutes, 0, 0);
+            return resultDate;
+        }
+
+        return null;
+    };
+
+    const getDayOfWeek = (dayName: string): number => {
+        const days: Record<string, number> = {
+            'sunday': 0,
+            'monday': 1,
+            'tuesday': 2,
+            'wednesday': 3,
+            'thursday': 4,
+            'friday': 5,
+            'saturday': 6,
+        };
+        return days[dayName.toLowerCase()] ?? -1;
+    };
+
+    const getNthDayOfMonth = (year: number, month: number, dayOfWeek: number, n: number): Date | null => {
+        let count = 0;
+        const date = new Date(year, month, 1, 12, 0, 0, 0);
+
+        while (date.getMonth() === month) {
+            if (date.getDay() === dayOfWeek) {
+                count++;
+                if (count === n) {
+                    return new Date(date); // Return a copy
+                }
+            }
+            date.setDate(date.getDate() + 1);
+        }
+
+        return null;
+    };
+
+    const getLastDayOfWeekInMonth = (year: number, month: number, dayOfWeek: number): Date | null => {
+        // Start from the last day of the month
+        const lastDate = new Date(year, month + 1, 0, 12, 0, 0, 0);
+        const date = new Date(lastDate);
+
+        // Go backwards through the month to find the last occurrence of the weekday
+        while (date.getMonth() === month) {
+            if (date.getDay() === dayOfWeek) {
+                return new Date(date); // Return a copy
+            }
+            date.setDate(date.getDate() - 1);
+        }
+
+        return null;
+    };
+
+    const groupEventsByMonth = (eventsList: ParsedEvent[]) => {
         const grouped: GroupedEvents = {};
         eventsList.forEach(event => {
-            const monthKey = new Date(event.date).toLocaleDateString('en-US', {
+            const monthKey = event.parsedDate.toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
             });
@@ -56,8 +312,8 @@ export default function EventsPage() {
         setGroupedEvents(grouped);
     };
 
-    const formatDate = (isoString: string) => {
-        return new Date(isoString).toLocaleDateString('en-US', {
+    const formatDate = (date: Date) => {
+        return date.toLocaleDateString('en-US', {
             weekday: 'short',
             year: 'numeric',
             month: 'short',
@@ -65,12 +321,23 @@ export default function EventsPage() {
         });
     };
 
-    const formatTime = (isoString: string) => {
-        return new Date(isoString).toLocaleTimeString('en-US', {
+    const formatTime = (date: Date) => {
+        return date.toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit',
             hour12: true,
         });
+    };
+
+    const getCategoryColor = (category?: string) => {
+        const colors: Record<string, string> = {
+            worship: 'bg-blue-100 text-blue-800',
+            prayer: 'bg-purple-100 text-purple-800',
+            conference: 'bg-green-100 text-green-800',
+            celebration: 'bg-yellow-100 text-yellow-800',
+            concert: 'bg-pink-100 text-pink-800',
+        };
+        return colors[category?.toLowerCase() || ''] || 'bg-gray-100 text-gray-800';
     };
 
     if (loading) {
@@ -137,9 +404,16 @@ export default function EventsPage() {
 
                                                 {/* Event Details */}
                                                 <div className={event.banner ? "md:col-span-2" : "md:col-span-3"}>
-                                                    <h3 className="text-2xl font-bold text-church-text mb-4 hover:text-church-gold transition-colors">
-                                                        {event.title}
-                                                    </h3>
+                                                    <div className="flex items-start justify-between mb-3">
+                                                        <h3 className="text-2xl font-bold text-church-text hover:text-church-gold transition-colors flex-1">
+                                                            {event.title}
+                                                        </h3>
+                                                        {event.category && (
+                                                            <Badge className={`ml-2 flex-shrink-0 ${getCategoryColor(event.category)}`}>
+                                                                {event.category}
+                                                            </Badge>
+                                                        )}
+                                                    </div>
 
                                                     <p className="text-church-text-light mb-6 leading-relaxed">
                                                         {event.description}
@@ -150,15 +424,20 @@ export default function EventsPage() {
                                                         <div className="flex items-center gap-3">
                                                             <Calendar className="w-5 h-5 text-church-gold flex-shrink-0" />
                                                             <span className="text-church-text font-medium">
-                                                                {formatDate(event.date)}
+                                                                {formatDate(event.parsedDate)}
                                                             </span>
+                                                            {event.isRecurring && (
+                                                                <span className="text-xs text-church-text-light italic ml-2">
+                                                                    ({event.recurrenceInfo})
+                                                                </span>
+                                                            )}
                                                         </div>
 
                                                         {/* Time */}
                                                         <div className="flex items-center gap-3">
                                                             <Clock className="w-5 h-5 text-church-gold flex-shrink-0" />
                                                             <span className="text-church-text">
-                                                                {formatTime(event.date)} – {formatTime(event.endDate)}
+                                                                {formatTime(event.parsedDate)} – {formatTime(event.parsedEndDate)}
                                                             </span>
                                                         </div>
 
@@ -170,7 +449,15 @@ export default function EventsPage() {
                                                             </span>
                                                         </div>
 
-                                                        {/* Online link */}
+                                                        {/* Online indicator and link */}
+                                                        {event.isOnline && (
+                                                            <div className="flex items-center gap-3 pt-1">
+                                                                <span className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
+                                                                    Online Event
+                                                                </span>
+                                                            </div>
+                                                        )}
+
                                                         {event.isOnline && event.youtubeLiveUrl && (
                                                             <div className="flex items-center gap-3 pt-2">
                                                                 <LinkIcon className="w-5 h-5 text-church-gold flex-shrink-0" />
