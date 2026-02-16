@@ -86,23 +86,13 @@ export default function AboutItedoPage() {
                             </h2>
                             <div className="space-y-6 text-church-text-light leading-relaxed">
                                 <p>
-                                    CAC Itedo Yiyanju (also known as CAC Ifo) stands as a beacon of spiritual light in the Iforodu area of Lagos State and Ogun State. Established in the mid-20th century, this branch of the Christ Apostolic Church was founded on the principles of apostolic faith, intercessory prayer, and transformational discipleship.
+                                    Founded in 2002, CAC Itedo Yiyanju began as a small group of families with a big vision: to create a place where everyone could experience God's love, be liberated from the hold of darkness, and find their purpose in God. What started in a living room has grown into a thriving community of over 1000 members.
                                 </p>
                                 <p>
-                                    Over the decades, CAC Itedo Yiyanju has grown from a small gathering of devoted believers to a thriving congregation that impacts thousands of lives. The church has been characterized by:
-                                </p>
-                                <ul className="list-disc list-inside space-y-3 ml-4">
-                                    <li>A legacy of powerful prayer and intercession that shapes the spiritual atmosphere</li>
-                                    <li>Strong emphasis on holiness, integrity, and Christ-centered living</li>
-                                    <li>Active community outreach and charitable works serving the less fortunate</li>
-                                    <li>Equipping young believers for ministry and spiritual leadership</li>
-                                    <li>Faithful adherence to apostolic doctrine and practice</li>
-                                </ul>
-                                <p>
-                                    Through the years, CAC Itedo Yiyanju has witnessed numerous miracles, healings, and spiritual breakthroughs that testify to God's faithfulness. The congregation has remained steadfast in its commitment to the Gospel message and the transformation of individual lives and communities.
+                                    We believe that church should be a place of healing, hope, light, communion and transformation. Through authentic worship, practical teaching, word-based prayers and genuine community, we've seen countless lives changed by the power of God's love.
                                 </p>
                                 <p>
-                                    Today, CAC Itedo Yiyanju continues to serve as a place of refuge, worship, and spiritual renewal for believers from diverse backgrounds. The church remains dedicated to its mission of spreading the Gospel of Jesus Christ and building a community of Spirit-filled believers.
+                                    Today, we're not just a church, we're a family committed to making a lasting impact in our city and beyond. Join us as we continue this incredible journey together.
                                 </p>
                             </div>
                         </div>
