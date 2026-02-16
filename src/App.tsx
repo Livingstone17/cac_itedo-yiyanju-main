@@ -11,6 +11,8 @@ import Give from "./pages/Give";
 import Navigation from "./components/Navigation";
 import WhatsAppButton from "./components/Whatsapp";
 import Events from "./pages/Events";
+import AboutCAC from "./pages/AboutCAC";
+import AboutItedo from "./pages/AboutItedo";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +27,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="/listen/:type" element={<Listen />} />
+          <Route path="/about-cac" element={<AboutCAC />} />
+          <Route path="/about-itedo" element={<AboutItedo />} />
           <Route path="/events" element={<Events />} />
           <Route path="/sermons" element={<Sermons />} />
           <Route path="/give" element={<Give />} />

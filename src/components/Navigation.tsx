@@ -17,10 +17,18 @@ import logo from "@/assets/logo.png";
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLiveDropdownOpen, setIsLiveDropdownOpen] = useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
+  const aboutItems = [
+    { label: "History of CAC", href: "/about-cac" },
+    { label: "Tenets of CAC", href: "/about-cac" },
+    { label: "History of CAC Itedo Yiyanju", href: "/about-itedo" },
+    { label: "The Pastorate", href: "/about-itedo" },
+  ];
+
   const navigationItems = [
-    { label: "About Us", href: "#about", icon: Users },
+    { label: "About Us", dropdown: true, icon: Users },
     { label: "Live Stream", dropdown: true, icon: Video },
     { label: "Events", href: "/events", icon: Users },
     { label: "Sermons", href: "/sermons", icon: Users },
@@ -66,12 +74,30 @@ const Navigation = () => {
                 <div key={item.label} className="relative">
                   <button
                     className="flex  text-sm items-center space-x-1 text-church-text-light hover:text-church-text transition-colors duration-300 font-normal"
-                    onClick={() => setIsLiveDropdownOpen(!isLiveDropdownOpen)}
+                    onClick={() => item.label === "About Us" ? setIsAboutDropdownOpen(!isAboutDropdownOpen) : setIsLiveDropdownOpen(!isLiveDropdownOpen)}
                   >
                     <span>{item.label}</span>
                     <ChevronDown className="w-4 h-4" />
                   </button>
-                  {isLiveDropdownOpen && (
+                  {item.label === "About Us" && isAboutDropdownOpen && (
+                    <div className="absolute top-full mt-2 bg-white border border-border rounded-lg shadow-lg w-56">
+                      {aboutItems.map((aboutItem) => (
+                        <a
+                          key={aboutItem.label}
+                          href={aboutItem.href}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setIsAboutDropdownOpen(false);
+                            navigate(aboutItem.href);
+                          }}
+                          className="flex items-center px-4 py-2 text-sm text-church-text-light hover:bg-gray-100 hover:text-church-text first:rounded-t-lg last:rounded-b-lg"
+                        >
+                          {aboutItem.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                  {item.label === "Live Stream" && isLiveDropdownOpen && (
                     <div className="absolute top-full mt-2 bg-white border border-border rounded-lg shadow-lg w-40">
                       <a
                         href="/listen/video"
@@ -90,7 +116,7 @@ const Navigation = () => {
                     </div>
                   )}
                 </div>
-              ) : (
+              ) : item.href ? (
                 <a
                   key={item.label}
                   href={item.href}
@@ -104,7 +130,7 @@ const Navigation = () => {
                 >
                   {item.label}
                 </a>
-              )
+              ) : null
             )}
           </div>
 
@@ -129,14 +155,33 @@ const Navigation = () => {
                   return (
                     <div key={item.label}>
                       <button
-                        onClick={() => setIsLiveDropdownOpen(!isLiveDropdownOpen)}
+                        onClick={() => item.label === "About Us" ? setIsAboutDropdownOpen(!isAboutDropdownOpen) : setIsLiveDropdownOpen(!isLiveDropdownOpen)}
                         className="flex items-center space-x-3 text-church-text-light hover:text-church-text transition-colors duration-300 py-2 w-full text-left"
                       >
                         <IconComponent className="w-5 h-5" />
                         <span className="font-normal">{item.label}</span>
                         <ChevronDown className="w-4 h-4 ml-auto" />
                       </button>
-                      {isLiveDropdownOpen && (
+                      {item.label === "About Us" && isAboutDropdownOpen && (
+                        <div className="ml-8 flex flex-col space-y-2">
+                          {aboutItems.map((aboutItem) => (
+                            <a
+                              key={aboutItem.label}
+                              href={aboutItem.href}
+                              className="flex items-center text-sm text-church-text-light hover:text-church-text"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setIsMenuOpen(false);
+                                setIsAboutDropdownOpen(false);
+                                navigate(aboutItem.href);
+                              }}
+                            >
+                              {aboutItem.label}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                      {item.label === "Live Stream" && isLiveDropdownOpen && (
                         <div className="ml-8 flex flex-col space-y-2">
                           <a
                             href="/listen/video"
