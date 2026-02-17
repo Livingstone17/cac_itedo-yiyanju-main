@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "@/components/Footer";
 
-const API_KEY = "AIzaSyCZuUrdohmncTM5rKWQZ53gQ2OdV0bp2VI"; // 🔑 Replace with your API key
+const API_KEY = "AIzaSyCZuUrdohmncTM5rKWQZ53gQ2OdV0bp2VI";
 const CHANNEL_ID = "UCJoOJLVIOHCVHAqnVZpp5Gw";
 
 const WatchLivePage = () => {

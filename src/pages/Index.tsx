@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import UpcomingEvents from "@/components/UpcomingEvents";
 import WelcomeSection from "@/components/Welcome";
 import ProgramsSection from "@/components/Programs";
+import Gallery from "@/components/Gallery";
 
 const Index = () => {
   return (
@@ -17,7 +18,9 @@ const Index = () => {
       {/* <UpcomingEvents /> */}
       {/* <LiveStream /> */}
       {/* <Sermons /> */}
+
       <About />
+      <Gallery />
       <Contact />
       <Footer />
     </div>

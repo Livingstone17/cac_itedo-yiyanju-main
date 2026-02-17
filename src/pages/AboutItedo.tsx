@@ -10,12 +10,12 @@ export default function AboutItedoPage() {
     const pastorateMembers = [
         {
             id: 1,
-            name: "Apostle Samuel Adeyemi",
-            role: "Presiding Apostle",
+            name: "Pastor Samson Akin-Olugbade",
+            role: "Presiding Pastor",
             image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-            email: "samueladeyemi@cac.org",
+            email: "samson.akinojugbade@cac.org",
             location: "Lagos, Nigeria",
-            bio: "Founder and Presiding Apostle with over 30 years of apostolic ministry",
+            bio: "Founder and Presiding Pastor with over 30 years of apostolic ministry",
             socialLinks: [
                 { platform: "facebook", url: "#", icon: Facebook },
                 { platform: "twitter", url: "#", icon: Twitter },
@@ -24,10 +24,10 @@ export default function AboutItedoPage() {
         },
         {
             id: 2,
-            name: "Pastor Grace Okonkwo",
-            role: "Lead Pastor",
+            name: "Pastor Ajala Matthew",
+            role: "Youth Pastor",
             image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
-            email: "grace.okonkwo@cac.org",
+            email: "ajala.matthew@cac.org",
             location: "Lagos, Nigeria",
             bio: "Lead pastor with a passion for spiritual growth and discipleship",
             socialLinks: [
