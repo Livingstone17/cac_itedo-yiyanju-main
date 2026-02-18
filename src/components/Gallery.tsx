@@ -50,7 +50,7 @@ const Gallery = () => {
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold text-church-text mb-4">
-                        Our <span className="text-church-gold">Gallery</span>
+                        Gallery <span className="text-church-gold">.</span>
                     </h2>
                     <p className="text-lg text-church-text-light max-w-2xl mx-auto">
                         Moments of faith, fellowship, and transformation from our church family
@@ -88,7 +88,7 @@ const Gallery = () => {
                     >
                         {galleryImages.map((image) => (
                             <SwiperSlide key={image.id}>
-                                <div className="relative group overflow-hidden h-48 sm:h-60 md:h-72 lg:h-[450px] xl:h-[450px] cursor-pointer">
+                                <div className="relative group overflow-hidden h-48 sm:h-60 md:h-72 lg:h-[480px] xl:h-[480px] cursor-pointer">
                                     <img
                                         src={image.src}
                                         alt={image.title}

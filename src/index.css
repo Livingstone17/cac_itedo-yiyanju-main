@@ -37,8 +37,8 @@ All colors MUST be HSL.
     --ring: 45 93% 47%;
 
     /* Church-specific design tokens */
-    --church-blue: 215 25% 27%;
-    --church-blue-light: 215 20% 35%;
+    --church-blue: 210 40% 16%;
+    --church-blue-light: 210 40% 25%;
     --church-gold: 45 93% 47%;
     --church-gold-light: 45 86% 62%;
     --church-cream: 48 100% 96%;

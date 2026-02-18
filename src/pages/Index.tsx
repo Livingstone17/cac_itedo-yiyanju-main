@@ -8,21 +8,26 @@ import UpcomingEvents from "@/components/UpcomingEvents";
 import WelcomeSection from "@/components/Welcome";
 import ProgramsSection from "@/components/Programs";
 import Gallery from "@/components/Gallery";
+import AnnouncementBanner from "@/components/AnnouncementBanner";
+import MinistryDirectory from "@/components/MinistryDirectory";
 
 const Index = () => {
   return (
-    <div className="min-h-screen pt-16">
-      <Hero />
-      <WelcomeSection />
-      <ProgramsSection />
-      {/* <UpcomingEvents /> */}
-      {/* <LiveStream /> */}
-      {/* <Sermons /> */}
-
-      <About />
-      <Gallery />
-      <Contact />
-      <Footer />
+    <div className="min-h-screen">
+      {/* <AnnouncementBanner /> */}
+      <div className="pt-16">
+        <Hero />
+        <WelcomeSection />
+        <ProgramsSection />
+        {/* <UpcomingEvents /> */}
+        {/* <LiveStream /> */}
+        {/* <Sermons /> */}
+        <About />
+        <Gallery />
+        <MinistryDirectory />
+        <Contact />
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Calendar, MapPin, Link as LinkIcon, Clock, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Footer from '@/components/Footer';
+import { addSchemaToHead } from '@/lib/schema';
 
 interface ChurchEvent {
     id: string;
@@ -65,6 +66,40 @@ export default function EventsPage() {
                 setAvailableMonths(months);
                 setAvailableCategories(categories);
                 setLoading(false);
+
+                // Add structured data for events page
+                const eventsSchema = {
+                    "@context": "https://schema.org",
+                    "@type": "CollectionPage",
+                    "name": "CAC Itedo Yiyanju Events",
+                    "url": "https://cacitedoyiyanju.org/events",
+                    "description": "Upcoming events and activities at CAC Itedo Yiyanju",
+                    "event": processedEvents.slice(0, 10).map(event => ({
+                        "@type": "Event",
+                        "name": event.title,
+                        "description": event.description,
+                        "startDate": event.parsedDate.toISOString(),
+                        "endDate": event.parsedEndDate.toISOString(),
+                        "eventStatus": "https://schema.org/EventScheduled",
+                        "eventAttendanceMode": event.isOnline
+                            ? "https://schema.org/OnlineEventAttendanceMode"
+                            : "https://schema.org/OfflineEventAttendanceMode",
+                        "location": event.isOnline
+                            ? {
+                                "@type": "VirtualLocation",
+                                "url": "https://cacitedoyiyanju.org/listen/video",
+                            }
+                            : {
+                                "@type": "Place",
+                                "name": event.location,
+                            },
+                        "organizer": {
+                            "@type": "Organization",
+                            "name": "CAC Itedo Yiyanju",
+                        },
+                    })),
+                };
+                addSchemaToHead(eventsSchema);
             })
             .catch(err => {
                 console.error('Failed to load events', err);

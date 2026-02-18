@@ -13,6 +13,7 @@ import WhatsAppButton from "./components/Whatsapp";
 import Events from "./pages/Events";
 import AboutCAC from "./pages/AboutCAC";
 import AboutItedo from "./pages/AboutItedo";
+import Ministries from "./pages/Ministries";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/about-cac" element={<AboutCAC />} />
           <Route path="/about-itedo" element={<AboutItedo />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/ministries" element={<Ministries />} />
           <Route path="/sermons" element={<Sermons />} />
           <Route path="/give" element={<Give />} />
           <Route path="*" element={<NotFound />} />
