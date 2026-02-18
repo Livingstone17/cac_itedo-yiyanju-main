@@ -165,11 +165,7 @@ const Hero = () => {
         slidesPerView={1}
         speed={1000}
         autoplay={{ delay: 6000, disableOnInteraction: false }}
-        pagination={{
-          clickable: true,
-          dynamicBullets: true,
-          dynamicMainBullets: 3
-        }}
+
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
@@ -204,8 +200,7 @@ const Hero = () => {
             </span>
           </h1>
           <p className="hero-subtitle text-xl md:text-2xl text-white/90 mb-8 leading-relaxed max-w-2xl mx-auto">
-            Join our community of faith, hope, and love. Experience God's presence
-            through worship, fellowship, and service.
+            Welcome to Bethel, the House of Bread, where heaven meets earth. Come feast on God's Word and be empowered for a life of purpose, impact, and eternal significance.
           </p>
 
           {/* Action Buttons */}

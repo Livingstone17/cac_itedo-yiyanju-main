@@ -1,5 +1,5 @@
 import Hero from "@/components/Hero";
-import LiveStream from "@/components/LiveStream";
+// import LiveStream from "@/components/LiveStream";
 // import Sermons from "@/components/Sermons";
 import About from "@/components/About";
 import Contact from "@/components/Contact";

@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "@/components/Footer";
 
-const API_KEY = "AIzaSyCZuUrdohmncTM5rKWQZ53gQ2OdV0bp2VI";
-const CHANNEL_ID = "UCJoOJLVIOHCVHAqnVZpp5Gw";
+const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+const CHANNEL_ID = import.meta.env.VITE_YOUTUBE_CHANNEL_ID;
 
 const WatchLivePage = () => {
     const { type } = useParams<{ type: string }>();
