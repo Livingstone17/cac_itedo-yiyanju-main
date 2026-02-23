@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { Users, Heart, BookOpen, Share2, Mail, MapPin, Facebook, Twitter, Linkedin } from 'lucide-react';
 import Footer from '@/components/Footer';
+import pastor from '../assets/pastor.jpg';
+import yp from '../assets/ajala.jpg';
 
 export default function AboutItedoPage() {
     useEffect(() => {
@@ -12,7 +14,7 @@ export default function AboutItedoPage() {
             id: 1,
             name: "Pastor Samson Akin-Olugbade",
             role: "Presiding Pastor",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+            image: pastor,
             email: "samson.akinojugbade@cac.org",
             location: "Lagos, Nigeria",
             bio: "Founder and Presiding Pastor with over 30 years of apostolic ministry",
@@ -26,7 +28,7 @@ export default function AboutItedoPage() {
             id: 2,
             name: "Pastor Ajala Matthew",
             role: "Youth Pastor",
-            image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+            image: yp,
             email: "ajala.matthew@cac.org",
             location: "Lagos, Nigeria",
             bio: "Lead pastor with a passion for spiritual growth and discipleship",
@@ -37,11 +39,11 @@ export default function AboutItedoPage() {
         },
         {
             id: 3,
-            name: "Pastor Michael Ojekunle",
-            role: "Pastor of Prayer & Intercession",
+            name: "Evangelist Peter Enitinwa",
+            role: "Church Secretary / Prayer Coordinator",
             image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
             email: "michael.ojekunle@cac.org",
-            location: "Ogun State, Nigeria",
+            location: "Lagos State, Nigeria",
             bio: "Prayer warrior dedicated to intercession and spiritual warfare",
             socialLinks: [
                 { platform: "facebook", url: "#", icon: Facebook },
@@ -50,10 +52,38 @@ export default function AboutItedoPage() {
         },
         {
             id: 4,
-            name: "Pastor Adekunle Adebayo",
-            role: "Pastor of Youth & Outreach",
+            name: "Pastor Samson Akinrotomi",
+            role: "Ifo Branch Pastor",
             image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
             email: "adekunle.adebayo@cac.org",
+            location: "Lagos, Nigeria",
+            bio: "Youth enthusiast focused on empowering the next generation",
+            socialLinks: [
+                { platform: "facebook", url: "#", icon: Facebook },
+                { platform: "twitter", url: "#", icon: Twitter },
+                { platform: "linkedin", url: "#", icon: Linkedin },
+            ]
+        },
+        {
+            id: 5,
+            name: "Evangelist Clement Amosu",
+            role: "Head, Worship & Music",
+            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+            email: "clement.amosu@cac.org",
+            location: "Lagos, Nigeria",
+            bio: "Youth enthusiast focused on empowering the next generation",
+            socialLinks: [
+                { platform: "facebook", url: "#", icon: Facebook },
+                { platform: "twitter", url: "#", icon: Twitter },
+                { platform: "linkedin", url: "#", icon: Linkedin },
+            ]
+        },
+        {
+            id: 6,
+            name: "Pastor Y.A. Adegbemi",
+            role: "Head, Programmes & Outreach",
+            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+            email: "adegbemi.adebayo@cac.org",
             location: "Lagos, Nigeria",
             bio: "Youth enthusiast focused on empowering the next generation",
             socialLinks: [

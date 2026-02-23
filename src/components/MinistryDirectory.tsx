@@ -1,4 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
+import choir from '../assets/choir.jpg';
+import youth from '../assets/program.jpg';
 
 const MinistryDirectory = () => {
     const featuredMinistries = [
@@ -6,18 +8,18 @@ const MinistryDirectory = () => {
             id: 1,
             name: 'Youth & Young Adults',
             subtitle: 'BETHEL COVENANT YOUTH',
-            image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=500&h=400&fit=crop',
+            image: youth,
         },
         {
             id: 2,
             name: 'Worship & Music',
             subtitle: 'BETHEL COVENANT CHOIR',
-            image: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=500&h=400&fit=crop',
+            image: choir,
         },
     ];
 
     return (
-        <section className="py-20 bg-background" id="ministries">
+        <section className="py-20" id="ministries" style={{ backgroundColor: "#F5F5EF", marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", paddingLeft: "calc(50vw - 50%)", paddingRight: "calc(50vw - 50%)" }}>
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold text-church-text mb-6">

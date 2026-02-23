@@ -28,6 +28,7 @@ const Navigation = () => {
   ];
 
   const navigationItems = [
+    { label: "Home", href: "/", dropdown: false, icon: Users },
     { label: "About Us", dropdown: true, icon: Users },
     { label: "Live Stream", dropdown: true, icon: Video },
     { label: "Events", href: "/events", icon: Users },

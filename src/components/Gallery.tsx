@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, X } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import 'swiper/css';
 
 const Gallery = () => {
     const [galleryImages, setGalleryImages] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedImage, setSelectedImage] = useState<any>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -34,6 +37,15 @@ const Gallery = () => {
 
         fetchImages();
     }, []);
+
+    const handleImageClick = (image: any) => {
+        setSelectedImage(image);
+        setIsModalOpen(true);
+    };
+
+    const handleContextMenu = (e: React.MouseEvent) => {
+        e.preventDefault();
+    };
 
     if (loading) {
         return (
@@ -88,13 +100,18 @@ const Gallery = () => {
                     >
                         {galleryImages.map((image) => (
                             <SwiperSlide key={image.id}>
-                                <div className="relative group overflow-hidden h-48 sm:h-60 md:h-72 lg:h-[480px] xl:h-[480px] cursor-pointer">
+                                <div
+                                    className="relative group overflow-hidden h-48 sm:h-60 md:h-72 lg:h-[480px] xl:h-[480px] cursor-pointer"
+                                    onClick={() => handleImageClick(image)}
+                                >
                                     <img
                                         src={image.src}
                                         alt={image.title}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 select-none"
                                         onError={(e) => console.error('Image failed to load:', image.src, e)}
                                         onLoad={() => console.log('Image loaded:', image.src)}
+                                        onContextMenu={handleContextMenu}
+                                        draggable={false}
                                     />
                                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-all duration-500"></div>
                                     <div className="absolute inset-0 bg-gradient-to-t from-church-blue/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -116,6 +133,46 @@ const Gallery = () => {
                     <p className="text-center text-church-text-light">No images found</p>
                 )}
             </div>
+
+            {/* Image Modal */}
+            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                <DialogContent className="max-w-4xl w-full h-screen md:h-auto p-0 border-0 bg-black/90">
+                    {selectedImage && (
+                        <div className="relative w-full h-full flex items-center justify-center">
+                            {/* Close Button */}
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                                aria-label="Close"
+                            >
+                                <X className="w-6 h-6 text-white" />
+                            </button>
+
+                            {/* Image Container with screenshot prevention */}
+                            <div className="flex flex-col items-center justify-center w-full h-full px-4 py-12">
+                                <img
+                                    src={selectedImage.src}
+                                    alt={selectedImage.title}
+                                    className="max-w-full max-h-[80vh] object-contain select-none pointer-events-none"
+                                    onContextMenu={handleContextMenu}
+                                    draggable={false}
+                                />
+                                <div className="mt-6 text-center text-white">
+                                    <h3 className="text-2xl font-bold mb-2">{selectedImage.title}</h3>
+                                    <p className="text-white/80">{selectedImage.description}</p>
+                                </div>
+                            </div>
+
+                            {/* Watermark overlay for screenshot protection */}
+                            {/* <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-10">
+                                <div className="text-white text-6xl font-bold transform -rotate-45 whitespace-nowrap">
+                                    CAC ITEDO YIYANJU
+                                </div>
+                            </div> */}
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
         </section>
     );
 };

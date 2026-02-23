@@ -2,6 +2,11 @@ import { useEffect } from 'react';
 import { Mail, MapPin, Calendar } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { addSchemaToHead } from '@/lib/schema';
+import choir from '../assets/choir.jpg';
+import youth from '../assets/program.jpg';
+import prayer from '../assets/prayer.jpg';
+import ss from '../assets/sunday_school.jpg';
+import media from '../assets/front_shirt.png';
 
 export default function MinistriesPage() {
     useEffect(() => {
@@ -49,7 +54,7 @@ export default function MinistriesPage() {
             fullDescription: 'Our Worship ministry is dedicated to creating inspiring musical experiences that draw hearts closer to God. We produce authentic worship expressions that deepen relationships with Christ and inspire our community.',
             schedule: 'Thursdays & Wednesdays, 5:00 PM',
             contact: 'worship@cacitedo.org',
-            image: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&h=400&fit=crop'
+            image: choir
         },
         {
             id: 2,
@@ -58,7 +63,7 @@ export default function MinistriesPage() {
             fullDescription: 'We are committed to intercessory prayer for our church, community, and the world. Through prayer, we seek God\'s will, wisdom, and divine intervention in all circumstances. Prayer is the heartbeat of our ministry.',
             schedule: 'Daily & Special Prayer Sessions',
             contact: 'prayer@cacitedo.org',
-            image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop'
+            image: prayer
         },
         {
             id: 3,
@@ -85,7 +90,7 @@ export default function MinistriesPage() {
             fullDescription: 'Our Teaching ministry provides biblical education for all ages. We offer engaging classes and materials designed to help believers grow in their understanding of God\'s Word and develop a strong spiritual foundation.',
             schedule: 'Saturdays 4:00 PM - 6:00 PM',
             contact: 'education@cacitedo.org',
-            image: 'https://images.unsplash.com/photo-1427504494814-3206461229cc?w=600&h=400&fit=crop'
+            image: ss
         },
         {
             id: 6,
@@ -103,7 +108,7 @@ export default function MinistriesPage() {
             fullDescription: 'Our Media & Technical team is responsible for creating and managing digital content for our church. This includes video production, live streaming, website maintenance, and technical support for our services.',
             schedule: 'By Appointment',
             contact: 'media@cacitedo.org',
-            image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop'
+            image: media
         }
     ];
 
