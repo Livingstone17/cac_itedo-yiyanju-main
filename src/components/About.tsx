@@ -6,20 +6,20 @@ import communityImage from "@/assets/prayer.jpg";
 const About = () => {
   const values = [
     {
-      title: "Love",
-      description: "Our love isn’t fleeting—it’s fierce, faithful, and fixed on Jesus. We live with undying commitment to God and His eternal purposes, loving Him above all and extending His grace to a hurting world.",
+      title: "LOVE",
+      description: "Our love isn’t fleeting,it’s fierce, faithful, and fixed on Jesus. We live with undying commitment to God and His eternal purposes, loving Him above all and extending His grace to a hurting world.",
       icon: Heart,
       color: "bg-red-500",
     },
     {
       title: "INTIMACY",
-      description: "We pursue more than religion—we seek relationship. In the presence of the Holy Spirit, we cultivate daily intimacy with God through prayer, worship, and surrendered living, allowing Him to lead, heal, and speak clearly in our lives.",
+      description: "We pursue more than religion,we seek relationship. In the presence of the Holy Spirit, we cultivate daily intimacy with God through prayer, worship, and surrendered living, allowing Him to lead, heal, and speak clearly in our lives.",
       icon: Users,
       color: "bg-church-blue",
     },
     {
       title: "TRANSFORMATION",
-      description: "When heaven touches earth, everything changes. Through biblical teaching, authentic discipleship, and the power of the cross, we witness radical transformation—in individuals, families, and entire communities—fulfilling God’s purpose for every believer.",
+      description: "When heaven touches earth, everything changes. Through biblical teaching, authentic discipleship, and the power of the cross, we witness radical transformation in individuals, families, and entire communities fulfilling God’s purpose for every believer.",
       icon: Compass,
       color: "bg-church-gold",
     },

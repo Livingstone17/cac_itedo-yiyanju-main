@@ -3,7 +3,9 @@ import { Heart, X } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'swiper/css';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Gallery = () => {
     const [galleryImages, setGalleryImages] = useState([]);
@@ -104,10 +106,13 @@ const Gallery = () => {
                                     className="relative group overflow-hidden h-48 sm:h-60 md:h-72 lg:h-[480px] xl:h-[480px] cursor-pointer"
                                     onClick={() => handleImageClick(image)}
                                 >
-                                    <img
+                                    <LazyLoadImage
                                         src={image.src}
                                         alt={image.title}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 select-none"
+                                        effect="blur"
+                                        placeholderSrc={"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="}
+                                        wrapperClassName="w-full h-full"
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 select-none block"
                                         onError={(e) => console.error('Image failed to load:', image.src, e)}
                                         onLoad={() => console.log('Image loaded:', image.src)}
                                         onContextMenu={handleContextMenu}
@@ -150,10 +155,13 @@ const Gallery = () => {
 
                             {/* Image Container with screenshot prevention */}
                             <div className="flex flex-col items-center justify-center w-full h-full px-4 py-12">
-                                <img
+                                <LazyLoadImage
                                     src={selectedImage.src}
                                     alt={selectedImage.title}
-                                    className="max-w-full max-h-[80vh] object-contain select-none pointer-events-none"
+                                    effect="blur"
+                                    placeholderSrc={"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="}
+                                    wrapperClassName="w-full h-full"
+                                    className="max-w-full max-h-[80vh] object-contain select-none pointer-events-none block"
                                     onContextMenu={handleContextMenu}
                                     draggable={false}
                                 />

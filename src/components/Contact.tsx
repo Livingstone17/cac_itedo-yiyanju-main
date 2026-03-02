@@ -102,7 +102,7 @@ const Contact = () => {
             Need Prayers <span className="text-church-gold">?</span>
           </h2>
           <p className="text-base text-church-text-light  mx-auto">
-            When life feels overwhelming—and all you have are questions—it’s easy to feel like hope is out of reach. But here’s the miracle: prayer changes everything. It doesn’t just change your circumstances; it transforms your heart and reconnects you with the God who’s always listening. No matter what you’re facing, we’re here to stand in faith with you. Let us pray for you today!
+            When life feels overwhelming and all you have are questions, it’s easy to feel like hope is out of reach. But here’s the miracle: prayer changes everything. It doesn’t just change your circumstances; it transforms your heart and reconnects you with the God who’s always listening. No matter what you’re facing, we’re here to stand in faith with you. Let us pray for you today!
           </p>
         </div>
 
