@@ -36,7 +36,7 @@ const MinistryDirectory = () => {
                             There's a Place for <span className="text-church-gold">Everyone</span>
                         </h2>
                         <p className="text-lg text-church-text-light mb-8 leading-relaxed max-w-md">
-                            Discover the various ways you can serve, grow, and make a difference in our church community.
+                            Discover the various ways you can serve, grow, and make a difference in our church family.
                         </p>
                         <div>
                             <a
