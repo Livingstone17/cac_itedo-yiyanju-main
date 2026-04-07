@@ -252,7 +252,7 @@ export default function AboutCACPage() {
                             Discover more about the Christ Apostolic Church and how you can be part of this growing movement of believers dedicated to apostolic Christianity and spiritual renewal.
                         </p>
                         <a
-                            href="#contact"
+                            href="/#contact"
                             className="inline-block px-8 py-3 bg-church-gold text-white rounded-lg hover:bg-church-gold/90 transition-colors duration-300 font-semibold"
                         >
                             Contact Us
