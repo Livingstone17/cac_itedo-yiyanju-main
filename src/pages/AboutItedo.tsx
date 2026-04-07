@@ -2,7 +2,12 @@ import { useEffect } from 'react';
 import { Users, Heart, BookOpen, Share2, Mail, MapPin, Facebook, Twitter, Linkedin } from 'lucide-react';
 import Footer from '@/components/Footer';
 import pastor from '../assets/pastor.jpg';
-import yp from '../assets/ajala.jpg';
+import yp from '../assets/evajala.jpg';
+import ad from '../assets/adegbemi.jpg';
+import eni from '../assets/enitinwa.jpg';
+import clement from '../assets/amosu.jpg';
+import akin from '../assets/akinrotimi.jpg';
+import niyi from '../assets/niyi.jpg';
 
 export default function AboutItedoPage() {
     useEffect(() => {
@@ -41,7 +46,7 @@ export default function AboutItedoPage() {
             id: 3,
             name: "Evangelist Peter Enitinwa",
             role: "Church Secretary",
-            image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+            image: eni,
             email: "michael.ojekunle@cac.org",
             location: "Lagos State, Nigeria",
             bio: "Prayer warrior dedicated to intercession and spiritual warfare",
@@ -54,7 +59,7 @@ export default function AboutItedoPage() {
             id: 4,
             name: "Evangelist Samson Akinrotomi",
             role: "Ifo Branch Pastor",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+            image: akin,
             email: "adekunle.adebayo@cac.org",
             location: "Lagos, Nigeria",
             bio: "Youth enthusiast focused on empowering the next generation",
@@ -68,7 +73,7 @@ export default function AboutItedoPage() {
             id: 5,
             name: "Evangelist Clement Amosu",
             role: "Head, Worship & Music",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+            image: clement,
             email: "clement.amosu@cac.org",
             location: "Lagos, Nigeria",
             bio: "Youth enthusiast focused on empowering the next generation",
@@ -82,8 +87,8 @@ export default function AboutItedoPage() {
             id: 6,
             name: "Evangelist Oluniyi Samson",
             role: "Presiding Pastor, Ikorodu Branch",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-            email: "clement.amosu@cac.org",
+            image: niyi,
+            email: "oluniyi.samson@cac.org",
             location: "Lagos, Nigeria",
             bio: "Youth enthusiast focused on empowering the next generation",
             socialLinks: [
@@ -96,7 +101,7 @@ export default function AboutItedoPage() {
             id: 7,
             name: "Pastor Y.A. Adegbemi",
             role: "Associate Pastor",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+            image: ad,
             email: "adegbemi.adebayo@cac.org",
             location: "Lagos, Nigeria",
             bio: "Youth enthusiast focused on empowering the next generation",
@@ -130,7 +135,55 @@ export default function AboutItedoPage() {
                             </h2>
                             <div className="space-y-6 text-church-text-light leading-relaxed">
                                 <p>
-                                    Founded in 2002, CAC Itedo Yiyanju began as a small group of families with a big vision: to create a place where everyone could experience God's love, be liberated from the hold of darkness, and find their purpose in God. What started in a living room has grown into a thriving community of over 1000 members.
+                                    In October 2002, a divine journey began when the set man, Pastor Samson Akin-Olugbade, made the bold and obedient decision to resign from his position as a Regional Manager and Financial Director in an oil distribution company. In total surrender, he waited on the Lord for clear direction.
+                                </p>
+                                <p>
+                                    In a profound encounter at Ikoyi Mountain, the Lord revealed Himself as the God of Abraham, Isaac, and Jacob, declaring, "I am the Lord God of Bethel. Go and build for Me an altar where nations of the world will gather to worship Me." With this divine mandate, he was instructed to begin in Alagbado, the birthplace of this ministry.
+                                </p>
+                                <p>
+                                    In confirmation of this calling, God spoke to Prophet J. O. Odusanya, under whom Pastor Akin-Olugbade was serving in Ibadan, and he released him with his blessing. Thus, the ministry was birthed by divine instruction and prophetic confirmation.
+                                </p>
+                                <p>
+                                    The work began with a powerful three-week revival, marked by 7 days of revival services, 7 days of night vigils, and 7 days of morning encounters. God moved mightily through His servants, including Prophet Samuel and Lady Evangelist Bakare. In the midst of this move, God instructed the commencement of Sunday worship services. In obedience, the church gathered, and lives were transformed. Notably, during this period, Mr. Tunji Kilani and his family joined the ministry and became an integral part of the work.
+                                </p>
+                                <p>
+                                    In 2003, the church hosted Bethel 2003 with the theme "God of Bethel," where God's presence was tangibly experienced through the ministration of Prophet J. O. Odusanya.
+                                </p>
+                                <p>
+                                    Soon after, the Lord established a divine pattern, a monthly program to be held every 15th, 16th, and 17th. This gathering became a beacon of God's power, drawing many as testimonies, miracles, and undeniable manifestations of His glory became evident. Through this, the church was divinely announced to the public.
+                                </p>
+                                <p>
+                                    In 2004, Mr. Adetunji Kilani was ordained as an Evangelist. His unwavering dedication, accountability, and loyalty have remained pillars of strength within the ministry.
+                                </p>
+                                <p>
+                                    The church was graciously given a piece of land beside the residence of Mr. and Mrs. Oyewole, where a humble place of worship was established. The choir, under the inspired leadership of Mrs. Kilani, ministered with excellence and passion.
+                                </p>
+                                <p>
+                                    Then came a defining moment. Midway into the fourth year, the church was asked to vacate the land within 60 days. What could have been a setback became a setup for divine advancement. With faith unshaken, the church pressed on. God raised helpers, and by His grace, a new property was secured in June 2006.
+                                </p>
+                                <p>
+                                    Construction began, and for months, worship continued under an open canopy. Yet, the presence of God remained undeniable. Even the fourth anniversary was celebrated under the canopy, a testimony that God's glory is not confined to structures. Today, by His grace, the ministry stands on solid ground, with the pastor's residence, office spaces, guest rooms, and children's halls fully established.
+                                </p>
+                                <p>
+                                    From 2006 till now, the church has advanced with strength and purpose, birthing new assemblies and expanding the kingdom of God:
+                                </p>
+                                <p>
+                                    C.A.C Chapel of Praise (2008), under Pastor O. S. Moronkeji
+                                </p>
+                                <p>
+                                    C.A.C Itedo-Ono-Abayo (2009), under Pastor Adetunji Kilani
+                                </p>
+                                <p>
+                                    C.A.C Itedo Yiyanju, Ikorodu (2010)
+                                </p>
+                                <p>
+                                    C.A.C Itedo Yiyanju, Ifo (2016)
+                                </p>
+                                <p>
+                                    Each branch stands today as a testimony of God's faithfulness, growing stronger and impacting lives.
+                                </p>
+                                <p>
+                                    In 2025, by the grace of God, the church was elevated to a District Headquarters, a clear sign of divine growth, influence, and increased responsibility in God's kingdom.
                                 </p>
                                 <p>
                                     We believe that church should be a place of healing, hope, light, communion and transformation. Through authentic worship, practical teaching, word-based prayers and genuine community, we've seen countless lives changed by the power of God's love.
@@ -198,36 +251,20 @@ export default function AboutItedoPage() {
 
                                 {/* Pastoral Vision */}
                                 <div className="bg-gradient-to-r from-church-blue/5 to-church-gold/5 rounded-lg p-8 border border-church-gold/20 mt-10">
-                                    <h4 className="text-2xl font-bold text-church-text mb-4">Our Pastoral Vision</h4>
-                                    <p className="text-church-text-light leading-relaxed mb-4">
-                                        The pastorate of CAC Itedo Yiyanju envisions a community of believers who are:
+                                    <h4 className="text-2xl font-bold text-church-text mb-3">Our Vision</h4>
+                                    <p className="text-church-text-light leading-relaxed mb-6">
+                                        To raise a generation of holy, undiluted, and consecrated saints, prepared and made ready for the glorious return of our Lord and Saviour, Jesus Christ.
                                     </p>
-                                    <ul className="space-y-3 text-church-text-light">
-                                        <li className="flex items-start">
-                                            <span className="text-church-gold mr-3 font-bold">•</span>
-                                            <span>Deeply rooted in God's Word and apostolic truth</span>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <span className="text-church-gold mr-3 font-bold">•</span>
-                                            <span>Empowered by the Holy Spirit for ministry and service</span>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <span className="text-church-gold mr-3 font-bold">•</span>
-                                            <span>Living holy and separated lives that glorify Christ</span>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <span className="text-church-gold mr-3 font-bold">•</span>
-                                            <span>Engaged in prayer, intercession, and spiritual warfare</span>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <span className="text-church-gold mr-3 font-bold">•</span>
-                                            <span>Actively involved in discipleship and mentoring others</span>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <span className="text-church-gold mr-3 font-bold">•</span>
-                                            <span>Committed to reaching the lost and expanding God's kingdom</span>
-                                        </li>
-                                    </ul>
+
+                                    <h4 className="text-2xl font-bold text-church-text mb-3">Our Ministry</h4>
+                                    <p className="text-church-text-light leading-relaxed mb-6">
+                                        To nurture and build believers through the undiluted Word of God, raising them as true saints, while engaging in spiritual warfare against every force that seeks to hinder them from walking in the fullness of redemption in Christ.
+                                    </p>
+
+                                    <h4 className="text-2xl font-bold text-church-text mb-3">Our Mandate</h4>
+                                    <p className="text-church-text-light leading-relaxed">
+                                        To build an altar unto the Lord where nations of the world will gather in unity to bow, worship, and encounter the God of Bethel.
+                                    </p>
                                 </div>
                             </div>
                         </div>
