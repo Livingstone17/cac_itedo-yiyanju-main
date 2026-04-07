@@ -89,7 +89,7 @@ export default function MinistriesPage() {
             shortDescription: 'Growing in biblical knowledge and discipleship',
             fullDescription: 'Our Teaching ministry provides biblical education for all ages. We offer engaging classes and materials designed to help believers grow in their understanding of God\'s Word and develop a strong spiritual foundation.',
             schedule: 'Saturdays 4:00 PM - 6:00 PM',
-            contact: 'education@cacitedo.org',
+            // contact: 'education@cacitedo.org',
             image: ss
         },
         {
@@ -107,7 +107,7 @@ export default function MinistriesPage() {
             shortDescription: 'Creating and managing digital content for our church',
             fullDescription: 'Our Media & Technical team is responsible for creating and managing digital content for our church. This includes video production, live streaming, website maintenance, and technical support for our services.',
             schedule: 'By Appointment',
-            contact: 'media@cacitedo.org',
+            contact: '+234 816 422 4586',
             image: media
         }
     ];

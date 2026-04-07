@@ -26,8 +26,8 @@ export default function AboutItedoPage() {
         },
         {
             id: 2,
-            name: "Pastor Ajala Matthew",
-            role: "Youth Pastor",
+            name: "Evangelist Ajala Matthew",
+            role: "Head, Youth Ministry",
             image: yp,
             email: "ajala.matthew@cac.org",
             location: "Lagos, Nigeria",
@@ -40,7 +40,7 @@ export default function AboutItedoPage() {
         {
             id: 3,
             name: "Evangelist Peter Enitinwa",
-            role: "Church Secretary / Prayer Coordinator",
+            role: "Church Secretary",
             image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
             email: "michael.ojekunle@cac.org",
             location: "Lagos State, Nigeria",
@@ -52,7 +52,7 @@ export default function AboutItedoPage() {
         },
         {
             id: 4,
-            name: "Pastor Samson Akinrotomi",
+            name: "Evangelist Samson Akinrotomi",
             role: "Ifo Branch Pastor",
             image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
             email: "adekunle.adebayo@cac.org",
@@ -80,8 +80,22 @@ export default function AboutItedoPage() {
         },
         {
             id: 6,
+            name: "Evangelist Oluniyi Samson",
+            role: "Presiding Pastor, Ikorodu Branch",
+            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+            email: "clement.amosu@cac.org",
+            location: "Lagos, Nigeria",
+            bio: "Youth enthusiast focused on empowering the next generation",
+            socialLinks: [
+                { platform: "facebook", url: "#", icon: Facebook },
+                { platform: "twitter", url: "#", icon: Twitter },
+                { platform: "linkedin", url: "#", icon: Linkedin },
+            ]
+        },
+        {
+            id: 7,
             name: "Pastor Y.A. Adegbemi",
-            role: "Head, Programmes & Outreach",
+            role: "Associate Pastor",
             image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
             email: "adegbemi.adebayo@cac.org",
             location: "Lagos, Nigeria",
