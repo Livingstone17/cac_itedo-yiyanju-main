@@ -330,7 +330,7 @@ export default function AboutItedoPage() {
                                         </div>
 
                                         {/* Social Links */}
-                                        <div className="flex gap-3">
+                                        {/* <div className="flex gap-3">
                                             {pastor.socialLinks.map((link) => {
                                                 const IconComponent = link.icon;
                                                 return (
@@ -346,7 +346,7 @@ export default function AboutItedoPage() {
                                                     </a>
                                                 );
                                             })}
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             ))}
