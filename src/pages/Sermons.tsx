@@ -193,6 +193,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Play, Calendar, User, Search } from "lucide-react";
 import Footer from "@/components/Footer";
+import { apiUrl } from "@/lib/api";
 
 const Sermons = () => {
   const [allVideos, setAllVideos] = useState<any[]>([]);
@@ -207,7 +208,7 @@ const Sermons = () => {
     setError(null);
     try {
       // Calls your backend (proxied via Vite during dev)
-      const res = await fetch('/api/sermons');
+      const res = await fetch(apiUrl('/api/sermons'));
 
       if (!res.ok) {
         throw new Error(`Failed to load sermons: ${res.status} ${res.statusText}`);

@@ -3,6 +3,7 @@ import { Calendar, MapPin, Link as LinkIcon, Clock, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Footer from '@/components/Footer';
 import { addSchemaToHead } from '@/lib/schema';
+import { apiUrl } from '@/lib/api';
 
 interface ChurchEvent {
     id: string;
@@ -46,7 +47,7 @@ export default function EventsPage() {
     const [availableCategories, setAvailableCategories] = useState<string[]>([]);
 
     useEffect(() => {
-        fetch('/api/events')
+        fetch(apiUrl('/api/events'))
             .then(res => res.json())
             .then(data => {
                 const processedEvents = processEvents(data.events || []);

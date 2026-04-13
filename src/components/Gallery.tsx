@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { apiUrl } from '@/lib/api';
 import 'swiper/css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -16,7 +17,7 @@ const Gallery = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await fetch('/api/gallery');
+                const response = await fetch(apiUrl('/api/gallery'));
                 const result = await response.json();
                 console.log('Fetched gallery images:', result);
 
@@ -26,7 +27,7 @@ const Gallery = () => {
                 const images = filesArray.map((file) => ({
                     id: file.id,
                     title: file.title || file.name.replace(/\.[^/.]+$/, ''),
-                    src: `/api/gallery/image/${file.id}`,
+                    src: apiUrl(`/api/gallery/image/${file.id}`),
                     description: file.description || 'Church event',
                 }));
                 setGalleryImages(images);
