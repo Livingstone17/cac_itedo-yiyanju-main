@@ -52,8 +52,8 @@ export default function MinistriesPage() {
             name: 'Worship & Music',
             shortDescription: 'Experience God through powerful praise and worship',
             fullDescription: 'Our Worship ministry is dedicated to creating inspiring musical experiences that draw hearts closer to God. We produce authentic worship expressions that deepen relationships with Christ and inspire our community.',
-            schedule: 'Thursdays & Wednesdays, 5:00 PM',
-            contact: 'worship@cacitedo.org',
+            schedule: 'Thursdays & Saturdays, 5:00 PM',
+            // contact: 'worship@cacitedo.org',
             image: choir
         },
         {
@@ -62,7 +62,7 @@ export default function MinistriesPage() {
             shortDescription: 'Join us in powerful intercessory prayer',
             fullDescription: 'We are committed to intercessory prayer for our church, community, and the world. Through prayer, we seek God\'s will, wisdom, and divine intervention in all circumstances. Prayer is the heartbeat of our ministry.',
             schedule: 'Daily & Special Prayer Sessions',
-            contact: 'prayer@cacitedo.org',
+            // contact: 'prayer@cacitedo.org',
             image: prayer
         },
         {
@@ -70,8 +70,8 @@ export default function MinistriesPage() {
             name: 'Youth & Young Adults',
             shortDescription: 'Empowering the next generation in Christ',
             fullDescription: 'Our Youth ministry focuses on discipling young believers and helping them discover their purpose in God. Through dynamic programs, mentorship, and leadership training, we equip young people to make a lasting impact for Christ.',
-            schedule: 'Fridays 6:00 PM & Saturdays 4:00 PM',
-            contact: 'youth@cacitedo.org',
+            schedule: ' 2nd Fridays 11pm',
+            // contact: 'youth@cacitedo.org',
             image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&h=400&fit=crop'
         },
         {
@@ -79,8 +79,8 @@ export default function MinistriesPage() {
             name: 'Teens Growth',
             shortDescription: 'Sons and Daughters of the Prophet',
             fullDescription: 'We extend God\'s love beyond our church walls through community service, charitable works, and social impact initiatives. We believe in serving our neighbors and being a blessing to those in need.',
-            schedule: 'Saturdays 10:00 AM - 2:00 PM',
-            contact: 'outreach@cacitedo.org',
+            // schedule: 'Saturdays 10:00 AM - 2:00 PM',
+            // contact: 'outreach@cacitedo.org',
             image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&h=400&fit=crop'
         },
         {
@@ -98,7 +98,7 @@ export default function MinistriesPage() {
             shortDescription: 'Compassionate support in every season of life',
             fullDescription: 'Our pastoral care team is available to provide spiritual guidance, counseling, and support during challenging times. We believe in walking with our members through every season, offering prayers, wisdom, and biblical counsel.',
             schedule: 'By Appointment',
-            contact: 'pastoral@cacitedo.org',
+            contact: '+2348033072838',
             image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop'
         },
         {
@@ -162,7 +162,7 @@ export default function MinistriesPage() {
                                                 <p className="text-church-text font-medium">{ministry.schedule}</p>
                                             </div>
                                         </div>
-                                        <div className="flex items-start gap-4">
+                                        {/* <div className="flex items-start gap-4">
                                             <Mail className="w-5 h-5 text-church-gold mt-1 flex-shrink-0" />
                                             <div>
                                                 <p className="text-xs text-church-text-light/70 font-semibold uppercase tracking-wide">Get in Touch</p>
@@ -173,7 +173,7 @@ export default function MinistriesPage() {
                                                     {ministry.contact}
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
 
                                     {/* Divider */}
