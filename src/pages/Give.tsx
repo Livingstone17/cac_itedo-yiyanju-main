@@ -194,20 +194,20 @@ const GivePage: React.FC = () => {
                     </div>
 
                     {/* Online Payment Section */}
-                    <div>
+                    {/* <div>
                         <h3 className="text-2xl font-bold text-church-text mb-8 flex items-center gap-3">
                             <DollarSign className="w-7 h-7 text-church-gold" />
                             Online Payment
                         </h3>
-                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-                            {/* Empty Column */}
-                            <div></div>
+                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6"> */}
+                    {/* Empty Column */}
+                    <div></div>
 
-                            {/* Payment Options */}
-                            <div className="lg:col-span-3">
+                    {/* Payment Options */}
+                    {/* <div className="lg:col-span-3">
                                 <div className="space-y-4">
                                     {/* Paystack */}
-                                    <Card className="shadow-soft border-church-blue/10 hover:shadow-md transition">
+                    {/* <Card className="shadow-soft border-church-blue/10 hover:shadow-md transition">
                                         <CardContent className="p-6 flex items-center justify-between">
                                             <div>
                                                 <h4 className="text-lg font-semibold text-church-text mb-2">Paystack</h4>
@@ -220,10 +220,10 @@ const GivePage: React.FC = () => {
                                                 Give Now
                                             </Button>
                                         </CardContent>
-                                    </Card>
+                                    </Card>  */}
 
-                                    {/* Flutterwave */}
-                                    {/* <Card className="shadow-soft border-church-blue/10 hover:shadow-md transition">
+                    {/* Flutterwave */}
+                    {/* <Card className="shadow-soft border-church-blue/10 hover:shadow-md transition">
                                         <CardContent className="p-6 flex items-center justify-between">
                                             <div>
                                                 <h4 className="text-lg font-semibold text-church-text mb-2">Flutterwave</h4>
@@ -237,13 +237,13 @@ const GivePage: React.FC = () => {
                                             </Button>
                                         </CardContent>
                                     </Card> */}
-                                </div>
-                            </div>
+                    {/* </div> */}
+                    {/* </div> */}
 
-                            {/* Empty Column */}
-                            <div></div>
-                        </div>
-                    </div>
+                    {/* Empty Column */}
+                    {/* <div></div> */}
+                    {/* </div> */}
+                    {/* </div> */}
                 </div>
             </section>
 
