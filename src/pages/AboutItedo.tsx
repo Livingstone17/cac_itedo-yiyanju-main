@@ -312,7 +312,7 @@ export default function AboutItedoPage() {
 
                                         {/* Contact Info */}
                                         <div className="space-y-2 mb-6 py-4 border-t border-b border-border">
-                                            <div className="flex items-center gap-3 text-sm">
+                                            {/* <div className="flex items-center gap-3 text-sm">
                                                 <Mail className="w-4 h-4 text-church-gold flex-shrink-0" />
                                                 <a
                                                     href={`mailto:${pastor.email}`}
@@ -320,7 +320,7 @@ export default function AboutItedoPage() {
                                                 >
                                                     {pastor.email}
                                                 </a>
-                                            </div>
+                                            </div> */}
                                             <div className="flex items-center gap-3 text-sm">
                                                 <MapPin className="w-4 h-4 text-church-gold flex-shrink-0" />
                                                 <span className="text-church-text-light">

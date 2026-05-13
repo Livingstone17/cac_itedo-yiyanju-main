@@ -1,47 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Heart, X } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { apiUrl } from '@/lib/api';
+import { galleryQueryOptions, type GalleryImageItem } from '@/queries/homeContent';
 import 'swiper/css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Gallery = () => {
-    const [galleryImages, setGalleryImages] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedImage, setSelectedImage] = useState<any>(null);
+    const { data: galleryImages = [], isPending: loading } = useQuery(galleryQueryOptions);
+    const [selectedImage, setSelectedImage] = useState<GalleryImageItem | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
-        const fetchImages = async () => {
-            try {
-                const response = await fetch(apiUrl('/api/gallery'));
-                const result = await response.json();
-                console.log('Fetched gallery images:', result);
-
-                // Handle both array response and nested response
-                const filesArray = Array.isArray(result) ? result : result.data?.files || result.files || [];
-
-                const images = filesArray.map((file) => ({
-                    id: file.id,
-                    title: file.title || file.name.replace(/\.[^/.]+$/, ''),
-                    src: apiUrl(`/api/gallery/image/${file.id}`),
-                    description: file.description || 'Church event',
-                }));
-                setGalleryImages(images);
-            } catch (error) {
-                console.error('Error fetching gallery:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchImages();
-    }, []);
-
-    const handleImageClick = (image: any) => {
+    const handleImageClick = (image: GalleryImageItem) => {
         setSelectedImage(image);
         setIsModalOpen(true);
     };
@@ -101,7 +74,7 @@ const Gallery = () => {
                         }}
                         className="gallery-carousel"
                     >
-                        {galleryImages.map((image) => (
+                        {galleryImages.map((image, index) => (
                             <SwiperSlide key={image.id}>
                                 <div
                                     className="relative group overflow-hidden h-48 sm:h-60 md:h-72 lg:h-[480px] xl:h-[480px] cursor-pointer"
@@ -110,12 +83,12 @@ const Gallery = () => {
                                     <LazyLoadImage
                                         src={image.src}
                                         alt={image.title}
+                                        visible={index < 2}
                                         effect="blur"
                                         placeholderSrc={"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="}
                                         wrapperClassName="w-full h-full"
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 select-none block"
                                         onError={(e) => console.error('Image failed to load:', image.src, e)}
-                                        onLoad={() => console.log('Image loaded:', image.src)}
                                         onContextMenu={handleContextMenu}
                                         draggable={false}
                                     />

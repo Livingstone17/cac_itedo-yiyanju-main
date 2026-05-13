@@ -186,40 +186,64 @@
 
 // export default Sermons;
 
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useMemo, useState } from "react";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Play, Calendar, User, Search } from "lucide-react";
+import { Play, Calendar, User, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import { apiUrl } from "@/lib/api";
+import { getVisiblePageNumbers } from "@/lib/pagination";
+import { cn } from "@/lib/utils";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+} from "@/components/ui/pagination";
+
+const SERMONS_PAGE_SIZE = 10;
+
+interface SermonVideo {
+  id: { videoId: string };
+  snippet: {
+    title: string;
+    description: string;
+    publishedAt: string;
+    channelTitle: string;
+    thumbnails: { medium: { url: string } };
+  };
+}
+
+interface SermonsApiResponse {
+  videos?: SermonVideo[];
+  source?: string;
+}
 
 const Sermons = () => {
-  const [allVideos, setAllVideos] = useState<any[]>([]);
+  const [allVideos, setAllVideos] = useState<SermonVideo[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const itemsPerPage = 10;
 
   const fetchAllVideos = async () => {
     setLoading(true);
     setError(null);
     try {
-      // Calls your backend (proxied via Vite during dev)
-      const res = await fetch(apiUrl('/api/sermons'));
+      const res = await fetch(apiUrl("/api/sermons"));
 
       if (!res.ok) {
         throw new Error(`Failed to load sermons: ${res.status} ${res.statusText}`);
       }
 
-      const data = await res.json();
-      setAllVideos(data.videos || []);
-      console.log(`✅ Loaded ${data.videos?.length || 0} sermons (source: ${data.source || 'unknown'})`);
-    } catch (err: any) {
+      const data = (await res.json()) as SermonsApiResponse;
+      setAllVideos(data.videos ?? []);
+    } catch (err: unknown) {
       console.error("Error fetching sermons:", err);
-      setError(err.message || "Unable to load sermons. Please try again later.");
+      const message = err instanceof Error ? err.message : "Unable to load sermons. Please try again later.";
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -229,44 +253,44 @@ const Sermons = () => {
     fetchAllVideos();
   }, []);
 
-  const handleNext = () => {
-    const maxPage = Math.ceil(filteredVideos.length / itemsPerPage) - 1;
-    if (currentPage < maxPage) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+  const filteredVideos = useMemo(() => {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return allVideos;
+    return allVideos.filter((video) => {
+      const title = video.snippet.title.toLowerCase();
+      const date = new Date(video.snippet.publishedAt).toLocaleDateString();
+      return title.includes(query) || date.toLowerCase().includes(query);
+    });
+  }, [allVideos, searchQuery]);
 
-  const handlePrev = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
 
-  // Filter videos based on search query
-  const filteredVideos = allVideos.filter((video) => {
-    const title = video.snippet.title.toLowerCase();
-    const date = new Date(video.snippet.publishedAt).toLocaleDateString();
-    const query = searchQuery.toLowerCase();
-    return title.includes(query) || date.includes(query);
-  });
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(filteredVideos.length / SERMONS_PAGE_SIZE));
+    setCurrentPage((p) => (p > totalPages ? totalPages : p));
+  }, [filteredVideos]);
 
-  // Get current page videos
-  const startIndex = currentPage * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedVideos = filteredVideos.slice(startIndex, endIndex);
+  const totalCount = filteredVideos.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / SERMONS_PAGE_SIZE));
+  const safePage = Math.min(currentPage, totalPages);
+  const startIndex = (safePage - 1) * SERMONS_PAGE_SIZE;
+  const paginatedVideos = filteredVideos.slice(startIndex, startIndex + SERMONS_PAGE_SIZE);
+  const showingFrom = totalCount === 0 ? 0 : startIndex + 1;
+  const showingTo = Math.min(startIndex + SERMONS_PAGE_SIZE, totalCount);
+  const pageItems = getVisiblePageNumbers(safePage, totalPages);
 
   return (
     <>
       <section id="sermons" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-10">
-            {/* === Sermons Content === */}
             <div className="md:col-span-2 lg:col-span-5">
               <h2 className="text-3xl font-bold mb-8 text-church-text">
                 Recent <span className="text-church-gold">Sermons</span>
               </h2>
 
-              {/* Search Box */}
               <div className="mb-8">
                 <div className="relative">
                   <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-church-text-light" />
@@ -285,7 +309,6 @@ const Sermons = () => {
                 )}
               </div>
 
-              {/* Error State */}
               {error && !loading && (
                 <div className="text-center py-12">
                   <p className="text-red-600 mb-2">⚠️ {error}</p>
@@ -295,14 +318,12 @@ const Sermons = () => {
                 </div>
               )}
 
-              {/* Loading State */}
               {loading && (
                 <div className="text-center py-12">
                   <p className="text-church-text-light">Loading sermons...</p>
                 </div>
               )}
 
-              {/* No Results */}
               {!loading && !error && filteredVideos.length === 0 && (
                 <div className="text-center py-12">
                   <p className="text-church-text-light mb-2">No sermons found</p>
@@ -312,75 +333,150 @@ const Sermons = () => {
                 </div>
               )}
 
-              {/* Sermons Grid */}
               {!loading && !error && filteredVideos.length > 0 && (
                 <>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {paginatedVideos.map((video) => (
-                      <Card key={video.id.videoId} className="overflow-hidden border-0 shadow-soft">
-                        <div className="relative aspect-video">
-                          <img
-                            src={video.snippet.thumbnails.medium.url}
-                            alt={video.snippet.title}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-church-blue/20 opacity-0 hover:opacity-100 flex items-center justify-center transition">
-                            <a
-                              href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Button variant="hero" size="lg">
-                                <Play className="w-5 h-5 mr-2" /> Watch
-                              </Button>
-                            </a>
+                  <div className="space-y-6" id="sermons-list-top">
+                    <p className="text-sm text-church-text-light">
+                      Showing <span className="font-medium text-church-text">{showingFrom}</span>
+                      {"–"}
+                      <span className="font-medium text-church-text">{showingTo}</span> of{" "}
+                      <span className="font-medium text-church-text">{totalCount}</span>{" "}
+                      {totalCount === 1 ? "sermon" : "sermons"}
+                    </p>
+
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                      {paginatedVideos.map((video) => (
+                        <Card key={video.id.videoId} className="overflow-hidden border-0 shadow-soft">
+                          <div className="relative aspect-video">
+                            <img
+                              src={video.snippet.thumbnails.medium.url}
+                              alt={video.snippet.title}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-church-blue/20 opacity-0 hover:opacity-100 flex items-center justify-center transition">
+                              <a
+                                href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <Button variant="hero" size="lg">
+                                  <Play className="w-5 h-5 mr-2" /> Watch
+                                </Button>
+                              </a>
+                            </div>
                           </div>
-                        </div>
 
-                        <CardHeader>
-                          <Badge variant="secondary" className="text-xs">
-                            YouTube Sermon
-                          </Badge>
-                          <CardTitle className="line-clamp-2 text-church-text">
-                            {video.snippet.title}
-                          </CardTitle>
-                          <CardDescription className="flex items-center text-sm gap-3">
-                            <span className="flex items-center">
-                              <User className="w-4 h-4 mr-1" />
-                              {video.snippet.channelTitle}
-                            </span>
-                            <span className="flex items-center">
-                              <Calendar className="w-4 h-4 mr-1" />
-                              {new Date(video.snippet.publishedAt).toLocaleDateString()}
-                            </span>
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-sm text-church-text-light line-clamp-2">
-                            {video.snippet.description}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    ))}
+                          <CardHeader>
+                            <Badge variant="secondary" className="text-xs">
+                              YouTube Sermon
+                            </Badge>
+                            <CardTitle className="line-clamp-2 text-church-text">
+                              {video.snippet.title}
+                            </CardTitle>
+                            <CardDescription className="flex items-center text-sm gap-3">
+                              <span className="flex items-center">
+                                <User className="w-4 h-4 mr-1" />
+                                {video.snippet.channelTitle}
+                              </span>
+                              <span className="flex items-center">
+                                <Calendar className="w-4 h-4 mr-1" />
+                                {new Date(video.snippet.publishedAt).toLocaleDateString()}
+                              </span>
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-sm text-church-text-light line-clamp-2">
+                              {video.snippet.description}
+                            </p>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Pagination Controls */}
-                  <div className="flex justify-center gap-4 mt-10">
-                    <Button
-                      onClick={handlePrev}
-                      disabled={currentPage === 0}
-                      variant="outline"
-                    >
-                      Previous
-                    </Button>
-                    <Button
-                      onClick={handleNext}
-                      disabled={currentPage >= Math.ceil(filteredVideos.length / itemsPerPage) - 1}
-                      variant="outline"
-                    >
-                      Next
-                    </Button>
-                  </div>
+                  {totalPages > 1 && (
+                    <Pagination className="mt-10">
+                      <PaginationContent className="flex-wrap justify-center gap-1">
+                        <PaginationItem>
+                          <button
+                            type="button"
+                            aria-label="Go to previous page"
+                            disabled={safePage <= 1}
+                            onClick={() => {
+                              setCurrentPage((p) => Math.max(1, p - 1));
+                              document.getElementById("sermons-list-top")?.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                              });
+                            }}
+                            className={cn(
+                              buttonVariants({ variant: "outline", size: "default" }),
+                              "gap-1 pl-2.5",
+                              safePage <= 1 && "pointer-events-none opacity-50",
+                            )}
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                            <span className="hidden sm:inline">Previous</span>
+                          </button>
+                        </PaginationItem>
+
+                        {pageItems.map((item, idx) =>
+                          item === "ellipsis" ? (
+                            <PaginationItem key={`ellipsis-${idx}`}>
+                              <PaginationEllipsis />
+                            </PaginationItem>
+                          ) : (
+                            <PaginationItem key={item}>
+                              <button
+                                type="button"
+                                aria-label={`Go to page ${item}`}
+                                aria-current={item === safePage ? "page" : undefined}
+                                onClick={() => {
+                                  setCurrentPage(item);
+                                  document.getElementById("sermons-list-top")?.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "start",
+                                  });
+                                }}
+                                className={cn(
+                                  buttonVariants({
+                                    variant: item === safePage ? "outline" : "ghost",
+                                    size: "icon",
+                                  }),
+                                  "min-w-10",
+                                )}
+                              >
+                                {item}
+                              </button>
+                            </PaginationItem>
+                          ),
+                        )}
+
+                        <PaginationItem>
+                          <button
+                            type="button"
+                            aria-label="Go to next page"
+                            disabled={safePage >= totalPages}
+                            onClick={() => {
+                              setCurrentPage((p) => Math.min(totalPages, p + 1));
+                              document.getElementById("sermons-list-top")?.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                              });
+                            }}
+                            className={cn(
+                              buttonVariants({ variant: "outline", size: "default" }),
+                              "gap-1 pr-2.5",
+                              safePage >= totalPages && "pointer-events-none opacity-50",
+                            )}
+                          >
+                            <span className="hidden sm:inline">Next</span>
+                            <ChevronRight className="h-4 w-4" />
+                          </button>
+                        </PaginationItem>
+                      </PaginationContent>
+                    </Pagination>
+                  )}
                 </>
               )}
             </div>

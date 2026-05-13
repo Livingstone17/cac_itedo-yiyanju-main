@@ -15,7 +15,16 @@ import AboutCAC from "./pages/AboutCAC";
 import AboutItedo from "./pages/AboutItedo";
 import Ministries from "./pages/Ministries";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60,
+      gcTime: 1000 * 60 * 30,
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

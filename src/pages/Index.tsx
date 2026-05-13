@@ -10,10 +10,12 @@ import ProgramsSection from "@/components/Programs";
 import Gallery from "@/components/Gallery";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
 import MinistryDirectory from "@/components/MinistryDirectory";
+import HomeContentPrefetch from "@/components/HomeContentPrefetch";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <HomeContentPrefetch />
       {/* <AnnouncementBanner /> */}
       <div className="pt-16">
         <Hero />

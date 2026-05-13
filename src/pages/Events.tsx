@@ -1,24 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Calendar, MapPin, Link as LinkIcon, Clock, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Footer from '@/components/Footer';
 import { addSchemaToHead } from '@/lib/schema';
-import { apiUrl } from '@/lib/api';
+import { eventsQueryOptions, type ChurchEventRaw } from '@/queries/homeContent';
 
-interface ChurchEvent {
-    id: string;
-    title: string;
-    description: string;
-    date: string;
-    endDate: string;
-    location: string;
-    category?: string;
-    isOnline: boolean;
-    youtubeLiveUrl: string | null;
-    banner?: string;
-}
-
-interface ParsedEvent extends ChurchEvent {
+interface ParsedEvent extends ChurchEventRaw {
     parsedDate: Date;
     parsedEndDate: Date;
     isRecurring: boolean;
@@ -38,77 +26,12 @@ interface ParsedDateResult {
 }
 
 export default function EventsPage() {
-    const [events, setEvents] = useState<ParsedEvent[]>([]);
-    const [groupedEvents, setGroupedEvents] = useState<GroupedEvents>({});
-    const [loading, setLoading] = useState(true);
+    const { data, isPending: loading, isError } = useQuery(eventsQueryOptions);
+
     const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const [availableMonths, setAvailableMonths] = useState<string[]>([]);
-    const [availableCategories, setAvailableCategories] = useState<string[]>([]);
 
-    useEffect(() => {
-        fetch(apiUrl('/api/events'))
-            .then(res => res.json())
-            .then(data => {
-                const processedEvents = processEvents(data.events || []);
-                setEvents(processedEvents);
-                groupEventsByMonth(processedEvents);
-
-                // Extract unique months and categories
-                const months = Array.from(new Set(processedEvents.map(e =>
-                    e.parsedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })
-                ))).sort();
-                const categories = Array.from(new Set(processedEvents
-                    .filter(e => e.category)
-                    .map(e => e.category!)
-                    .sort()
-                ));
-
-                setAvailableMonths(months);
-                setAvailableCategories(categories);
-                setLoading(false);
-
-                // Add structured data for events page
-                const eventsSchema = {
-                    "@context": "https://schema.org",
-                    "@type": "CollectionPage",
-                    "name": "CAC Itedo Yiyanju Events",
-                    "url": "https://cacitedoyiyanju.org/events",
-                    "description": "Upcoming events and activities at CAC Itedo Yiyanju",
-                    "event": processedEvents.slice(0, 10).map(event => ({
-                        "@type": "Event",
-                        "name": event.title,
-                        "description": event.description,
-                        "startDate": event.parsedDate.toISOString(),
-                        "endDate": event.parsedEndDate.toISOString(),
-                        "eventStatus": "https://schema.org/EventScheduled",
-                        "eventAttendanceMode": event.isOnline
-                            ? "https://schema.org/OnlineEventAttendanceMode"
-                            : "https://schema.org/OfflineEventAttendanceMode",
-                        "location": event.isOnline
-                            ? {
-                                "@type": "VirtualLocation",
-                                "url": "https://cacitedoyiyanju.org/listen/video",
-                            }
-                            : {
-                                "@type": "Place",
-                                "name": event.location,
-                            },
-                        "organizer": {
-                            "@type": "Organization",
-                            "name": "CAC Itedo Yiyanju",
-                        },
-                    })),
-                };
-                addSchemaToHead(eventsSchema);
-            })
-            .catch(err => {
-                console.error('Failed to load events', err);
-                setLoading(false);
-            });
-    }, []);
-
-    const processEvents = (eventsList: ChurchEvent[]): ParsedEvent[] => {
+    const processEvents = (eventsList: ChurchEventRaw[]): ParsedEvent[] => {
         const processed: ParsedEvent[] = [];
         const today = new Date();
         today.setHours(0, 0, 0, 0); // Reset to start of today
@@ -185,7 +108,7 @@ export default function EventsPage() {
         const next12Months = new Date(today);
         next12Months.setMonth(next12Months.getMonth() + 13);
 
-        let recurrenceInfo = dateStr;
+        const recurrenceInfo = dateStr;
         let month = today.getMonth();
         let year = today.getFullYear();
 
@@ -350,20 +273,60 @@ export default function EventsPage() {
         return null;
     };
 
-    const groupEventsByMonth = (eventsList: ParsedEvent[]) => {
-        const grouped: GroupedEvents = {};
-        eventsList.forEach(event => {
-            const monthKey = event.parsedDate.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-            });
-            if (!grouped[monthKey]) {
-                grouped[monthKey] = [];
-            }
-            grouped[monthKey].push(event);
-        });
-        setGroupedEvents(grouped);
-    };
+    const events = useMemo(() => {
+        const raw = data?.events ?? [];
+        return processEvents(raw);
+    }, [data]); // eslint-disable-line react-hooks/exhaustive-deps -- processEvents is pure; only `data` should trigger recompute
+
+    const availableMonths = useMemo(
+        () =>
+            Array.from(
+                new Set(events.map((e) => e.parsedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' }))),
+            ).sort(),
+        [events],
+    );
+
+    const availableCategories = useMemo(
+        () =>
+            Array.from(new Set(events.filter((e) => e.category).map((e) => e.category!))).sort(),
+        [events],
+    );
+
+    useEffect(() => {
+        if (events.length === 0) return;
+        const eventsSchema = {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "CAC Itedo Yiyanju Events",
+            "url": "https://cacitedoyiyanju.org/events",
+            "description": "Upcoming events and activities at CAC Itedo Yiyanju",
+            "event": events.slice(0, 10).map((event) => ({
+                "@type": "Event",
+                "name": event.title,
+                "description": event.description,
+                "startDate": event.parsedDate.toISOString(),
+                "endDate": event.parsedEndDate.toISOString(),
+                "eventStatus": "https://schema.org/EventScheduled",
+                "eventAttendanceMode": event.isOnline
+                    ? "https://schema.org/OnlineEventAttendanceMode"
+                    : "https://schema.org/OfflineEventAttendanceMode",
+                "location": event.isOnline
+                    ? {
+                        "@type": "VirtualLocation",
+                        "url": "https://cacitedoyiyanju.org/listen/video",
+                    }
+                    : {
+                        "@type": "Place",
+                        "name": event.location,
+                    },
+                "organizer": {
+                    "@type": "Organization",
+                    "name": "CAC Itedo Yiyanju",
+                },
+            })),
+        };
+        addSchemaToHead(eventsSchema);
+    }, [events]);
 
     const formatDate = (date: Date) => {
         return date.toLocaleDateString('en-US', {
@@ -432,6 +395,20 @@ export default function EventsPage() {
                     <p className="text-lg text-church-text-light">Loading upcoming events...</p>
                 </div>
             </div>
+        );
+    }
+
+    if (isError) {
+        return (
+            <>
+                <section className="py-20 pt-32">
+                    <div className="container mx-auto px-4 text-center">
+                        <h2 className="text-3xl font-bold text-church-text mb-4">Upcoming <span className="text-church-gold">Events</span></h2>
+                        <p className="text-church-text-light">We couldn&apos;t load events right now. Please try again shortly.</p>
+                    </div>
+                </section>
+                <Footer />
+            </>
         );
     }
 
