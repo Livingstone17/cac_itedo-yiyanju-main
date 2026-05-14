@@ -130,7 +130,7 @@ const GivePage: React.FC = () => {
             </section>
 
             {/* Giving Options Section */}
-            <section id="giving-options" className="py-20 bg-white">
+            <section id="giving-options" className="py-20 bg-background">
                 <div className="container mx-auto px-6">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-bold text-church-text mb-4">Ways to Give</h2>
@@ -248,7 +248,7 @@ const GivePage: React.FC = () => {
             </section>
 
             {/* Give to Specific Campus Section */}
-            <section className="py-20 bg-white">
+            <section className="py-20 bg-background">
                 <div className="container mx-auto px-6">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-bold text-church-text mb-4">Give to Specific Branch</h2>
@@ -316,7 +316,7 @@ const GivePage: React.FC = () => {
                                                         </div>
                                                         <button
                                                             onClick={() => handleCopyCampusAccountNumber(account.accountNumber, idx)}
-                                                            className="p-2 rounded-lg hover:bg-white transition-colors flex-shrink-0"
+                                                            className="p-2 rounded-lg hover:bg-muted transition-colors flex-shrink-0"
                                                             title="Copy account number"
                                                         >
                                                             {copiedCampusIndex === idx ? (

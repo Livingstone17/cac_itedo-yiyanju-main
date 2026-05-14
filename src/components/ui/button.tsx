@@ -20,7 +20,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         hero: "bg-gradient-accent text-church-text hover:shadow-large transform hover:scale-105 font-semibold border-0",
         "church-primary": "bg-church-blue text-white hover:bg-church-blue-light shadow-soft hover:shadow-medium",
-        "church-secondary": "bg-white text-church-blue border border-church-blue/20 hover:bg-church-cream hover:border-church-blue/40 shadow-soft",
+        "church-secondary": "bg-white text-church-blue border border-church-blue/20 hover:bg-church-cream hover:border-church-blue/40 shadow-soft dark:bg-card dark:text-foreground dark:border-border dark:hover:bg-muted dark:hover:border-border",
       },
       size: {
         default: "h-10 px-4 py-2",

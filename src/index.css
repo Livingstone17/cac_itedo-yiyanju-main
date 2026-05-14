@@ -8,6 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    color-scheme: light;
     --background: 0 0% 100%;
     --foreground: 215 25% 27%;
 
@@ -79,6 +80,7 @@ All colors MUST be HSL.
   }
 
   .dark {
+    color-scheme: dark;
     --background: 215 28% 17%;
     --foreground: 0 0% 98%;
 
@@ -123,6 +125,14 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(var(--church-blue)), hsl(var(--church-blue-light)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--church-gold)), hsl(var(--church-gold-light)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(215 28% 12%));
+
+    --shadow-soft: 0 4px 20px -2px hsl(0 0% 0% / 0.35);
+    --shadow-medium: 0 8px 30px -4px hsl(0 0% 0% / 0.4);
+    --shadow-large: 0 20px 40px -8px hsl(0 0% 0% / 0.45);
   }
 }
 

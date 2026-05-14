@@ -25,7 +25,7 @@ const Gallery = () => {
 
     if (loading) {
         return (
-            <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+            <section className="py-20 bg-gradient-to-b from-background to-muted/30">
                 <div className="container mx-auto px-4 text-center">
                     <p>Loading gallery...</p>
                 </div>
@@ -34,7 +34,7 @@ const Gallery = () => {
     }
 
     return (
-        <section className="py-20 bg-gradient-to-b from-white to-gray-50" id="gallery">
+        <section className="py-20 bg-gradient-to-b from-background to-muted/30" id="gallery">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold text-church-text mb-4">

@@ -58,7 +58,7 @@ const WatchLivePage = () => {
     }, []);
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-50">
+        <div className="min-h-screen flex flex-col bg-background">
             {/* Header */}
             <header className="bg-black text-white py-6 text-center">
                 <h1 className="text-3xl md:text-4xl font-bold">Our Services LIVE</h1>
@@ -126,7 +126,7 @@ const WatchLivePage = () => {
             </section>
 
             {/* What to Expect Section */}
-            <section className="py-16 bg-white">
+            <section className="py-16 bg-background">
                 <div className="container mx-auto px-6 max-w-6xl">
                     <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
                         What to Expect at CAC ITEDO YIYANJU

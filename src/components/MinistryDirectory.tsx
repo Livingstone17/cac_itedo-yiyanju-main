@@ -19,7 +19,16 @@ const MinistryDirectory = () => {
     ];
 
     return (
-        <section className="py-20" id="ministries" style={{ backgroundColor: "#F5F5EF", marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", paddingLeft: "calc(50vw - 50%)", paddingRight: "calc(50vw - 50%)" }}>
+        <section
+            className="py-20 bg-church-cream border-y border-border/60"
+            id="ministries"
+            style={{
+                marginLeft: "calc(-50vw + 50%)",
+                marginRight: "calc(-50vw + 50%)",
+                paddingLeft: "calc(50vw - 50%)",
+                paddingRight: "calc(50vw - 50%)",
+            }}
+        >
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold text-church-text mb-6">
@@ -41,7 +50,7 @@ const MinistryDirectory = () => {
                         <div>
                             <a
                                 href="/ministries"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-church-text text-church-text hover:bg-church-text hover:text-white font-semibold transition-colors duration-300 rounded-full"
+                                className="inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-church-text text-church-text hover:bg-church-text hover:text-primary-foreground font-semibold transition-colors duration-300 rounded-full"
                             >
                                 See All Ministries
                             </a>
@@ -53,7 +62,7 @@ const MinistryDirectory = () => {
                         {featuredMinistries.map((ministry) => (
                             <Card
                                 key={ministry.id}
-                                className="border-0 shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group cursor-pointer h-full"
+                                className="border border-border bg-card text-card-foreground shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group cursor-pointer h-full"
                             >
                                 {/* Image Container */}
                                 <div className="relative overflow-hidden h-64">

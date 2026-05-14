@@ -111,7 +111,7 @@ const About = () => {
             </div>
 
             {/* Stats Overlay */}
-            <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-large p-6 border border-church-blue/10">
+            <div className="absolute -bottom-6 -right-6 bg-card rounded-xl shadow-large p-6 border border-border">
               <div className="grid grid-cols-2 gap-4 text-center">
                 {stats.slice(0, 2).map((stat, index) => (
                   <div key={index}>
@@ -124,14 +124,22 @@ const About = () => {
           </div>
         </div>
 
-        {/* Values */}
-        <div className="mb-2 py-12" style={{ backgroundColor: "#F5F5EF", marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", paddingLeft: "calc(50vw - 50%)", paddingRight: "calc(50vw - 50%)" }}>
+        {/* Values — bg-church-cream follows light/dark tokens (not fixed #F5F5EF) */}
+        <div
+          className="mb-2 py-12 bg-church-cream border-y border-border/60"
+          style={{
+            marginLeft: "calc(-50vw + 50%)",
+            marginRight: "calc(-50vw + 50%)",
+            paddingLeft: "calc(50vw - 50%)",
+            paddingRight: "calc(50vw - 50%)",
+          }}
+        >
           <h3 className="text-3xl font-bold text-church-text text-center mb-12">Our Core Values</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((value, index) => {
               const IconComponent = value.icon;
               return (
-                <Card key={index} className="text-center shadow-soft hover:shadow-medium transition-all duration-300 border-church-blue/10 group">
+                <Card key={index} className="text-center bg-card text-card-foreground shadow-soft hover:shadow-medium transition-all duration-300 border border-border group">
                   <CardContent className="p-6">
                     <div className={`w-16 h-16 ${value.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
                       <IconComponent className="w-8 h-8 text-white" />

@@ -440,7 +440,7 @@ export default function EventsPage() {
                     </div>
 
                     {/* Filters Section */}
-                    <div className="mb-12 p-6 bg-white rounded-lg border border-border">
+                    <div className="mb-12 p-6 bg-card rounded-lg border border-border">
                         <h3 className="text-lg font-semibold text-church-text mb-6">Filter Events</h3>
 
                         <div className="grid md:grid-cols-2 gap-8">
@@ -453,7 +453,7 @@ export default function EventsPage() {
                                     id="month-filter"
                                     value={selectedMonth || ''}
                                     onChange={(e) => setSelectedMonth(e.target.value || null)}
-                                    className="w-full px-4 py-2 border border-border rounded-lg bg-white text-church-text focus:outline-none focus:ring-2 focus:ring-church-gold transition-all"
+                                    className="w-full px-4 py-2 border border-border rounded-lg bg-background text-church-text focus:outline-none focus:ring-2 focus:ring-church-gold transition-all"
                                 >
                                     <option value="">All Months</option>
                                     {availableMonths.map(month => (
@@ -473,7 +473,7 @@ export default function EventsPage() {
                                     id="category-filter"
                                     value={selectedCategory || ''}
                                     onChange={(e) => setSelectedCategory(e.target.value || null)}
-                                    className="w-full px-4 py-2 border border-border rounded-lg bg-white text-church-text focus:outline-none focus:ring-2 focus:ring-church-gold transition-all capitalize"
+                                    className="w-full px-4 py-2 border border-border rounded-lg bg-background text-church-text focus:outline-none focus:ring-2 focus:ring-church-gold transition-all capitalize"
                                 >
                                     <option value="">All Categories</option>
                                     {availableCategories.map(category => (
@@ -509,7 +509,7 @@ export default function EventsPage() {
 
                                         <div className="space-y-6">
                                             {monthEvents.map((event) => (
-                                                <div key={event.id} className="group border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 bg-white">
+                                                <div key={event.id} className="group border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 bg-card">
                                                     <div className="grid md:grid-cols-3 gap-6 p-6">
                                                         {/* Event Image */}
                                                         {event.banner && (

@@ -97,7 +97,7 @@ export default function AboutCACPage() {
                                 {/* Tenets Grid */}
                                 <div className="grid md:grid-cols-2 gap-6 mt-10">
                                     {/* Tenet 1 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">1.</span>
                                             <span>The Unity of the God-head and the Trinity of Persons Therein</span>
@@ -108,7 +108,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 2 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">2.</span>
                                             <span>The Utter Depravity of Human Nature</span>
@@ -119,7 +119,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 3 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">3.</span>
                                             <span>The Work of Christ</span>
@@ -130,7 +130,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 4 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">4.</span>
                                             <span>Justification and Sanctification</span>
@@ -141,7 +141,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 5 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">5.</span>
                                             <span>The Baptism of the Holy Ghost</span>
@@ -152,7 +152,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 6 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">6.</span>
                                             <span>The Nine Gifts of the Holy Ghost</span>
@@ -163,7 +163,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 7 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">7.</span>
                                             <span>The Sacraments</span>
@@ -174,7 +174,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 8 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">8.</span>
                                             <span>The Divine Authority of Scripture</span>
@@ -185,7 +185,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 9 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">9.</span>
                                             <span>Church Government</span>
@@ -196,7 +196,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 10 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">10.</span>
                                             <span>The Possibility of Falling From Grace</span>
@@ -207,7 +207,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 11 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">11.</span>
                                             <span>Tithes and Offerings</span>
@@ -218,7 +218,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 12 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">12.</span>
                                             <span>Divine Healing</span>
@@ -229,7 +229,7 @@ export default function AboutCACPage() {
                                     </div>
 
                                     {/* Tenet 13 */}
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300">
                                         <h3 className="text-lg font-bold text-church-text mb-3 flex items-start">
                                             <span className="text-church-gold mr-3 font-bold">13.</span>
                                             <span>Faith in God's Provision</span>

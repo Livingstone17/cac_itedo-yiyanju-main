@@ -31,7 +31,15 @@ const ProgramsSection = () => {
   ];
 
   return (
-    <section className="py-16" style={{ backgroundColor: "#F5F5EF", marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", paddingLeft: "calc(50vw - 50%)", paddingRight: "calc(50vw - 50%)" }}>
+    <section
+      className="py-16 bg-church-cream border-y border-border/60"
+      style={{
+        marginLeft: "calc(-50vw + 50%)",
+        marginRight: "calc(-50vw + 50%)",
+        paddingLeft: "calc(50vw - 50%)",
+        paddingRight: "calc(50vw - 50%)",
+      }}
+    >
       <div className="container mx-auto px-6">
         {/* Section Heading */}
         <div className="text-center mb-16">
@@ -69,8 +77,8 @@ const ProgramsSection = () => {
                       <div className="py-4 flex gap-4">
                         {/* Icon */}
                         <div className="flex-shrink-0">
-                          <div className="w-12 h-12 bg-church-gold/10 rounded-lg flex items-center justify-center">
-                            <IconComponent className="w-6 h-6 text-church-black" />
+                          <div className="w-12 h-12 bg-church-gold/15 dark:bg-church-gold/20 rounded-lg flex items-center justify-center">
+                            <IconComponent className="w-6 h-6 text-church-gold" />
                           </div>
                         </div>
                         {/* Program Details */}
@@ -87,7 +95,7 @@ const ProgramsSection = () => {
                         </div>
                       </div>
                       {index < weeklyMeetings.length - 1 && (
-                        <div className="border-b border-church-blue/10"></div>
+                        <div className="border-b border-border"></div>
                       )}
                     </div>
                   );

@@ -208,7 +208,7 @@ export default function AboutItedoPage() {
 
                                 {/* Leadership Responsibilities */}
                                 <div className="grid md:grid-cols-2 gap-6 mt-8">
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300 flex items-start">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300 flex items-start">
                                         <Users className="w-6 h-6 text-church-gold mr-4 flex-shrink-0 mt-1" />
                                         <div>
                                             <h4 className="font-bold text-church-text mb-2">Spiritual Oversight</h4>
@@ -218,7 +218,7 @@ export default function AboutItedoPage() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300 flex items-start">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300 flex items-start">
                                         <BookOpen className="w-6 h-6 text-church-gold mr-4 flex-shrink-0 mt-1" />
                                         <div>
                                             <h4 className="font-bold text-church-text mb-2">Teaching & Doctrine</h4>
@@ -228,7 +228,7 @@ export default function AboutItedoPage() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300 flex items-start">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300 flex items-start">
                                         <Heart className="w-6 h-6 text-church-gold mr-4 flex-shrink-0 mt-1" />
                                         <div>
                                             <h4 className="font-bold text-church-text mb-2">Spiritual Care</h4>
@@ -238,7 +238,7 @@ export default function AboutItedoPage() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-white rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300 flex items-start">
+                                    <div className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-all duration-300 flex items-start">
                                         <Share2 className="w-6 h-6 text-church-gold mr-4 flex-shrink-0 mt-1" />
                                         <div>
                                             <h4 className="font-bold text-church-text mb-2">Community Impact</h4>
@@ -284,7 +284,7 @@ export default function AboutItedoPage() {
                             {pastorateMembers.map((pastor) => (
                                 <div
                                     key={pastor.id}
-                                    className="bg-white rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300"
+                                    className="bg-card rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300"
                                 >
                                     {/* Pastor Image */}
                                     <div className="relative w-full h-64 overflow-hidden bg-gradient-to-br from-church-blue to-church-blue/80">

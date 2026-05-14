@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import {
   Menu,
   X,
-  Church,
   Users,
   Heart,
   Phone,
@@ -13,6 +12,7 @@ import {
   Mic,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,7 +52,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-border z-50 shadow-soft">
+    <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50 shadow-soft">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -69,7 +69,8 @@ const Navigation = () => {
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8 relative">
+          <div className="hidden md:flex items-center gap-3">
+            <div className="flex items-center space-x-8 relative">
             {navigationItems.map((item) =>
               item.dropdown ? (
                 <div key={item.label} className="relative">
@@ -81,7 +82,7 @@ const Navigation = () => {
                     <ChevronDown className="w-4 h-4" />
                   </button>
                   {item.label === "About Us" && isAboutDropdownOpen && (
-                    <div className="absolute top-full mt-2 bg-white border border-border rounded-lg shadow-lg w-56">
+                    <div className="absolute top-full mt-2 bg-popover text-popover-foreground border border-border rounded-lg shadow-lg w-56">
                       {aboutItems.map((aboutItem) => (
                         <a
                           key={aboutItem.label}
@@ -91,7 +92,7 @@ const Navigation = () => {
                             setIsAboutDropdownOpen(false);
                             navigate(aboutItem.href);
                           }}
-                          className="flex items-center px-4 py-2 text-sm text-church-text-light hover:bg-gray-100 hover:text-church-text first:rounded-t-lg last:rounded-b-lg"
+                          className="flex items-center px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground first:rounded-t-lg last:rounded-b-lg"
                         >
                           {aboutItem.label}
                         </a>
@@ -99,17 +100,17 @@ const Navigation = () => {
                     </div>
                   )}
                   {item.label === "Live Stream" && isLiveDropdownOpen && (
-                    <div className="absolute top-full mt-2 bg-white border border-border rounded-lg shadow-lg w-40">
+                    <div className="absolute top-full mt-2 bg-popover text-popover-foreground border border-border rounded-lg shadow-lg w-40">
                       <a
                         href="/listen/video"
-                        className="flex items-center px-4 py-2 text-xs text-church-text-light hover:bg-gray-100 hover:text-church-text"
+                        className="flex items-center px-4 py-2 text-xs text-muted-foreground hover:bg-muted hover:text-foreground"
                       >
                         <Video className="w-4 h-4 mr-2" />
                         Watch Us Live
                       </a>
                       <a
                         href="/listen/audio"
-                        className="flex items-center px-4 py-2 text-sm text-church-text-light hover:bg-gray-100 hover:text-church-text"
+                        className="flex items-center px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
                       >
                         <Mic className="w-4 h-4 mr-2" />
                         Listen Live
@@ -133,17 +134,17 @@ const Navigation = () => {
                 </a>
               ) : null
             )}
+            </div>
+            <ThemeToggle />
           </div>
 
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </Button>
+          {/* Mobile: theme + menu */}
+          <div className="flex items-center gap-1 md:hidden">
+            <ThemeToggle />
+            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

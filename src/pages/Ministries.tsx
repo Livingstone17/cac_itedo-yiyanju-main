@@ -115,7 +115,7 @@ export default function MinistriesPage() {
     return (
         <div className="min-h-screen pt-16 bg-background">
             {/* Header */}
-            <section className="py-16 bg-gradient-to-b from-white to-background">
+            <section className="py-16 bg-gradient-to-b from-background to-muted/25">
                 <div className="container mx-auto px-4 max-w-5xl">
                     <p className="text-base font-semibold text-church-gold tracking-widest uppercase mb-4">
                         🌍 Our Ministries
@@ -186,7 +186,7 @@ export default function MinistriesPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-16 bg-white">
+            <section className="py-16 bg-background">
                 <div className="container mx-auto px-4 max-w-4xl text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-church-text mb-6">
                         Ready to Get <span className="text-church-gold">Involved?</span>
