@@ -246,7 +246,7 @@ export default function AboutCACPage() {
                     {/* Call to Action */}
                     <div className="bg-gradient-to-r from-church-blue/10 to-church-gold/10 rounded-lg p-8 border border-church-gold/20 text-center">
                         <h3 className="text-2xl font-bold text-church-text mb-4">
-                            Join Our Community
+                            Join Our Church
                         </h3>
                         <p className="text-church-text-light mb-6 max-w-2xl mx-auto">
                             Discover more about the Christ Apostolic Church and how you can be part of this growing movement of believers dedicated to apostolic Christianity and spiritual renewal.
