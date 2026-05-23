@@ -1,47 +1,55 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  Menu,
-  X,
-  Users,
-  Heart,
-  Phone,
-  ChevronDown,
-  Video,
-  Mic,
-} from "lucide-react";
+import { Menu, X, Users, Heart, Phone, ChevronDown, Video, Mic } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
+type DropdownType = "about" | "live" | null;
+
+interface NavItem {
+  label: string;
+  href?: string;
+  dropdown?: boolean;
+  icon: React.ElementType;
+}
+
+const aboutItems = [
+  { label: "History of CAC", href: "/about-cac" },
+  { label: "Tenets of CAC", href: "/about-cac/#tenets" },
+  { label: "History of CAC Itedo Yiyanju", href: "/about-itedo" },
+  { label: "The Pastorate", href: "/about-itedo/#pastorate" },
+];
+
+const navigationItems: NavItem[] = [
+  { label: "Home", href: "/", icon: Users },
+  { label: "About Us", dropdown: true, icon: Users },
+  { label: "Live Stream", dropdown: true, icon: Video },
+  { label: "Events", href: "/events", icon: Users },
+  { label: "Sermons", href: "/sermons", icon: Users },
+  { label: "Give", href: "/give", icon: Heart },
+  { label: "Contact Us", href: "#contact", icon: Phone },
+];
+
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLiveDropdownOpen, setIsLiveDropdownOpen] = useState(false);
-  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<DropdownType>(null);
   const navigate = useNavigate();
+  const aboutDropdownRef = useRef<HTMLDivElement | null>(null);
+  const liveDropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const aboutItems = [
-    { label: "History of CAC", href: "/about-cac" },
-    { label: "Tenets of CAC", href: "/about-cac" },
-    { label: "History of CAC Itedo Yiyanju", href: "/about-itedo" },
-    { label: "The Pastorate", href: "/about-itedo" },
-  ];
+  const toggleDropdown = (dropdown: "about" | "live") => {
+    setOpenDropdown((prev) => (prev === dropdown ? null : dropdown));
+  };
 
-  const navigationItems = [
-    { label: "Home", href: "/", dropdown: false, icon: Users },
-    { label: "About Us", dropdown: true, icon: Users },
-    { label: "Live Stream", dropdown: true, icon: Video },
-    { label: "Events", href: "/events", icon: Users },
-    { label: "Sermons", href: "/sermons", icon: Users },
-    { label: "Give", href: "/give", icon: Heart },
-    { label: "Contact Us", href: "#contact", icon: Phone },
-  ];
+  const closeAllMenus = () => {
+    setOpenDropdown(null);
+    setIsMenuOpen(false);
+  };
 
   const handleAnchorClick = (href: string) => {
-    // If href starts with #, navigate to home page with hash
     if (href.startsWith("#")) {
       navigate("/");
-      // Use setTimeout to ensure navigation completes before scrolling
       setTimeout(() => {
         const element = document.querySelector(href);
         if (element) {
@@ -51,182 +59,229 @@ const Navigation = () => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (openDropdown === null) return;
+      const target = event.target as Node;
+      const isInsideAbout = aboutDropdownRef.current?.contains(target);
+      const isInsideLive = liveDropdownRef.current?.contains(target);
+      if (!isInsideAbout && !isInsideLive) {
+        setOpenDropdown(null);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpenDropdown(null);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [openDropdown]);
+
+  // ✅ Extracted as separate render functions — no more ternary issues
+  const renderDesktopItem = (item: NavItem) => {
+    if (item.dropdown) {
+      const dropdownType = item.label === "About Us" ? "about" : "live";
+      const ref = item.label === "About Us" ? aboutDropdownRef : liveDropdownRef;
+
+      return (
+        <div key={item.label} className="relative" ref={ref}>
+          <button className="flex items-center space-x-1 text-sm font-normal text-church-text-light transition-colors duration-300 hover:text-church-text" onClick={() => toggleDropdown(dropdownType)}>
+            <span>{item.label}</span>
+            <ChevronDown className="h-4 w-4" />
+          </button>
+
+          {item.label === "About Us" && openDropdown === "about" && (
+            <div className="absolute top-full mt-2 w-56 rounded-lg border border-border bg-popover text-popover-foreground shadow-lg">
+              {aboutItems.map((aboutItem) => (
+                <a
+                  key={aboutItem.label}
+                  href={aboutItem.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenDropdown(null);
+
+                    const [path, hash] = aboutItem.href.split("#");
+
+                    if (hash) {
+                      navigate(aboutItem.href);
+                      window.location.href = aboutItem.href;
+                    } else {
+                      navigate(aboutItem.href);
+                    }
+                  }}
+                  className="flex items-center px-4 py-2 text-sm text-muted-foreground first:rounded-t-lg last:rounded-b-lg hover:bg-muted hover:text-foreground"
+                >
+                  {aboutItem.label}
+                </a>
+              ))}
+            </div>
+          )}
+
+          {item.label === "Live Stream" && openDropdown === "live" && (
+            <div className="absolute top-full mt-2 w-40 rounded-lg border border-border bg-popover text-popover-foreground shadow-lg">
+              <a href="/listen/video" className="flex items-center px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground" onClick={() => setOpenDropdown(null)}>
+                <Video className="mr-2 h-4 w-4" />
+                Watch Us Live
+              </a>
+              <a href="/listen/audio" className="flex items-center px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground" onClick={() => setOpenDropdown(null)}>
+                <Mic className="mr-2 h-4 w-4" />
+                Listen Live
+              </a>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    if (item.href) {
+      return (
+        <a
+          key={item.label}
+          href={item.href}
+          onClick={(e) => {
+            setOpenDropdown(null);
+            if (item.href!.startsWith("#")) {
+              e.preventDefault();
+              handleAnchorClick(item.href!);
+            }
+          }}
+          className="font-normal text-church-text-light transition-colors duration-300 hover:text-church-text"
+        >
+          {item.label}
+        </a>
+      );
+    }
+
+    return null;
+  };
+
+  const renderMobileItem = (item: NavItem) => {
+    const IconComponent = item.icon;
+
+    if (item.dropdown) {
+      const dropdownType = item.label === "About Us" ? "about" : "live";
+
+      return (
+        <div key={item.label}>
+          <button onClick={() => toggleDropdown(dropdownType)} className="flex w-full items-center space-x-3 py-2 text-left text-church-text-light transition-colors duration-300 hover:text-church-text">
+            <IconComponent className="h-5 w-5" />
+            <span className="font-normal">{item.label}</span>
+            <ChevronDown className="ml-auto h-4 w-4" />
+          </button>
+
+          {item.label === "About Us" && openDropdown === "about" && (
+            <div className="ml-8 flex flex-col space-y-2">
+              {aboutItems.map((aboutItem) => (
+                <a
+                  key={aboutItem.label}
+                  href={aboutItem.href}
+                  className="flex items-center text-sm text-church-text-light hover:text-church-text"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    closeAllMenus();
+
+                    if (aboutItem.href.includes("#")) {
+                      window.location.href = aboutItem.href;
+                    } else {
+                      navigate(aboutItem.href);
+                    }
+                  }}
+                >
+                  {aboutItem.label}
+                </a>
+              ))}
+            </div>
+          )}
+
+          {item.label === "Live Stream" && openDropdown === "live" && (
+            <div className="ml-8 flex flex-col space-y-2">
+              <a href="/listen/video" className="flex items-center text-sm text-church-text-light hover:text-church-text" onClick={closeAllMenus}>
+                <Video className="mr-2 h-4 w-4" />
+                Watch Live
+              </a>
+              <a href="/listen/audio" className="flex items-center text-sm text-church-text-light hover:text-church-text" onClick={closeAllMenus}>
+                <Mic className="mr-2 h-4 w-4" />
+                Listen Live
+              </a>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <a
+        key={item.label}
+        href={item.href}
+        className="flex items-center space-x-3 py-2 text-church-text-light transition-colors duration-300 hover:text-church-text"
+        onClick={(e) => {
+          if (item.href?.startsWith("#")) {
+            e.preventDefault();
+            closeAllMenus();
+            handleAnchorClick(item.href);
+          } else {
+            closeAllMenus();
+          }
+        }}
+      >
+        <IconComponent className="h-5 w-5" />
+        <span className="font-normal">{item.label}</span>
+      </a>
+    );
+  };
+
   return (
-    <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50 shadow-soft">
+    <nav className="fixed top-0 z-50 w-full border-b border-border bg-background/95 shadow-soft backdrop-blur-sm">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <button
-            onClick={() => navigate("/")}
-            className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
+            onClick={() => {
+              closeAllMenus();
+              navigate("/");
+            }}
+            className="flex cursor-pointer items-center space-x-2 transition-opacity hover:opacity-80"
           >
-            <div className="w-10 h-10 bg-gradient-accent rounded-lg flex items-center justify-center shadow-soft">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-accent shadow-soft">
               <img src={logo} alt="Church Logo" />
             </div>
-            <span className="text-xl font-bold text-church-text">
-              Itedo Yiyanju
-            </span>
+            <span className="text-xl font-bold text-church-text">Itedo Yiyanju</span>
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-3">
-            <div className="flex items-center space-x-8 relative">
-            {navigationItems.map((item) =>
-              item.dropdown ? (
-                <div key={item.label} className="relative">
-                  <button
-                    className="flex  text-sm items-center space-x-1 text-church-text-light hover:text-church-text transition-colors duration-300 font-normal"
-                    onClick={() => item.label === "About Us" ? setIsAboutDropdownOpen(!isAboutDropdownOpen) : setIsLiveDropdownOpen(!isLiveDropdownOpen)}
-                  >
-                    <span>{item.label}</span>
-                    <ChevronDown className="w-4 h-4" />
-                  </button>
-                  {item.label === "About Us" && isAboutDropdownOpen && (
-                    <div className="absolute top-full mt-2 bg-popover text-popover-foreground border border-border rounded-lg shadow-lg w-56">
-                      {aboutItems.map((aboutItem) => (
-                        <a
-                          key={aboutItem.label}
-                          href={aboutItem.href}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setIsAboutDropdownOpen(false);
-                            navigate(aboutItem.href);
-                          }}
-                          className="flex items-center px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground first:rounded-t-lg last:rounded-b-lg"
-                        >
-                          {aboutItem.label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                  {item.label === "Live Stream" && isLiveDropdownOpen && (
-                    <div className="absolute top-full mt-2 bg-popover text-popover-foreground border border-border rounded-lg shadow-lg w-40">
-                      <a
-                        href="/listen/video"
-                        className="flex items-center px-4 py-2 text-xs text-muted-foreground hover:bg-muted hover:text-foreground"
-                      >
-                        <Video className="w-4 h-4 mr-2" />
-                        Watch Us Live
-                      </a>
-                      <a
-                        href="/listen/audio"
-                        className="flex items-center px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
-                      >
-                        <Mic className="w-4 h-4 mr-2" />
-                        Listen Live
-                      </a>
-                    </div>
-                  )}
-                </div>
-              ) : item.href ? (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => {
-                    if (item.href.startsWith("#")) {
-                      e.preventDefault();
-                      handleAnchorClick(item.href);
-                    }
-                  }}
-                  className="text-church-text-light hover:text-church-text transition-colors duration-300 font-normal"
-                >
-                  {item.label}
-                </a>
-              ) : null
-            )}
-            </div>
+          <div className="hidden items-center gap-3 md:flex">
+            <div className="relative flex items-center space-x-8">{navigationItems.map(renderDesktopItem)}</div>
             <ThemeToggle />
           </div>
 
           {/* Mobile: theme + menu */}
           <div className="flex items-center gap-1 md:hidden">
             <ThemeToggle />
-            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                setIsMenuOpen((prev) => {
+                  const next = !prev;
+                  if (!next) setOpenDropdown(null);
+                  return next;
+                });
+              }}
+            >
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <div className="flex flex-col space-y-4">
-              {navigationItems.map((item) => {
-                const IconComponent = item.icon;
-                if (item.dropdown) {
-                  return (
-                    <div key={item.label}>
-                      <button
-                        onClick={() => item.label === "About Us" ? setIsAboutDropdownOpen(!isAboutDropdownOpen) : setIsLiveDropdownOpen(!isLiveDropdownOpen)}
-                        className="flex items-center space-x-3 text-church-text-light hover:text-church-text transition-colors duration-300 py-2 w-full text-left"
-                      >
-                        <IconComponent className="w-5 h-5" />
-                        <span className="font-normal">{item.label}</span>
-                        <ChevronDown className="w-4 h-4 ml-auto" />
-                      </button>
-                      {item.label === "About Us" && isAboutDropdownOpen && (
-                        <div className="ml-8 flex flex-col space-y-2">
-                          {aboutItems.map((aboutItem) => (
-                            <a
-                              key={aboutItem.label}
-                              href={aboutItem.href}
-                              className="flex items-center text-sm text-church-text-light hover:text-church-text"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                setIsMenuOpen(false);
-                                setIsAboutDropdownOpen(false);
-                                navigate(aboutItem.href);
-                              }}
-                            >
-                              {aboutItem.label}
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                      {item.label === "Live Stream" && isLiveDropdownOpen && (
-                        <div className="ml-8 flex flex-col space-y-2">
-                          <a
-                            href="/listen/video"
-                            className="flex items-center text-sm text-church-text-light hover:text-church-text"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            <Video className="w-4 h-4 mr-2" />
-                            Watch Live
-                          </a>
-                          <a
-                            href="/listen/audio"
-                            className="flex items-center text-sm text-church-text-light hover:text-church-text"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            <Mic className="w-4 h-4 mr-2" />
-                            Listen Live
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  );
-                }
-                return (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="flex items-center space-x-3 text-church-text-light hover:text-church-text transition-colors duration-300 py-2"
-                    onClick={(e) => {
-                      if (item.href.startsWith("#")) {
-                        e.preventDefault();
-                        setIsMenuOpen(false);
-                        handleAnchorClick(item.href);
-                      } else {
-                        setIsMenuOpen(false);
-                      }
-                    }}
-                  >
-                    <IconComponent className="w-5 h-5" />
-                    <span className="font-normal">{item.label}</span>
-                  </a>
-                );
-              })}
-            </div>
+          <div className="border-t border-border py-4 md:hidden">
+            <div className="flex flex-col space-y-4">{navigationItems.map(renderMobileItem)}</div>
           </div>
         )}
       </div>
