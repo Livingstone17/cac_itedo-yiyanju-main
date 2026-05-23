@@ -113,11 +113,9 @@ const Gallery = () => {
               </div>
 
               {/* Watermark overlay for screenshot protection */}
-              {/* <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-10">
-                                <div className="text-white text-6xl font-bold transform -rotate-45 whitespace-nowrap">
-                                    CAC ITEDO YIYANJU
-                                </div>
-                            </div> */}
+              {/* <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-10">
+                <div className="-rotate-45 transform whitespace-nowrap text-6xl font-bold text-white">CAC ITEDO YIYANJU</div>
+              </div> */}
             </div>
           )}
         </DialogContent>

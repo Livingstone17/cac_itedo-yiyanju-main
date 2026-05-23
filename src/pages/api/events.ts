@@ -9,7 +9,7 @@ const events = [
     date: "2025-10-15",
     time: "10:00 AM",
     location: "Church Auditorium",
-    description: "Join us for our annual thanksgiving service with worship, testimonies, and praise."
+    description: "Join us for our annual thanksgiving service with worship, testimonies, and praise.",
   },
   {
     id: 2,
@@ -18,8 +18,8 @@ const events = [
     date: "2025-11-02",
     time: "9:00 AM",
     location: "Main Hall",
-    description: "A life-changing conference for the next generation of leaders."
-  }
+    description: "A life-changing conference for the next generation of leaders.",
+  },
 ];
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {

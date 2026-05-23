@@ -101,7 +101,7 @@ const Sermons = () => {
               <div className="mb-8">
                 <div className="relative">
                   <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 transform text-church-text-light" />
-                  <Input type="text" placeholder="Search sermons by title or date..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="border-none border-church-blue/20 py-2 pl-12 outline-none focus:border-church-blue" />
+                  <Input type="text" placeholder="Search sermons by title or date..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="rounded-md border-church-blue/20 py-2 pl-12 outline-none focus:border-church-blue" />
                 </div>
                 {filteredVideos.length > 0 && (
                   <p className="mt-2 text-sm text-church-text-light">

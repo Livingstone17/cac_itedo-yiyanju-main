@@ -11,6 +11,7 @@ import Sermons from "./pages/Sermons";
 import Give from "./pages/Give";
 import Navigation from "./components/Navigation";
 import WhatsAppButton from "./components/Whatsapp";
+import { ScrollToTop } from "./components/ui/scroll-to-top";
 import Events from "./pages/Events";
 import AboutCAC from "./pages/AboutCAC";
 import AboutItedo from "./pages/AboutItedo";
@@ -37,7 +38,6 @@ const App = () => (
           <Navigation />
           <Routes>
             <Route path="/" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="/listen/:type" element={<Listen />} />
             <Route path="/about-cac" element={<AboutCAC />} />
             <Route path="/about-itedo" element={<AboutItedo />} />
@@ -48,6 +48,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
           <WhatsAppButton />
+          <ScrollToTop />
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
@@ -55,7 +56,3 @@ const App = () => (
 );
 
 export default App;
-
-
-
-
