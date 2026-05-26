@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Heart, X } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,13 +7,21 @@ import { Autoplay } from "swiper/modules";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { galleryQueryOptions, type GalleryImageItem } from "@/queries/homeContent";
+import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import "swiper/css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
+// gsap.registerPlugin(ScrollTrigger);
+
 const Gallery = () => {
   const { data: galleryImages = [], isPending: loading } = useQuery(galleryQueryOptions);
+
   const [selectedImage, setSelectedImage] = useState<GalleryImageItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   const handleImageClick = (image: GalleryImageItem) => {
     setSelectedImage(image);
@@ -23,9 +32,69 @@ const Gallery = () => {
     e.preventDefault();
   };
 
+  // 🔥 GSAP section animation (SYNCED WITH GLOBAL FLOW)
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (!sectionRef.current) return;
+
+      // Title first
+      gsap.from(".gallery-title", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+
+      // Subtitle
+      gsap.from(".gallery-subtitle", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 20,
+        delay: 0.1,
+        duration: 0.7,
+        ease: "power2.out",
+      });
+
+      // Swiper entrance
+      gsap.from(".gallery-carousel", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        y: 60,
+        duration: 1,
+        ease: "power3.out",
+      });
+
+      // Slide micro animation (premium feel)
+      gsap.from(".gallery-slide", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        scale: 0.95,
+        y: 20,
+        duration: 0.8,
+        stagger: 0.05,
+        ease: "power2.out",
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   if (loading) {
     return (
-      <section className="bg-gradient-to-b from-background to-muted/30 py-20">
+      <section className="reveal bg-gradient-to-b from-background to-muted/30 py-20">
         <div className="container mx-auto px-4 text-center">
           <p>Loading gallery...</p>
         </div>
@@ -34,15 +103,25 @@ const Gallery = () => {
   }
 
   return (
-    <section className="bg-gradient-to-b from-background to-muted/30 py-20" id="gallery">
+    <section
+      ref={sectionRef}
+      id="gallery"
+      className="reveal bg-gradient-to-b from-background to-muted/30 py-20"
+    >
       <div className="container mx-auto px-4">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-church-text md:text-5xl">
+
+        {/* Header */}
+        <div className="mb-16 text-center stagger">
+          <h2 className="gallery-title mb-4 text-4xl font-bold text-church-text md:text-5xl stagger-item">
             Gallery <span className="text-church-gold">.</span>
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-church-text-light">Moments of faith, fellowship, and transformation from our church family</p>
+
+          <p className="gallery-subtitle mx-auto max-w-2xl text-lg text-church-text-light stagger-item">
+            Moments of faith, fellowship, and transformation from our church family
+          </p>
         </div>
 
+        {/* Swiper */}
         {galleryImages.length > 0 ? (
           <Swiper
             modules={[Autoplay]}
@@ -53,36 +132,37 @@ const Gallery = () => {
               disableOnInteraction: false,
             }}
             breakpoints={{
-              320: {
-                slidesPerView: 1,
-                spaceBetween: 0,
-              },
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 0,
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 0,
-              },
-              1280: {
-                slidesPerView: 4,
-                spaceBetween: 0,
-              },
+              320: { slidesPerView: 1 },
+              640: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1280: { slidesPerView: 4 },
             }}
             className="gallery-carousel"
           >
             {galleryImages.map((image, index) => (
-              <SwiperSlide key={image.id}>
-                <div className="group relative h-48 cursor-pointer overflow-hidden sm:h-60 md:h-72 lg:h-[480px] xl:h-[480px]" onClick={() => handleImageClick(image)}>
-                  <LazyLoadImage src={image.src} alt={image.title} visibleByDefault={index < 2} effect="blur" placeholderSrc={"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="} wrapperClassName="w-full h-full" className="block h-full w-full select-none object-cover transition-transform duration-500 group-hover:scale-110" onError={(e) => console.error("Image failed to load:", image.src, e)} onContextMenu={handleContextMenu} draggable={false} />
+              <SwiperSlide key={image.id} className="gallery-slide">
+                <div
+                  className="group relative h-48 cursor-pointer overflow-hidden sm:h-60 md:h-72 lg:h-[480px]"
+                  onClick={() => handleImageClick(image)}
+                >
+                  <LazyLoadImage
+                    src={image.src}
+                    alt={image.title}
+                    visibleByDefault={index < 2}
+                    effect="blur"
+                    wrapperClassName="h-full w-full"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    onContextMenu={handleContextMenu}
+                    draggable={false}
+                  />
+
+                  {/* overlays */}
                   <div className="absolute inset-0 bg-black/40 transition-all duration-500 group-hover:bg-black/60"></div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-church-blue/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
                   <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-                    <Heart className="mb-2 h-8 w-8 transform text-church-gold opacity-0 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" />
-                    <h3 className="mb-1 translate-y-3 transform text-lg font-bold text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">{image.title}</h3>
-                    <p className="translate-y-3 transform text-xs text-white/80 opacity-0 transition-all delay-100 duration-500 group-hover:translate-y-0 group-hover:opacity-100">{image.description}</p>
-                    <div className="mt-2 h-0.5 w-8 scale-x-0 transform bg-church-gold opacity-0 transition-all duration-500 group-hover:scale-x-100 group-hover:opacity-100"></div>
+                    <Heart className="mb-2 h-8 w-8 text-church-gold opacity-0 transition-all duration-500 group-hover:opacity-100" />
+                    <h3 className="text-lg font-bold text-white opacity-0 transition-all duration-500 group-hover:opacity-100">
+                      {image.title}
+                    </h3>
                   </div>
                 </div>
               </SwiperSlide>
@@ -93,29 +173,33 @@ const Gallery = () => {
         )}
       </div>
 
-      {/* Image Modal */}
+      {/* Modal unchanged */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="h-screen w-full max-w-4xl border-0 bg-black/90 p-0 md:h-auto">
           {selectedImage && (
             <div className="relative flex h-full w-full items-center justify-center">
-              {/* Close Button */}
-              <button onClick={() => setIsModalOpen(false)} className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 transition-colors hover:bg-white/20" aria-label="Close">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2"
+              >
                 <X className="h-6 w-6 text-white" />
               </button>
 
-              {/* Image Container with screenshot prevention */}
               <div className="flex h-full w-full flex-col items-center justify-center px-4 py-12">
-                <LazyLoadImage src={selectedImage.src} alt={selectedImage.title} effect="blur" placeholderSrc={"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="} wrapperClassName="w-full h-full" className="pointer-events-none block max-h-[80vh] max-w-full select-none object-contain" onContextMenu={handleContextMenu} draggable={false} />
+                <LazyLoadImage
+                  src={selectedImage.src}
+                  alt={selectedImage.title}
+                  effect="blur"
+                  className="pointer-events-none max-h-[80vh] object-contain"
+                  onContextMenu={handleContextMenu}
+                  draggable={false}
+                />
+
                 <div className="mt-6 text-center text-white">
                   <h3 className="mb-2 text-2xl font-bold">{selectedImage.title}</h3>
                   <p className="text-white/80">{selectedImage.description}</p>
                 </div>
               </div>
-
-              {/* Watermark overlay for screenshot protection */}
-              {/* <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-10">
-                <div className="-rotate-45 transform whitespace-nowrap text-6xl font-bold text-white">CAC ITEDO YIYANJU</div>
-              </div> */}
             </div>
           )}
         </DialogContent>

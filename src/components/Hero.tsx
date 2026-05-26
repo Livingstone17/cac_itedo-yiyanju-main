@@ -2,12 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import { Play, Calendar } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import { Autoplay, Navigation } from "swiper/modules";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -24,113 +21,117 @@ gsap.registerPlugin(ScrollTrigger);
 const openMaps = () => {
   const lat = 6.5244;
   const lng = 3.3792;
+
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   const isAndroid = /Android/.test(navigator.userAgent);
 
   if (isIOS) {
     window.open(`http://maps.apple.com/?daddr=${lat},${lng}`, "_blank");
   } else if (isAndroid) {
-    window.open(`geo:${lat},${lng}?q=${lat},${lng}(CAC Itedo Yiyanju)`, "_blank");
+    window.open(`geo:${lat},${lng}?q=${lat},${lng}(Church)`, "_blank");
   } else {
     window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, "_blank");
   }
 };
 
 const Hero = () => {
-  const swiperRef = useRef(null);
+  const heroRef = useRef(null);
+  const imageRef = useRef(null);
+  const contentRef = useRef(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#home",
-        start: "top 80%",
-        end: "bottom 30%",
-        toggleActions: "play none none reverse",
-      },
-      defaults: { ease: "power3.out" },
+    gsap.from(".hero-title", {
+      opacity: 0,
+      y: 40,
+      duration: 1,
+      delay: 0.2,
     });
 
-    tl.fromTo(".hero-title", { opacity: 0, y: 50, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 1.2 }).fromTo(".hero-subtitle", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1 }, "-=0.6").fromTo(".hero-buttons", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.8 }, "-=0.4").fromTo(".hero-stats div", { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.2, duration: 0.8 }, "-=0.3");
+    gsap.from(".hero-subtitle", {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      delay: 0.4,
+    });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    gsap.from(".hero-buttons", {
+      opacity: 0,
+      scale: 0.95,
+      duration: 0.8,
+      delay: 0.6,
+    });
   }, []);
 
   return (
-    <section id="home" className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {/* Background Carousel */}
-      <Swiper
-        ref={swiperRef}
-        modules={[Autoplay, Pagination, Navigation]}
-        direction="horizontal"
-        slidesPerView={1}
-        speed={1000}
-        autoplay={{ delay: 6000, disableOnInteraction: false }}
-        navigation={{
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        }}
-        loop={true}
-        className="absolute inset-0 h-full w-full"
-      // style={{
-      //   "--swiper-pagination-bottom": "30px",
-      //   "--swiper-pagination-bullet-size": "12px",
-      //   "--swiper-pagination-bullet-inactive-opacity": "0.5"
-      // } as React.CSSProperties}
-      >
-        {[heroImage1, heroImage2, heroImage4, heroImage5, heroImage6, heroImage7, heroImage8].map((image, idx) => (
-          <SwiperSlide key={idx} className="relative">
-            <img src={image} alt={`Hero Slide ${idx + 1}`} className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-church-blue/80 via-church-blue/60 to-transparent"></div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <section
+      ref={heroRef}
+      id="home"
+      className="relative h-screen w-full overflow-hidden"
+    >
+      {/* Background */}
+      <div ref={imageRef} className="absolute inset-0 scale-110">
+        <Swiper
+          modules={[Autoplay, Navigation]}
+          slidesPerView={1}
+          autoplay={{ delay: 6000, disableOnInteraction: false }}
+          loop
+          className="h-full w-full"
+        >
+          {[heroImage1, heroImage2, heroImage4, heroImage5, heroImage6, heroImage7, heroImage8].map(
+            (image, idx) => (
+              <SwiperSlide key={idx}>
+                <img
+                  src={image}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-church-blue/70" />
+              </SwiperSlide>
+            )
+          )}
+        </Swiper>
+      </div>
 
       {/* Content */}
-      <div className="container relative z-10 mx-auto px-4 text-center">
-        <div className="mx-auto max-w-4xl">
-          <h1 className="hero-title mb-6 text-5xl font-bold leading-tight text-white md:text-7xl">
-            Welcome to <span className="bg-gradient-accent bg-clip-text text-transparent">Itedo Yiyanju</span>
+      <div
+        ref={contentRef}
+        className="relative z-10 flex h-full items-center justify-center"
+      >
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="hero-title mb-6 text-5xl font-bold text-white md:text-7xl">
+            Welcome to <span className="text-church-gold">Itedo Yiyanju</span>
           </h1>
-          <p className="hero-subtitle mx-auto mb-8 max-w-2xl text-xl leading-relaxed text-white/90 md:text-2xl">Welcome to Bethel, the House of Bread, where heaven meets earth. Come feast on God's Word and be empowered for a life of purpose, impact, and eternal significance.</p>
 
-          {/* Action Buttons */}
-          <div className="hero-buttons mb-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a href="/listen/video">
-              <Button variant="hero" size="lg" className="w-full min-w-48 sm:w-auto">
-                <Play className="mr-2 h-5 w-5" />
-                Watch Live
-              </Button>
-            </a>
-            <Button variant="church-secondary" size="lg" className="w-full min-w-48 sm:w-auto" onClick={openMaps}>
+          <p className="hero-subtitle mx-auto mb-8 max-w-2xl text-xl text-white/90">
+            Welcome to Bethel, the House of Bread, where heaven meets earth.
+          </p>
+
+          <div className="hero-buttons mb-10 flex justify-center gap-4">
+            <Button variant="hero" size="lg">
+              <Play className="mr-2 h-5 w-5" />
+              Watch Live
+            </Button>
+
+            <Button variant="church-secondary" size="lg" onClick={openMaps}>
               <Calendar className="mr-2 h-5 w-5" />
               Visit Us
             </Button>
           </div>
 
           {/* Stats */}
-          <div className="hero-stats mx-auto grid max-w-2xl grid-cols-1 gap-8 md:grid-cols-3">
-            <div className="text-center">
-              <div className="mb-2 text-3xl font-bold text-church-gold">1000+</div>
-              <div className="text-white/80">Members</div>
+          <div className="hero-stats mx-auto grid max-w-2xl grid-cols-1 gap-8 md:grid-cols-3 text-white">
+            <div>
+              <div className="text-3xl font-bold text-church-gold">1000+</div>
+              <div>Members</div>
             </div>
-            <div className="text-center">
-              <div className="mb-2 text-3xl font-bold text-church-gold">20+</div>
-              <div className="text-white/80">Years Serving</div>
+            <div>
+              <div className="text-3xl font-bold text-church-gold">20+</div>
+              <div>Years Serving</div>
             </div>
-            <div className="text-center">
-              <div className="mb-2 text-3xl font-bold text-church-gold">3+</div>
-              <div className="text-white/80">Branches</div>
+            <div>
+              <div className="text-3xl font-bold text-church-gold">3+</div>
+              <div>Branches</div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 transform animate-bounce">
-        <div className="flex h-10 w-6 justify-center rounded-full border-2 border-white/50">
-          <div className="mt-2 h-3 w-1 animate-pulse rounded-full bg-white/50"></div>
         </div>
       </div>
     </section>

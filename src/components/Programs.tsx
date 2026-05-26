@@ -31,69 +31,52 @@ const ProgramsSection = () => {
   ];
 
   return (
-    <section
-      className="py-16 bg-church-cream border-y border-border/60"
-      style={{
-        marginLeft: "calc(-50vw + 50%)",
-        marginRight: "calc(-50vw + 50%)",
-        paddingLeft: "calc(50vw - 50%)",
-        paddingRight: "calc(50vw - 50%)",
-      }}
-    >
+    <section className="reveal py-16 bg-church-cream border-y border-border/60">
       <div className="container mx-auto px-6">
-        {/* Section Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-church-text mb-6">
+
+        <div className="text-center mb-16 fade-in">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Our <span className="text-church-gold">Weekly Meetings</span>
           </h2>
-          <p className="text-base text-church-text-light max-w-2xl mx-auto">
-            Fellowship with us every week!
-          </p>
         </div>
 
-        {/* 3-Column Grid Layout: 1-2-1 */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Empty Column 1 */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 stagger">
+
           <div></div>
 
-          {/* Middle Column - Image and Programs */}
           <div className="lg:col-span-3">
             <div className="grid lg:grid-cols-2 gap-8 items-start">
-              {/* Image Section - Left Side */}
-              <div className="flex justify-center">
+
+              <div className="stagger-item">
                 <img
                   src={Prayer}
-                  alt="Weekly Meetings"
-                  className="rounded-lg shadow-lg w-full h-auto object-cover"
+                  className="rounded-lg shadow-lg w-full object-cover parallax"
                 />
               </div>
 
-              {/* Programs List - Right Side */}
               <div>
                 {weeklyMeetings.map((meeting, index) => {
                   const IconComponent = meeting.icon;
                   return (
-                    <div key={index}>
+                    <div key={index} className="stagger-item">
                       <div className="py-4 flex gap-4">
-                        {/* Icon */}
-                        <div className="flex-shrink-0">
-                          <div className="w-12 h-12 bg-church-gold/15 dark:bg-church-gold/20 rounded-lg flex items-center justify-center">
-                            <IconComponent className="w-6 h-6 text-church-gold" />
-                          </div>
+                        <div className="w-12 h-12 bg-church-gold/15 rounded-lg flex items-center justify-center">
+                          <IconComponent className="w-6 h-6 text-church-gold" />
                         </div>
-                        {/* Program Details */}
-                        <div className="flex-1">
-                          <h3 className="text-lg font-semibold text-church-text mb-1">
+
+                        <div>
+                          <h3 className="text-lg font-semibold">
                             {meeting.title}
                           </h3>
-                          <div className="flex items-center gap-4 text-church-text-light">
-                            <span className="text-sm font-medium">{meeting.day}</span>
-                            <span className="text-sm font-semibold text-church-gold">
+                          <div className="flex gap-4">
+                            <span>{meeting.day}</span>
+                            <span className="text-church-gold">
                               {meeting.time}
                             </span>
                           </div>
                         </div>
                       </div>
+
                       {index < weeklyMeetings.length - 1 && (
                         <div className="border-b border-border"></div>
                       )}
@@ -101,10 +84,10 @@ const ProgramsSection = () => {
                   );
                 })}
               </div>
+
             </div>
           </div>
 
-          {/* Empty Column 2 */}
           <div></div>
         </div>
       </div>

@@ -136,6 +136,11 @@ All colors MUST be HSL.
   }
 }
 
+section {
+  will-change: transform, opacity, filter;
+  transform-origin: center;
+}
+
 @layer base {
   * {
     @apply border-border;

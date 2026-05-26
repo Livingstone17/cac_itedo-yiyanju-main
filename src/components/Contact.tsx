@@ -1,14 +1,21 @@
+
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
-import { useRef } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const { toast } = useToast();
+
   const contactInfo = [
     {
       title: "Visit Us",
@@ -37,86 +44,168 @@ const Contact = () => {
     { service: "Friday Monthly Youth Vigil", time: "11:00 PM" },
   ];
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    const form = e.currentTarget;
-
-    // Get form data
-    const formData = new FormData(form);
-
-    // Send to Formspree
-    fetch("https://formspree.io/f/mgvnyndq", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Accept: "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Clear form fields on success
-          if (formRef.current) {
-            formRef.current.reset();
-          }
-          // Show success toast
-          toast({
-            title: "Message Sent!",
-            description: "We've received your message and will get back to you soon.",
-          });
-        }
-      })
-      .catch(() => {
-        // Handle error if needed
-        toast({
-          title: "Error",
-          description: "Failed to send message. Please try again.",
-          variant: "destructive",
-        });
-      });
-  };
-
   const otherBranches = [
     {
       name: "CAC Itedo Yiyanju – Ikorodu Worship Centre",
-      address: "Beside Dampress Secondary School, New Covenant Estate, Eyebeere, Gbaga off Ijede Road, Ikorodu Lagos",
+      address:
+        "Beside Dampress Secondary School, New Covenant Estate, Eyebeere, Gbaga off Ijede Road, Ikorodu Lagos",
       mapUrl: "https://maps.app.goo.gl/q2e2kC3fWugVhw7y7",
       serviceTime: "Service Time: 8:00 AM every Sunday",
     },
     {
       name: "CAC Itedo Yiyanju – Ifo Worship Centre",
-      address: "Ayoola Street,After Better land school,Balogun Tuntun,Gasline Ososun road, Ifo Ogun State",
+      address:
+        "Ayoola Street,After Better land school,Balogun Tuntun,Gasline Ososun road, Ifo Ogun State",
       mapUrl: "https://maps.app.goo.gl/aD42amXhC632U6GX7",
       serviceTime: "Service Time: 8:00 AM every Sunday",
     },
   ];
 
+  // 🔥 GSAP closing section animation
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (!sectionRef.current) return;
+
+      // Section header (slow, soft entrance)
+      gsap.from(".contact-title", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        ease: "power2.out",
+      });
+
+      gsap.from(".contact-subtitle", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        delay: 0.1,
+        ease: "power2.out",
+      });
+
+      // Left column cards (contact info + service times)
+      gsap.from(".contact-card", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power2.out",
+      });
+
+      // Form (main focus)
+      gsap.from(".contact-form", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        x: 60,
+        duration: 1,
+        ease: "power3.out",
+      });
+
+      // Map reveal (gentle fade)
+      gsap.from(".contact-map", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+        },
+        opacity: 0,
+        scale: 0.98,
+        duration: 1,
+        ease: "power2.out",
+      });
+
+      // Branch cards (final stagger)
+      gsap.from(".contact-branch", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power2.out",
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    fetch("https://formspree.io/f/mgvnyndq", {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => {
+        if (response.ok) {
+          formRef.current?.reset();
+          toast({
+            title: "Message Sent!",
+            description: "We will get back to you soon.",
+          });
+        }
+      })
+      .catch(() => {
+        toast({
+          title: "Error",
+          description: "Failed to send message.",
+          variant: "destructive",
+        });
+      });
+  };
+
   return (
-    <section id="contact" className="bg-gradient-subtle py-8">
+    <section ref={sectionRef} id="contact" className="reveal bg-gradient-subtle py-8">
       <div className="container mx-auto px-4">
-        {/* Section Heading */}
-        <div className="mb-16 text-center">
-          <h2 className="mb-6 text-3xl font-bold text-church-text md:text-4xl">
+
+        {/* Header */}
+        <div className="mb-16 text-center stagger">
+          <h2 className="contact-title mb-6 text-3xl font-bold text-church-text md:text-4xl stagger-item">
             Need Prayers <span className="text-church-gold">?</span>
           </h2>
-          <p className="mx-auto text-base text-church-text-light">When life feels overwhelming and all you have are questions, it’s easy to feel like hope is out of reach. But here’s the miracle: prayer changes everything. It doesn’t just change your circumstances; it transforms your heart and reconnects you with the God who’s always listening. No matter what you’re facing, we’re here to stand in faith with you. Let us pray for you today!</p>
+
+          <p className="contact-subtitle mx-auto max-w-2xl text-base text-church-text-light stagger-item">
+            When life feels overwhelming, prayer changes everything. We are here to stand with you.
+          </p>
         </div>
 
+        {/* Main grid */}
         <div className="grid gap-8 lg:grid-cols-3">
-          {/* Contact Information */}
-          <div className="space-y-6 lg:col-span-1">
-            <h3 className="mb-6 text-2xl font-bold text-church-text">Contact Information</h3>
+
+          {/* LEFT */}
+          <div className="space-y-6 lg:col-span-1 contact-card">
 
             {contactInfo.map((info, index) => {
-              const IconComponent = info.icon;
+              const Icon = info.icon;
               return (
-                <Card key={index} className="border-church-blue/10 shadow-soft">
+                <Card key={index} className="contact-card border-church-blue/10 shadow-soft">
                   <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className={`h-12 w-12 ${info.color} flex flex-shrink-0 items-center justify-center rounded-lg`}>
-                        <IconComponent className="h-6 w-6 text-white" />
+                    <div className="flex gap-4">
+                      <div className={`h-12 w-12 ${info.color} flex items-center justify-center rounded-lg`}>
+                        <Icon className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <h4 className="mb-2 font-semibold text-church-text">{info.title}</h4>
-                        <p className="whitespace-pre-line text-sm text-church-text-light">{info.content}</p>
+                        <h4 className="font-semibold text-church-text">{info.title}</h4>
+                        <p className="whitespace-pre-line text-sm text-church-text-light">
+                          {info.content}
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -124,20 +213,19 @@ const Contact = () => {
               );
             })}
 
-            {/* Service Times */}
-            <Card className="border-church-blue/10 shadow-soft">
-              <CardHeader className="pb-3">
+            <Card className="contact-card border-church-blue/10 shadow-soft">
+              <CardHeader>
                 <CardTitle className="flex items-center text-church-text">
                   <Clock className="mr-2 h-5 w-5 text-church-gold" />
                   Service Times
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0">
+              <CardContent>
                 <div className="space-y-3">
-                  {servicesTimes.map((service, index) => (
-                    <div key={index} className="flex items-center justify-between">
-                      <span className="text-sm text-church-text">{service.service}</span>
-                      <span className="text-sm font-semibold text-church-gold">{service.time}</span>
+                  {servicesTimes.map((s, i) => (
+                    <div key={i} className="flex justify-between">
+                      <span className="text-sm text-church-text">{s.service}</span>
+                      <span className="text-sm font-semibold text-church-gold">{s.time}</span>
                     </div>
                   ))}
                 </div>
@@ -145,12 +233,15 @@ const Contact = () => {
             </Card>
           </div>
 
-          {/* Contact Form */}
-          <div className="lg:col-span-2">
+          {/* FORM */}
+          <div className="lg:col-span-2 contact-form">
             <Card className="border-0 shadow-large">
               <CardHeader>
-                <CardTitle className="text-2xl text-church-text">Send us a Message</CardTitle>
+                <CardTitle className="text-2xl text-church-text">
+                  Send us a Message
+                </CardTitle>
               </CardHeader>
+
               <CardContent>
                 <form
                   ref={formRef}
@@ -160,71 +251,54 @@ const Contact = () => {
                   }}
                   className="space-y-6"
                 >
-                  {/* <div className="grid md:grid-cols-2 gap-4"> */}
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-church-text">Name</label>
-                    <Input name="firstName" placeholder="Your name" className="border-church-blue/20" required />
-                  </div>
+                  <Input name="firstName" placeholder="Your name" required />
+                  <Input name="email" type="email" placeholder="Email" required />
+                  <Textarea name="message" placeholder="Message..." required />
 
-                  {/* </div> */}
-
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div>
-                      <label className="mb-2 block text-sm font-medium text-church-text">Email</label>
-                      <Input type="email" name="email" placeholder="your.email@example.com" className="border-church-blue/20" required />
-                    </div>
-                    <div>
-                      <label className="mb-2 block text-sm font-medium text-church-text">Phone</label>
-                      <Input type="tel" name="phone" placeholder="+234 800 000 0000" className="border-church-blue/20" />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-church-text">Message</label>
-                    <Textarea name="message" placeholder="Tell us how we can help you..." className="min-h-[120px] border-church-blue/20" required />
-                  </div>
-
-                  <Button type="submit" variant="hero" size="lg" className="w-full shadow-large">
+                  <Button type="submit" className="w-full">
                     <Send className="mr-2 h-5 w-5" />
                     Send Message
                   </Button>
-
-                  <p className="text-center text-sm text-church-text-light">We'll get back to you within 24 hours. For urgent matters, please call us directly.</p>
                 </form>
               </CardContent>
             </Card>
           </div>
         </div>
 
-        {/* Map Section */}
-        <div className="mt-16">
+        {/* MAP */}
+        <div className="contact-map mt-16">
           <Card className="overflow-hidden border-0 shadow-large">
-            <div className="relative aspect-video">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7992498029625!2d3.2491340759097!3d6.671779193323303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b99e6e2162077%3A0x510b8a2a2b7e1897!2sChrist%20Apostolic%20Church%2C%20Itedo%20Yiyanju!5e0!3m2!1sen!2sng!4v1758877020761!5m2!1sen!2sng" width="100%" height="100%" style={{ border: 0 }} allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            <div className="aspect-video relative">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7992498029625!2d3.2491340759097!3d6.671779193323303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b99e6e2162077%3A0x510b8a2a2b7e1897!2sChrist%20Apostolic%20Church%2C%20Itedo%20Yiyanju!5e0!3m2!1sen!2sng!4v1758877020761!5m2!1sen!2sng"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+              />
+
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white">
-                <h4 className="mb-2 text-2xl font-bold">Find Us Here</h4>
-                <p className="text-sm">5, Itedo Yiyanju Close, Alagbado, Lagos</p>
-                <Button variant="church-primary" size="sm" className="mt-4" onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=6.67181,3.25171`, "_blank")}>
-                  Get Directions
-                </Button>
+                <h4 className="text-2xl font-bold">Find Us</h4>
               </div>
             </div>
           </Card>
         </div>
 
-        {/* Other Branches Section */}
-        <div className="mb-5 mt-16">
-          <h3 className="mb-8 text-center text-2xl font-bold text-church-text">Our Worship Centres</h3>
-          <p className="mx-auto max-w-2xl text-center text-base text-church-text-light">We are one church with multiple branches across Lagos and beyond.</p>
+        {/* BRANCHES */}
+        <div className="mt-16 text-center">
+          <h3 className="mb-8 text-2xl font-bold text-church-text">
+            Our Worship Centres
+          </h3>
         </div>
+
         <div className="grid gap-6 md:grid-cols-2">
-          {otherBranches.map((branch, index) => (
-            <a key={index} href={branch.mapUrl} target="_blank" rel="noopener noreferrer" className="group block">
-              <Card className="transform cursor-pointer border-church-blue/10 shadow-soft transition-transform group-hover:scale-105 group-hover:shadow-lg">
+          {otherBranches.map((b, i) => (
+            <a key={i} href={b.mapUrl} target="_blank" className="contact-branch">
+              <Card className="transition-transform hover:scale-105">
                 <CardContent className="p-6 text-center">
-                  <h4 className="mb-2 text-lg font-semibold text-church-text">{branch.name}</h4>
-                  <p className="mb-4 text-sm text-church-text-light">{branch.address}</p>
-                  <p className="mb-4 text-sm text-church-text-light">{branch.serviceTime}</p>
+                  <h4 className="font-semibold">{b.name}</h4>
+                  <p className="text-sm text-church-text-light">{b.address}</p>
+                  <p className="mb-4 text-sm text-church-text-light">{b.serviceTime}</p>
                   <Button variant="church-primary" size="sm">
                     Get Directions
                   </Button>
@@ -233,8 +307,8 @@ const Contact = () => {
             </a>
           ))}
         </div>
+
       </div>
-      {/* </div> */}
     </section>
   );
 };
