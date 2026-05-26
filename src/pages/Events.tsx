@@ -302,13 +302,13 @@ export default function EventsPage() {
         eventAttendanceMode: event.isOnline ? "https://schema.org/OnlineEventAttendanceMode" : "https://schema.org/OfflineEventAttendanceMode",
         location: event.isOnline
           ? {
-              "@type": "VirtualLocation",
-              url: "https://cacitedoyiyanju.org/listen/video",
-            }
+            "@type": "VirtualLocation",
+            url: "https://cacitedoyiyanju.org/listen/video",
+          }
           : {
-              "@type": "Place",
-              name: event.location,
-            },
+            "@type": "Place",
+            name: event.location,
+          },
         organizer: {
           "@type": "Organization",
           name: "CAC Itedo Yiyanju",
@@ -489,7 +489,8 @@ export default function EventsPage() {
                             {/* Event Image */}
                             {event.banner && (
                               <div className="md:col-span-1">
-                                <div className="relative h-48 w-full overflow-hidden rounded-lg bg-gradient-to-br from-church-blue to-church-blue/80 md:h-full">
+                                {/* <div className="relative h-48 w-full overflow-hidden rounded-lg bg-gradient-to-br from-church-blue to-church-blue/80 md:h-full"> */}
+                                <div className="relative h-74 sm:h-74 md:h-full w-full overflow-hidden rounded-lg bg-gradient-to-br from-church-blue to-church-blue/80">
                                   <img src={event.banner} alt={event.title} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
                                 </div>
                               </div>
