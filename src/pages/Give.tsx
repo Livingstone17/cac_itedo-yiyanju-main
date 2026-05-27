@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Heart, Building2, DollarSign, Copy, Check, MapPin, Clock10 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,8 +6,13 @@ import Footer from "@/components/Footer";
 import globusLogo from "@/assets/globus.png";
 import gtbLogo from "@/assets/gtb.png";
 import givingImage from "@/assets/giving.jpg";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const GivePage: React.FC = () => {
+    const pageRef = useRef(null);
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
     const [copiedCampusIndex, setCopiedCampusIndex] = useState<number | null>(null);
     const [selectedCampus, setSelectedCampus] = useState<number>(0);
@@ -91,23 +96,98 @@ const GivePage: React.FC = () => {
         });
     };
 
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+
+            // 🔥 HERO (parallax + fade)
+            gsap.from(".hero-content", {
+                opacity: 0,
+                y: 80,
+                duration: 1.2,
+                ease: "power3.out"
+            });
+
+            gsap.to(".hero-bg", {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            // 🔥 SECTION TITLES
+            gsap.utils.toArray(".reveal").forEach((el: any) => {
+                gsap.from(el, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.9,
+                    ease: "power3.out"
+                });
+            });
+
+            // 🔥 STAGGER ITEMS (cards, banks, FAQ, etc.)
+            gsap.utils.toArray(".stagger").forEach((container: any) => {
+                const items = container.querySelectorAll(".stagger-item");
+
+                gsap.set(items, { opacity: 1 }); // prevent flicker
+
+                gsap.from(items, {
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    },
+                    opacity: 0,
+                    y: 40,
+                    stagger: 0.15,
+                    duration: 0.8,
+                    ease: "power3.out"
+                });
+            });
+
+            // 🔥 CAMPUS SWITCH CARD (smooth change)
+            gsap.from(".campus-card", {
+                scrollTrigger: {
+                    trigger: ".campus-card",
+                    start: "top 85%",
+                },
+                opacity: 0,
+                y: 40,
+                duration: 0.8
+            });
+
+        }, pageRef);
+
+        return () => ctx.revert();
+    }, []);
+
+
     return (
-        <div className="min-h-screen pt-16">
+        <div ref={pageRef} className="min-h-screen pt-16">
             {/* Hero Section */}
             <section
-                className="relative text-white py-20 px-6 overflow-hidden"
+                className="hero relative text-white py-20 px-6 overflow-hidden"
                 style={{
                     backgroundImage: `url(${givingImage})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    backgroundAttachment: "fixed",
+                    // backgroundAttachment: "fixed",
+                    backgroundAttachment: "scroll"
                 }}
             >
                 {/* Black Overlay */}
-                <div className="absolute inset-0 bg-black/60"></div>
+                <div className=" hero-bg absolute inset-0 bg-black/60"></div>
 
                 {/* Content */}
-                <div className="relative z-10 container mx-auto text-center">
+                <div className="hero-content relative z-10 container mx-auto text-center">
                     <div className="max-w-3xl mx-auto">
                         <h1 className="text-5xl md:text-6xl font-bold mb-6">
                             Your Offering.
@@ -132,7 +212,7 @@ const GivePage: React.FC = () => {
             {/* Giving Options Section */}
             <section id="giving-options" className="py-20 bg-background">
                 <div className="container mx-auto px-6">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-16 reveal">
                         <h2 className="text-4xl font-bold text-church-text mb-4">Ways to Give</h2>
                         <p className="text-lg text-church-text-light max-w-2xl mx-auto">
                             Join us as we align our resources with our faith, partnering with God to advance the gospel in our time.
@@ -151,9 +231,9 @@ const GivePage: React.FC = () => {
 
                             {/* Cards Container */}
                             <div className="lg:col-span-3">
-                                <div className="grid md:grid-cols-2 gap-6">
+                                <div className="grid md:grid-cols-2 gap-6 stagger">
                                     {nigeriaOptions.map((option, index) => (
-                                        <Card key={index} className="shadow-soft border-church-blue/10 hover:shadow-md transition">
+                                        <Card key={index} className="stagger-item shadow-soft border-church-blue/10 hover:shadow-md transition">
                                             <CardHeader>
                                                 <CardTitle className="text-lg text-church-text flex items-center gap-3">
                                                     <img src={option.logo} alt={option.name} className="w-8 h-8 object-contain" />
@@ -250,7 +330,7 @@ const GivePage: React.FC = () => {
             {/* Give to Specific Campus Section */}
             <section className="py-20 bg-background">
                 <div className="container mx-auto px-6">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-16 reveal">
                         <h2 className="text-4xl font-bold text-church-text mb-4">Give to Specific Branch</h2>
                         <p className="text-lg text-church-text-light max-w-2xl mx-auto">
                             Support the work of God in a specific location. Choose which branch your giving should support.
@@ -263,12 +343,12 @@ const GivePage: React.FC = () => {
 
                         {/* Campus Selection */}
                         <div className="lg:col-span-3">
-                            <div className="grid md:grid-cols-2 gap-4 mb-8">
+                            <div className="grid md:grid-cols-2 gap-4 mb-8 stagger">
                                 {branches.map((campus, index) => (
                                     <button
                                         key={index}
                                         onClick={() => setSelectedCampus(index)}
-                                        className={`p-4 rounded-lg border-2 text-left transition-all ${selectedCampus === index
+                                        className={`stagger-item p-4 rounded-lg border-2 text-left transition-all ${selectedCampus === index
                                             ? "border-church-gold bg-church-gold/10"
                                             : "border-church-blue/20 hover:border-church-gold/50"
                                             }`}
@@ -285,7 +365,7 @@ const GivePage: React.FC = () => {
                             </div>
 
                             {/* Selected Campus Details */}
-                            <Card className="shadow-soft border-church-blue/10 mb-8">
+                            <Card className="campus-card shadow-soft border-church-blue/10 mb-ß">
                                 <CardContent className="p-6">
                                     <h3 className="text-lg font-semibold text-church-text mb-4">{branches[selectedCampus].name}</h3>
                                     <div className="space-y-3 mb-6">
@@ -302,9 +382,9 @@ const GivePage: React.FC = () => {
                                     {/* Branch Account Details */}
                                     <div className="border-t border-church-blue/10 py-6">
                                         <h4 className="font-semibold text-church-text mb-4">Bank Accounts for This Branch</h4>
-                                        <div className="space-y-4">
+                                        <div className="space-y-4 stagger">
                                             {branches[selectedCampus].bankAccounts.map((account, idx) => (
-                                                <div key={idx} className="bg-church-cream/50 rounded-lg p-4 space-y-2">
+                                                <div key={idx} className="stagger-item bg-church-cream/50 rounded-lg p-4 space-y-2">
                                                     <div className="flex items-center gap-2">
                                                         <img src={account.logo} alt={account.bank} className="w-6 h-6 object-contain" />
                                                         <p className="text-sm font-semibold text-church-text">{account.bank}</p>
@@ -355,28 +435,28 @@ const GivePage: React.FC = () => {
 
             {/* FAQ Section */}
             <section className="py-20 bg-gradient-subtle">
-                <div className="container mx-auto px-6">
+                <div className="container mx-auto px-6 reveal">
                     <h2 className="text-3xl font-bold text-church-text text-center mb-12">Frequently Asked Questions</h2>
-                    <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                        <div>
+                    <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto stagger">
+                        <div className="stagger-item">
                             <h3 className="text-lg font-semibold text-church-text mb-3">What are tithes?</h3>
                             <p className="text-church-text-light">
                                 A tithe is 10% of your income given to support the ministry and spread the gospel.
                             </p>
                         </div>
-                        <div>
+                        <div className="stagger-item">
                             <h3 className="text-lg font-semibold text-church-text mb-3">What are offerings?</h3>
                             <p className="text-church-text-light">
                                 Offerings are voluntary gifts given as an act of worship and support beyond tithes.
                             </p>
                         </div>
-                        <div>
+                        <div className="stagger-item">
                             <h3 className="text-lg font-semibold text-church-text mb-3">How is my giving used?</h3>
                             <p className="text-church-text-light">
                                 Your giving supports our ministry, outreach programs, facilities, and spreading the gospel.
                             </p>
                         </div>
-                        <div>
+                        <div className="stagger-item">
                             <h3 className="text-lg font-semibold text-church-text mb-3">Is giving secure?</h3>
                             <p className="text-church-text-light">
                                 Yes, all online payments are secured by industry-standard encryption through Paystack and Flutterwave.
