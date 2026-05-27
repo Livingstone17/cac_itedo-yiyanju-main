@@ -35,6 +35,31 @@ const Sermons = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // const fetchAllVideos = async () => {
+  //   setLoading(true);
+  //   setError(null);
+  //   try {
+  //     const res = await fetch(apiUrl("/api/sermons"));
+
+  //     if (!res.ok) {
+  //       throw new Error(`Failed to load sermons: ${res.status} ${res.statusText}`);
+  //     }
+
+  //     // const data = (await res.json()) as SermonsApiResponse;
+  //     const data = (await res.json());
+  //     // Extract the array from the new nested structure
+  //     const videosArray = data?.videos?.allVideos ?? [];
+  //     // setAllVideos(data.videos ?? []);
+  //     setAllVideos(videosArray);
+  //   } catch (err: unknown) {
+  //     console.error("Error fetching sermons:", err);
+  //     const message = err instanceof Error ? err.message : "Unable to load sermons. Please try again later.";
+  //     setError(message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const fetchAllVideos = async () => {
     setLoading(true);
     setError(null);
@@ -45,12 +70,15 @@ const Sermons = () => {
         throw new Error(`Failed to load sermons: ${res.status} ${res.statusText}`);
       }
 
-      // const data = (await res.json()) as SermonsApiResponse;
-      const data = (await res.json());
-      // Extract the array from the new nested structure
-      const videosArray = data?.videos?.allVideos ?? [];
-      // setAllVideos(data.videos ?? []);
-      setAllVideos(videosArray);
+      const data = await res.json();
+
+      // Extract the array from the exact path in your JSON response
+      const rawVideos = data?.videos?.allVideos;
+
+      // Guarantee we only set a true array to state
+      setAllVideos(Array.isArray(rawVideos) ? rawVideos : []);
+
+      console.log("✅ Sermons loaded:", Array.isArray(rawVideos) ? rawVideos.length : "Invalid format");
     } catch (err: unknown) {
       console.error("Error fetching sermons:", err);
       const message = err instanceof Error ? err.message : "Unable to load sermons. Please try again later.";
@@ -64,13 +92,36 @@ const Sermons = () => {
     fetchAllVideos();
   }, []);
 
+  // const filteredVideos = useMemo(() => {
+  //   const query = searchQuery.toLowerCase().trim();
+  //   if (!query) return allVideos;
+  //   return allVideos.filter((video) => {
+  //     const title = video.snippet.title.toLowerCase();
+  //     const date = new Date(video.snippet.publishedAt).toLocaleDateString();
+  //     return title.includes(query) || date.toLowerCase().includes(query);
+  //   });
+  // }, [allVideos, searchQuery]);
+
   const filteredVideos = useMemo(() => {
+    // Ensure we always work with an array
+    const videos = Array.isArray(allVideos) ? allVideos : [];
+
+    console.log("📊 Filtering videos. Total:", videos.length);
+
     const query = searchQuery.toLowerCase().trim();
-    if (!query) return allVideos;
-    return allVideos.filter((video) => {
-      const title = video.snippet.title.toLowerCase();
-      const date = new Date(video.snippet.publishedAt).toLocaleDateString();
-      return title.includes(query) || date.toLowerCase().includes(query);
+    if (!query) return videos;
+
+    return videos.filter((video) => {
+      try {
+        const title = video.snippet?.title?.toLowerCase() || "";
+        const date = video.snippet?.publishedAt
+          ? new Date(video.snippet.publishedAt).toLocaleDateString()
+          : "";
+        return title.includes(query) || date.toLowerCase().includes(query);
+      } catch (e) {
+        console.warn("⚠️ Skipping malformed video entry:", e);
+        return false;
+      }
     });
   }, [allVideos, searchQuery]);
 

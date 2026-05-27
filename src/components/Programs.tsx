@@ -35,7 +35,7 @@ const ProgramsSection = () => {
       <div className="container mx-auto px-6">
 
         <div className="text-center mb-16 fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black">
             Our <span className="text-church-gold">Weekly Meetings</span>
           </h2>
         </div>
@@ -65,11 +65,11 @@ const ProgramsSection = () => {
                         </div>
 
                         <div>
-                          <h3 className="text-lg font-semibold">
+                          <h3 className="text-lg font-semibold text-black/60">
                             {meeting.title}
                           </h3>
                           <div className="flex gap-4">
-                            <span>{meeting.day}</span>
+                            <span className="text-black/60">{meeting.day}</span>
                             <span className="text-church-gold">
                               {meeting.time}
                             </span>

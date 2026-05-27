@@ -93,7 +93,7 @@ export default function ValuesSection() {
             }}
         >
             {/* Title */}
-            <h3 className="values-title text-3xl font-bold text-church-text text-center mb-12">
+            <h3 className="values-title text-3xl font-bold text-church-text text-center mb-12 text-black/70">
                 Our Core Values
             </h3>
 
