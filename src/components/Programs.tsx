@@ -29,9 +29,9 @@ const ProgramsSection = () => {
       icon: FaHandsPraying,
     },
   ];
-
+  // bg-church-cream
   return (
-    <section className="reveal py-16 bg-church-cream border-y border-border/60">
+    <section className="reveal py-16 bg-blue-50 border-y border-border/60">
       <div className="container mx-auto px-6">
 
         <div className="text-center mb-16 fade-in">

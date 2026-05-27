@@ -84,7 +84,7 @@ export default function ValuesSection() {
 
         <div
             ref={sectionRef}
-            className="mb-2 py-12 bg-church-cream border-y border-border/60 reveal"
+            className="mb-2 py-12 bg-blue-50  border-y border-border/60 reveal"
             style={{
                 marginLeft: "calc(-50vw + 50%)",
                 marginRight: "calc(-50vw + 50%)",

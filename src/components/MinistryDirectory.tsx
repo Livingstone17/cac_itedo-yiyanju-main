@@ -22,7 +22,7 @@ const MinistryDirectory = () => {
     return (
         <section
             id="ministries"
-            className="py-20 bg-church-cream border-y border-border/60 reveal"
+            className="py-20 bg-blue-50  border-y border-border/60 reveal"
             style={{
                 marginLeft: "calc(-50vw + 50%)",
                 marginRight: "calc(-50vw + 50%)",

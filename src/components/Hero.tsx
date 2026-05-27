@@ -34,6 +34,10 @@ const openMaps = () => {
   }
 };
 
+const goToLivestream = () => {
+  window.location.href = '/listen/video';
+}
+
 const Hero = () => {
   const heroRef = useRef(null);
   const imageRef = useRef(null);
@@ -84,7 +88,8 @@ const Hero = () => {
                   src={image}
                   className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-church-blue/70" />
+                {/* bg-church-blue/70 */}
+                <div className="absolute inset-0 bg-black/70" />
               </SwiperSlide>
             )
           )}
@@ -106,7 +111,7 @@ const Hero = () => {
           </p>
 
           <div className="hero-buttons mb-10 flex justify-center gap-4">
-            <Button variant="hero" size="lg">
+            <Button variant="hero" size="lg" onClick={goToLivestream}>
               <Play className="mr-2 h-5 w-5" />
               Watch Live
             </Button>
