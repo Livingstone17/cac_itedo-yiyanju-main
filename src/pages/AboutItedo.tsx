@@ -138,7 +138,7 @@ export default function AboutItedoPage() {
       image: pastor,
       email: "samson.akinojugbade@cac.org",
       location: "Lagos, Nigeria",
-      bio: "Founder and Presiding Pastor with over 30 years of apostolic ministry",
+      bio: "A visionary shepherd and apostolic leader, devoted to raising a Christ-centered generation through sound doctrine and transformative ministry. With over 30years of Apostolic Ministry",
       socialLinks: [
         { platform: "facebook", url: "#", icon: Facebook },
         { platform: "twitter", url: "#", icon: Twitter },
@@ -152,7 +152,7 @@ export default function AboutItedoPage() {
       image: yp,
       email: "ajala.matthew@cac.org",
       location: "Lagos, Nigeria",
-      bio: "Lead pastor with a passion for spiritual growth and discipleship",
+      bio: "Passionate about igniting purpose in young lives, raising a bold and spiritually grounded generation for Christ.",
       socialLinks: [
         { platform: "facebook", url: "#", icon: Facebook },
         { platform: "twitter", url: "#", icon: Twitter },
@@ -165,7 +165,7 @@ export default function AboutItedoPage() {
       image: eni,
       email: "michael.ojekunle@cac.org",
       location: "Lagos State, Nigeria",
-      bio: "Prayer warrior dedicated to intercession and spiritual warfare",
+      bio: "A diligent steward of order and service, committed to advancing the work of the ministry with excellence and integrity.",
       socialLinks: [
         { platform: "facebook", url: "#", icon: Facebook },
         { platform: "linkedin", url: "#", icon: Linkedin },
@@ -178,7 +178,7 @@ export default function AboutItedoPage() {
       image: akin,
       email: "adekunle.adebayo@cac.org",
       location: "Lagos, Nigeria",
-      bio: "Youth enthusiast focused on empowering the next generation",
+      bio: "A devoted shepherd, nurturing believers and strengthening the local assembly through faithful teaching and pastoral care.",
       socialLinks: [
         { platform: "facebook", url: "#", icon: Facebook },
         { platform: "twitter", url: "#", icon: Twitter },
@@ -192,7 +192,7 @@ export default function AboutItedoPage() {
       image: clement,
       email: "clement.amosu@cac.org",
       location: "Lagos, Nigeria",
-      bio: "Youth enthusiast focused on empowering the next generation",
+      bio: "A vessel of worship, leading hearts into God’s presence through spirit-filled praise and uplifting melodies.",
       socialLinks: [
         { platform: "facebook", url: "#", icon: Facebook },
         { platform: "twitter", url: "#", icon: Twitter },
@@ -206,7 +206,7 @@ export default function AboutItedoPage() {
       image: niyi,
       email: "oluniyi.samson@cac.org",
       location: "Lagos, Nigeria",
-      bio: "Youth enthusiast focused on empowering the next generation",
+      bio: "A passionate leader committed to building a thriving branch where lives are transformed and destinies are shaped.",
       socialLinks: [
         { platform: "facebook", url: "#", icon: Facebook },
         { platform: "twitter", url: "#", icon: Twitter },
@@ -220,7 +220,7 @@ export default function AboutItedoPage() {
       image: ad,
       email: "adegbemi.adebayo@cac.org",
       location: "Lagos, Nigeria",
-      bio: "Youth enthusiast focused on empowering the next generation",
+      bio: "A faithful co-laborer in ministry, supporting the vision and strengthening the church through teaching, counsel, and service.",
       socialLinks: [
         { platform: "facebook", url: "#", icon: Facebook },
         { platform: "twitter", url: "#", icon: Twitter },

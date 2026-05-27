@@ -175,17 +175,17 @@ const Gallery = () => {
 
       {/* Modal unchanged */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="h-screen w-full max-w-4xl border-0 bg-black/90 p-0 md:h-auto">
+        <DialogContent className="h-[100dvh] w-full max-w-4xl overflow-visible border-0 bg-black/90 p-0 md:h-auto">
           {selectedImage && (
             <div className="relative flex h-full w-full items-center justify-center">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2"
+                className="absolute right-4 top-[env(safe-area-inset-top,1rem)] z-20 rounded-full bg-black/50 p-2 backdrop-blur"
               >
                 <X className="h-6 w-6 text-white" />
               </button>
 
-              <div className="flex h-full w-full flex-col items-center justify-center px-4 py-12">
+              <div className="flex h-full w-full flex-col items-center justify-center px-4 pt-20 pb-12">
                 <LazyLoadImage
                   src={selectedImage.src}
                   alt={selectedImage.title}

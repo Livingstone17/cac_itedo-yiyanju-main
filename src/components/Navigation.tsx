@@ -17,7 +17,7 @@ interface NavItem {
 const aboutItems = [
   { label: "History of CAC", href: "/about-cac" },
   { label: "Tenets of CAC", href: "/about-cac/#tenets" },
-  { label: "History of CAC Itedo Yiyanju", href: "/about-itedo" },
+  { label: "About CAC Itedo Yiyanju", href: "/about-itedo" },
   { label: "The Pastorate", href: "/about-itedo/#pastorate" },
 ];
 
