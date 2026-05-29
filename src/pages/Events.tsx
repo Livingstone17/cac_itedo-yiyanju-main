@@ -280,8 +280,29 @@ export default function EventsPage() {
     return processEvents(raw);
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps -- processEvents is pure; only `data` should trigger recompute
 
-  const availableMonths = useMemo(() => Array.from(new Set(events.map((e) => e.parsedDate.toLocaleDateString("en-US", { year: "numeric", month: "long" })))).sort(), [events]);
+  // const availableMonths = useMemo(() => Array.from(new Set(events.map((e) => e.parsedDate.toLocaleDateString("en-US", { year: "numeric", month: "long" })))).sort(), [events]);
+  const availableMonths = useMemo(() => {
+    const monthMap = new Map();
 
+    events.forEach((event) => {
+      const date = event.parsedDate;
+
+      const key = `${date.getFullYear()}-${date.getMonth()}`; // unique key
+      if (!monthMap.has(key)) {
+        monthMap.set(key, {
+          label: date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+          }),
+          date: new Date(date.getFullYear(), date.getMonth(), 1),
+        });
+      }
+    });
+
+    return Array.from(monthMap.values())
+      .sort((a, b) => a.date.getTime() - b.date.getTime()) // ✅ proper date sort
+      .map((item) => item.label);
+  }, [events]);
   const availableCategories = useMemo(() => Array.from(new Set(events.filter((e) => e.category).map((e) => e.category!))).sort(), [events]);
 
   useEffect(() => {

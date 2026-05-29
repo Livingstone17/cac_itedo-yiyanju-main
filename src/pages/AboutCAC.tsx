@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Footer from "@/components/Footer";
+import { HashLink } from "react-router-hash-link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -294,9 +295,10 @@ export default function AboutCACPage() {
                     <div className="rounded-lg border border-church-gold/20 bg-gradient-to-r from-church-blue/10 to-church-gold/10 p-8 text-center reveal">
                         <h3 className="mb-4 text-2xl font-bold text-church-text">Join Our Church</h3>
                         <p className="mx-auto mb-6 max-w-2xl text-church-text-light">Discover more about the Christ Apostolic Church and how you can be part of this growing movement of believers dedicated to apostolic Christianity and spiritual renewal.</p>
-                        <a href="/#contact" className="inline-block rounded-lg bg-church-gold px-8 py-3 font-semibold text-white transition-colors duration-300 hover:bg-church-gold/90">
+                        <HashLink smooth
+                            to="/#contact" className="inline-block rounded-lg bg-church-gold px-8 py-3 font-semibold text-white transition-colors duration-300 hover:bg-church-gold/90">
                             Contact Us
-                        </a>
+                        </HashLink>
                     </div>
                 </div>
             </section>

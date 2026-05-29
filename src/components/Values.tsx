@@ -15,7 +15,7 @@ const values = [
     },
     {
         title: "INTIMACY",
-        description: "We pursue more than religion,we seek relationship. In the presence of the Holy Spirit, we cultivate daily intimacy with God through prayer, worship, and surrendered living, allowing Him to lead, heal, and speak clearly in our lives.",
+        description: "We pursue more than religion, we seek relationship. In the presence of the Holy Spirit, we cultivate daily intimacy with God through prayer, worship, and surrendered living, allowing Him to lead, heal, and speak clearly in our lives.",
         icon: Users,
         color: "bg-church-blue",
     },

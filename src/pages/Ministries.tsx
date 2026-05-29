@@ -7,6 +7,9 @@ import youth from '../assets/program.jpg';
 import prayer from '../assets/prayer.jpg';
 import ss from '../assets/sunday_school.jpg';
 import media from '../assets/front_shirt.png';
+import usher from '../assets/usher.jpg'
+import { HashLink } from "react-router-hash-link";
+
 
 export default function MinistriesPage() {
     useEffect(() => {
@@ -50,53 +53,48 @@ export default function MinistriesPage() {
         {
             id: 1,
             name: 'Worship & Music',
-            shortDescription: 'Experience God through powerful praise and worship',
-            fullDescription: 'Our Worship ministry is dedicated to creating inspiring musical experiences that draw hearts closer to God. We produce authentic worship expressions that deepen relationships with Christ and inspire our community.',
+            shortDescription: 'Leading hearts into God’s presence through spirit-filled praise and worship',
+            fullDescription: 'The Worship & Music ministry is dedicated to creating an atmosphere where hearts are lifted and lives are transformed in God’s presence. Through spirit-led praise, worship, and musical excellence, we help draw people closer to Christ and foster deeper encounters with Him.',
             schedule: 'Thursdays & Saturdays, 5:00 PM',
-            // contact: 'worship@cacitedo.org',
             image: choir
         },
         {
             id: 2,
             name: 'Prayer & Intercession',
-            shortDescription: 'Join us in powerful intercessory prayer',
-            fullDescription: 'We are committed to intercessory prayer for our church, community, and the world. Through prayer, we seek God\'s will, wisdom, and divine intervention in all circumstances. Prayer is the heartbeat of our ministry.',
+            shortDescription: 'Standing in the gap through fervent and effectual prayer',
+            fullDescription: 'The Prayer & Intercession ministry is committed to seeking the face of God on behalf of the church, families, and nations. Through consistent and heartfelt prayer, we birth God’s will on earth, strengthen the body of Christ, and invite divine intervention into every situation.',
             schedule: 'Daily & Special Prayer Sessions',
-            // contact: 'prayer@cacitedo.org',
             image: prayer
         },
         {
             id: 3,
             name: 'Youth & Young Adults',
-            shortDescription: 'Empowering the next generation in Christ',
-            fullDescription: 'Our Youth ministry focuses on discipling young believers and helping them discover their purpose in God. Through dynamic programs, mentorship, and leadership training, we equip young people to make a lasting impact for Christ.',
-            schedule: ' 2nd Fridays 11pm',
-            // contact: 'youth@cacitedo.org',
+            shortDescription: 'Raising a generation rooted in Christ and purpose',
+            fullDescription: 'The Youth & Young Adults ministry is focused on discipling and empowering young believers to discover their identity and purpose in Christ. Through mentorship, teaching, and engaging programs, we equip them to live boldly for God and impact their generation.',
+            schedule: '2nd Fridays, 11:00 PM',
             image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&h=400&fit=crop'
         },
         {
             id: 4,
             name: 'Teens Growth',
-            shortDescription: 'Sons and Daughters of the Prophet',
-            fullDescription: 'We extend God\'s love beyond our church walls through community service, charitable works, and social impact initiatives. We believe in serving our neighbors and being a blessing to those in need.',
-            // schedule: 'Saturdays 10:00 AM - 2:00 PM',
-            // contact: 'outreach@cacitedo.org',
+            shortDescription: 'Nurturing teens into grounded and Spirit-led believers',
+            fullDescription: 'The Teens Growth ministry is devoted to nurturing teenagers in their walk with God, helping them build a strong spiritual foundation early in life. Through discipleship, fellowship, and mentorship, we raise teens who are rooted in Christ and confident in their faith.',
+            schedule: 'To be announced',
             image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&h=400&fit=crop'
         },
         {
             id: 5,
             name: 'Sunday School & Teaching',
-            shortDescription: 'Growing in biblical knowledge and discipleship',
-            fullDescription: 'Our Teaching ministry provides biblical education for all ages. We offer engaging classes and materials designed to help believers grow in their understanding of God\'s Word and develop a strong spiritual foundation.',
+            shortDescription: 'Deepening faith through sound biblical teaching',
+            fullDescription: 'The Sunday School & Teaching ministry is dedicated to grounding believers in the Word of God. Through structured teaching, Bible study, and discipleship classes, we help members grow in spiritual understanding and live out their faith practically.',
             schedule: 'Saturdays 4:00 PM - 6:00 PM',
-            // contact: 'education@cacitedo.org',
             image: ss
         },
         {
             id: 6,
             name: 'Pastoral Care',
-            shortDescription: 'Compassionate support in every season of life',
-            fullDescription: 'Our pastoral care team is available to provide spiritual guidance, counseling, and support during challenging times. We believe in walking with our members through every season, offering prayers, wisdom, and biblical counsel.',
+            shortDescription: 'Walking with believers through every season of life',
+            fullDescription: 'The Pastoral Care ministry provides spiritual support, counseling, and encouragement to members of the church. With compassion and wisdom, we stand with individuals and families in times of need, offering prayer, guidance, and biblical counsel.',
             schedule: 'By Appointment',
             contact: '+2348033072838',
             image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop'
@@ -104,11 +102,20 @@ export default function MinistriesPage() {
         {
             id: 7,
             name: 'Media & Technical',
-            shortDescription: 'Creating and managing digital content for our church',
-            fullDescription: 'Our Media & Technical team is responsible for creating and managing digital content for our church. This includes video production, live streaming, website maintenance, and technical support for our services.',
+            shortDescription: 'Amplifying the message of Christ through media and technology',
+            fullDescription: 'The Media & Technical team serves as a vital channel for spreading the gospel beyond the walls of the church. Through excellence in audio-visual production, live streaming, and digital platforms, they ensure every message is clearly seen and heard. With skill and dedication, they create an atmosphere where worship flows seamlessly and lives are impacted both in-house and across the world.',
             schedule: 'By Appointment',
             contact: '+234 816 422 4586',
             image: media
+        },
+        {
+            id: 8,
+            name: 'Ushering and Protocol',
+            shortDescription: 'Ensuring order, warmth, and excellence in every worship experience',
+            fullDescription: 'The Ushering and Protocol team serves as the church’s first point of contact, creating a welcoming and orderly atmosphere for all. They guide seating, coordinate movement during services, and uphold reverence in God’s house. With hearts of service and attention to detail, they help ensure that every worship experience flows smoothly, allowing congregants to focus fully on encountering God.',
+            schedule: 'By Appointment',
+            contact: '+234 816 422 4586',
+            image: usher
         }
     ];
 
@@ -195,12 +202,12 @@ export default function MinistriesPage() {
                         Whether you're looking to serve, grow spiritually, or make a difference in your community, there's a ministry perfect for you. Reach out to any ministry lead or contact our office to learn more.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a
-                            href="#contact"
+                        <HashLink smooth
+                            to="/#contact"
                             className="inline-block bg-church-gold hover:bg-church-gold/90 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-300"
                         >
                             Contact Us
-                        </a>
+                        </HashLink>
                         <a
                             href="mailto:pastoral@cacitedo.org"
                             className="inline-block border-2 border-church-gold text-church-gold hover:bg-church-gold/10 font-semibold py-3 px-8 rounded-lg transition-colors duration-300"

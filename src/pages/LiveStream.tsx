@@ -107,15 +107,15 @@ const WatchLivePage = () => {
       {/* What to Expect Section */}
       <section className="bg-background py-16">
         <div className="container mx-auto max-w-6xl px-6">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">What to Expect at CAC ITEDO YIYANJU</h2>
+          <h2 className="mb-12 text-center text-3xl font-bold text-church-text-light">What to Expect at CAC ITEDO YIYANJU</h2>
 
           <div className="grid gap-10 md:grid-cols-2">
             {/* Item 1 */}
             <div className="flex items-start space-x-4">
               <span className="text-2xl text-orange-500">✔</span>
               <div>
-                <h3 className="text-xl font-semibold text-gray-900">Life-changing revelations from God&apos;s Word</h3>
-                <p className="mt-2 text-gray-700">God’s Word sets free! As you engage the Word, you will experience lasting freedom and genuine growth in the Spirit.</p>
+                <h3 className="text-xl font-semibold text-church-text-light">Life-changing revelations from God&apos;s Word</h3>
+                <p className="mt-2 text-gray-400">God’s Word sets free! As you engage the Word, you will experience lasting freedom and genuine growth in the Spirit.</p>
               </div>
             </div>
 
@@ -123,8 +123,8 @@ const WatchLivePage = () => {
             <div className="flex items-start space-x-4">
               <span className="text-2xl text-orange-500">✔</span>
               <div>
-                <h3 className="text-xl font-semibold text-gray-900">Mountain-moving Prayers</h3>
-                <p className="mt-2 text-gray-700">Word-compliant and Spirit-inspired prayers that melts all mountains of darkness. Get ready to triumph over limitations as we engage God in Prayers!</p>
+                <h3 className="text-xl font-semibold text-church-text-light">Mountain-moving Prayers</h3>
+                <p className="mt-2 text-gray-400">Word-compliant and Spirit-inspired prayers that melts all mountains of darkness. Get ready to triumph over limitations as we engage God in Prayers!</p>
               </div>
             </div>
 
@@ -132,8 +132,8 @@ const WatchLivePage = () => {
             <div className="flex items-start space-x-4">
               <span className="text-2xl text-orange-500">✔</span>
               <div>
-                <h3 className="text-xl font-semibold text-gray-900">Deep fellowship and love</h3>
-                <p className="mt-2 text-gray-700">Get soaked in God’s unconditional love as you fellowship with a family of believers who care so much about you!</p>
+                <h3 className="text-xl font-semibold text-church-text-light">Deep fellowship and love</h3>
+                <p className="mt-2 text-gray-400">Get soaked in God’s unconditional love as you fellowship with a family of believers who care so much about you!</p>
               </div>
             </div>
 
@@ -141,8 +141,8 @@ const WatchLivePage = () => {
             <div className="flex items-start space-x-4">
               <span className="text-2xl text-orange-500">✔</span>
               <div>
-                <h3 className="text-xl font-semibold text-gray-900">Empowerment for daily living</h3>
-                <p className="mt-2 text-gray-700">Receive practical teachings and spiritual empowerment to live victoriously in every area of life.</p>
+                <h3 className="text-xl font-semibold text-church-text-light">Empowerment for daily living</h3>
+                <p className="mt-2 text-gray-400">Receive practical teachings and spiritual empowerment to live victoriously in every area of life.</p>
               </div>
             </div>
           </div>

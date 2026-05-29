@@ -48,7 +48,10 @@ const MinistryDirectory = () => {
                     {/* Left Side */}
                     <div className="flex flex-col justify-center stagger">
 
-                        <h2 className="text-5xl md:text-6xl font-black text-church-text mb-8 leading-tight stagger-item text-black/70">
+                        {/* <h2 className="text-5xl md:text-6xl font-black text-church-text mb-8 leading-tight stagger-item text-black/70">
+                            There's a Place for <span className="text-church-gold">Everyone</span>
+                        </h2> */}
+                        <h2 className="text-5xl md:text-6xl font-black mb-8 leading-tight stagger-item text-black/70 dark:text-black/70">
                             There's a Place for <span className="text-church-gold">Everyone</span>
                         </h2>
 
@@ -59,7 +62,7 @@ const MinistryDirectory = () => {
                         <div className="stagger-item">
                             <a
                                 href="/ministries"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-church-text text-church-text hover:bg-church-text hover:text-primary-foreground font-semibold transition-colors duration-300 rounded-full text-black/70"
+                                className="inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-church-text text-church-text hover:bg-church-text hover:text-primary-foreground font-semibold transition-colors duration-300 rounded-full dark:text-black/70"
                             >
                                 See All Ministries
                             </a>
