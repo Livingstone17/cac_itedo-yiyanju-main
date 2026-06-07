@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
-import pastorImg from "@/assets/daddy.jpg";
+import pastorImg from "@/assets/daddy.png";
 
 // gsap.registerPlugin(ScrollTrigger);
 
@@ -21,7 +21,7 @@ const WelcomeSection = () => {
           <img
             src={pastorImg}
             className="rounded-lg shadow-lg w-full object-cover object-top parallax"
-            style={{ height: "470px" }}
+            style={noirStyle}
           />
         </div>
 
@@ -49,6 +49,13 @@ const WelcomeSection = () => {
       </div>
     </section>
   );
+};
+
+const noirStyle = {
+  filter: 'grayscale(100%) contrast(140%) brightness(85%)',
+  transition: 'filter 0.4s ease', // Smoothly transitions the effect
+  maxWidth: '100%',
+  height: '570px'
 };
 
 export default WelcomeSection;
