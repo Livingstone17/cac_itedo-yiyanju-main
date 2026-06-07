@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "@/components/Footer";
 
-const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
-const CHANNEL_ID = import.meta.env.VITE_YOUTUBE_CHANNEL_ID;
+const API_KEY = import.meta.env.VITE_API_KEY;
+const CHANNEL_ID = import.meta.env.VITE_CHANNEL_ID;
 
 const WatchLivePage = () => {
   const { type } = useParams<{ type: string }>();
@@ -18,6 +18,7 @@ const WatchLivePage = () => {
         // 1. Check if channel is live
         const searchRes = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&eventType=live&type=video&key=${API_KEY}`);
         const searchData = await searchRes.json();
+        console.log(JSON.stringify(searchRes) + "this is this")
 
         if (searchData.items && searchData.items.length > 0) {
           // ✅ Channel is live
