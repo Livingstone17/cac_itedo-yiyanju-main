@@ -15,8 +15,8 @@ gsap.registerPlugin(ScrollTrigger);
 const About = () => {
 
   const openMaps = () => {
-    const lat = 6.5244; // Replace with your church latitude
-    const lng = 3.3792; // Replace with your church longitude
+    const lat = 6.671838;
+    const lng = 3.251764;
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const isAndroid = /Android/.test(navigator.userAgent);
 

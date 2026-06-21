@@ -68,7 +68,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-white/80">
                 <MapPin className="h-4 w-4 text-church-gold" />
-                <span className="text-sm">CAC Itedo Yiyanju Close, Alagbado, Lagos</span>
+                <span className="text-sm">5, Matanmi Close, Oko-filling, Alagbado, Lagos</span>
               </div>
               <div className="flex items-center space-x-3 text-white/80">
                 <Phone className="h-4 w-4 text-church-gold" />

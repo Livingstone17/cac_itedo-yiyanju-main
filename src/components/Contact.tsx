@@ -19,7 +19,7 @@ const Contact = () => {
   const contactInfo = [
     {
       title: "Visit Us",
-      content: "5, Itedo Yiyanju Close,\nAlagbado, Lagos",
+      content: "5, Matanmi Close, Oko-Filling,\nAlagbado, Lagos",
       icon: MapPin,
       color: "bg-church-blue",
     },
@@ -266,19 +266,48 @@ const Contact = () => {
         </div>
 
         {/* MAP */}
-        <div className="contact-map mt-16">
+        {/* <div className="contact-map mt-16">
           <Card className="overflow-hidden border-0 shadow-large">
             <div className="aspect-video relative">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7992498029625!2d3.2491340759097!3d6.671779193323303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b99e6e2162077%3A0x510b8a2a2b7e1897!2sChrist%20Apostolic%20Church%2C%20Itedo%20Yiyanju!5e0!3m2!1sen!2sng!4v1758877020761!5m2!1sen!2sng"
+                // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7992498029625!2d3.2491340759097!3d6.671779193323303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b99e6e2162077%3A0x510b8a2a2b7e1897!2sChrist%20Apostolic%20Church%2C%20Itedo%20Yiyanju!5e0!3m2!1sen!2sng!4v1758877020761!5m2!1sen!2sng"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7992498029625!2d3.251764!3d6.671838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b99e6e2162077%3A0x510b8a2a2b7e1897!2sChrist%20Apostolic%20Church%2C%20Itedo%20Yiyanju!5e0!3m2!1sen!2sng!4v1758877020761!5m2!1sen!2sng"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 loading="lazy"
               />
-
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white">
                 <h4 className="text-2xl font-bold">Find Us</h4>
+              </div>
+            </div>
+          </Card>
+        </div> */}
+        {/* MAP */}
+        <div className="contact-map mt-16">
+          <Card className="overflow-hidden border-0 shadow-large">
+            <div className="aspect-video relative">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7992498029625!2d3.2491340759097!3d6.6717791933233155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b99e6e2162077%3A0x510b8a2a2b7e1897!2sChrist%20Apostolic%20Church%2C%20Itedo%20Yiyanju!5e0!3m2!1sen!2sng!4v1782062227366!5m2!1sen!2sng"
+                width="100%" height="100%" style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"></iframe>
+              {/* Overlay with directions button */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white transition-opacity hover:opacity-0">
+                <h4 className="text-2xl font-bold mb-2">Find Us</h4>
+                <p className="text-sm mb-6 text-white/80">5, Itedo Yiyanju Close, Alagbado, Lagos</p>
+                <Button
+                  asChild
+                  className="bg-white text-black hover:bg-white/90"
+                >
+                  <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=6.671838,3.251764"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MapPin className="mr-2 h-5 w-5" />
+                    Get Directions
+                  </a>
+                </Button>
               </div>
             </div>
           </Card>

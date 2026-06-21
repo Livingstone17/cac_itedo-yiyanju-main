@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
 import pastorImg from "@/assets/daddy.png";
+import pastorImg2 from "@/assets/dadi.png";
 
 // gsap.registerPlugin(ScrollTrigger);
 
@@ -20,10 +21,17 @@ const WelcomeSection = () => {
         <div className="w-full stagger-item">
           <img
             src={pastorImg}
-            className="rounded-lg shadow-lg w-full object-cover object-top parallax"
+            className="rounded-lg shadow-lg w-full md:h-[480px] max-[500px]:h-[220px] object-cover object-top parallax"
             style={noirStyle}
           />
         </div>
+        {/* <div className="w-full stagger-item h-[280px] md:h-[450px] overflow-hidden rounded-lg shadow-lg">
+          <img
+            src={pastorImg}
+            className="w-full h-full object-cover object-top parallax"
+            style={noirStyle}
+          />
+        </div> */}
 
         <div className="space-y-6 stagger-item">
           <h2 className="text-3xl md:text-4xl font-bold">
@@ -52,10 +60,10 @@ const WelcomeSection = () => {
 };
 
 const noirStyle = {
-  filter: 'grayscale(100%) contrast(140%) brightness(85%)',
+  filter: 'grayscale(100%) contrast(140%) brightness(65%)',
   transition: 'filter 0.4s ease', // Smoothly transitions the effect
   maxWidth: '100%',
-  height: '570px'
+  // height: '570px'
 };
 
 export default WelcomeSection;

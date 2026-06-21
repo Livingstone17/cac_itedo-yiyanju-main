@@ -19,8 +19,8 @@ import heroImage8 from "@/assets/church8.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 const openMaps = () => {
-  const lat = 6.5244;
-  const lng = 3.3792;
+  const lat = 6.671838;
+  const lng = 3.251764;
 
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   const isAndroid = /Android/.test(navigator.userAgent);
@@ -103,7 +103,7 @@ const Hero = () => {
       >
         <div className="container mx-auto px-4 text-center">
           <h1 className="hero-title mb-6 text-5xl font-bold text-white md:text-7xl">
-            Welcome to <span className="text-church-gold">Itedo Yiyanju</span>
+            Welcome to <span className="text-church-gold">CAC, Itedo Yiyanju</span>
           </h1>
 
           <p className="hero-subtitle mx-auto mb-8 max-w-2xl text-xl text-white/90">
