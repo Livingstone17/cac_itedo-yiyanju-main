@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Users, Heart, Phone, ChevronDown, Video, Mic } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useLiveStatus } from "@/contexts/LiveStatusContext";
+
 
 type DropdownType = "about" | "live" | null;
 
@@ -37,6 +39,8 @@ const Navigation = () => {
   const navigate = useNavigate();
   const aboutDropdownRef = useRef<HTMLDivElement | null>(null);
   const liveDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const { isLive } = useLiveStatus();
 
   const toggleDropdown = (dropdown: "about" | "live") => {
     setOpenDropdown((prev) => (prev === dropdown ? null : dropdown));
@@ -114,8 +118,27 @@ const Navigation = () => {
 
       return (
         <div key={item.label} className="relative" ref={ref}>
-          <button className="flex items-center space-x-1 text-sm font-normal text-church-text-light transition-colors duration-300 hover:text-church-text" onClick={() => toggleDropdown(dropdownType)}>
+          {/* <button className="flex items-center space-x-1 text-sm font-normal text-church-text-light transition-colors duration-300 hover:text-church-text" onClick={() => toggleDropdown(dropdownType)}>
             <span>{item.label}</span>
+            <ChevronDown className="h-4 w-4" />
+          </button> */}
+          <button
+            className="flex items-center space-x-1 text-sm font-normal text-church-text-light transition-colors duration-300 hover:text-church-text"
+            onClick={() => toggleDropdown(dropdownType)}
+          >
+            <span>{item.label}</span>
+            {item.label === "Live Stream" && isLive && (
+              <div className="ml-2 flex items-center gap-1">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute h-2 w-2 animate-ping rounded-full bg-red-500"></span>
+                  <span className="relative h-2 w-2 rounded-full bg-red-600"></span>
+                </span>
+
+                <span className="text-xs font-bold tracking-wider text-red-500">
+                  LIVE
+                </span>
+              </div>
+            )}
             <ChevronDown className="h-4 w-4" />
           </button>
 
@@ -267,7 +290,7 @@ const Navigation = () => {
 
       return (
         <div key={item.label}>
-          <button
+          {/* <button
             onClick={() => toggleDropdown(dropdownType)}
             className="flex w-full items-center space-x-3 py-2 text-left text-church-text-light transition-colors duration-300 hover:text-church-text"
           >
@@ -277,6 +300,29 @@ const Navigation = () => {
               className={`ml-auto h-4 w-4 transition-transform ${openDropdown === dropdownType ? "rotate-180" : ""
                 }`}
             />
+          </button> */}
+          <button
+            onClick={() => toggleDropdown(dropdownType)}
+            className="flex w-full items-center space-x-3 py-2 text-left text-church-text-light transition-colors duration-300 hover:text-church-text"
+          >
+            <IconComponent className="h-5 w-5" />
+
+            <span className="font-normal">{item.label}</span>
+
+            {item.label === "Live Stream" && isLive && (
+              <div className="flex items-center gap-1">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute h-2 w-2 animate-ping rounded-full bg-red-500"></span>
+                  <span className="relative h-2 w-2 rounded-full bg-red-600"></span>
+                </span>
+
+                <span className="text-xs font-bold text-red-500">
+                  LIVE
+                </span>
+              </div>
+            )}
+
+            <ChevronDown className="ml-auto h-4 w-4" />
           </button>
 
           {/* ABOUT US */}

@@ -134,7 +134,7 @@ export default function AboutItedoPage() {
     {
       id: 1,
       name: "Pastor Samson Akin-Olugbade",
-      role: "Presiding Pastor",
+      role: "Planter/Presiding Pastor",
       image: pastor,
       email: "samson.akinojugbade@cac.org",
       location: "Lagos, Nigeria",

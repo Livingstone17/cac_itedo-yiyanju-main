@@ -1,6 +1,6 @@
 
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Play, Calendar } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -37,11 +37,50 @@ const openMaps = () => {
 const goToLivestream = () => {
   window.location.href = '/listen/video';
 }
+const phrases = [
+  "Welcome to Bethel, the House of Bread, where heaven meets earth.",
+  "A place of Worship, Love, Revelatory Teachings and Prayers.",
+  "Join us as we learn Christ, experience transformation and manifest the GOD Life here on earth."
+];
+const useTypewriter = (texts, typingSpeed = 75, deletingSpeed = 30, pauseTime = 2000) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [textIndex, setTextIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (texts.length === 0) return;
+    const currentText = texts[textIndex];
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayedText(currentText.substring(0, charIndex + 1));
+        setCharIndex(prev => prev + 1);
+        if (charIndex + 1 === currentText.length) {
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        setDisplayedText(currentText.substring(0, charIndex - 1));
+        setCharIndex(prev => prev - 1);
+        if (charIndex - 1 === 0) {
+          setIsDeleting(false);
+          setTextIndex(prev => (prev + 1) % texts.length);
+        }
+      }
+    }, isDeleting ? deletingSpeed : typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, textIndex, texts, typingSpeed, deletingSpeed, pauseTime]);
+
+  return displayedText;
+};
 
 const Hero = () => {
   const heroRef = useRef(null);
   const imageRef = useRef(null);
   const contentRef = useRef(null);
+
+  const displayedText = useTypewriter(phrases);
 
   useEffect(() => {
     gsap.from(".hero-title", {
@@ -106,8 +145,15 @@ const Hero = () => {
             Welcome to <span className="text-church-gold">CAC, Itedo Yiyanju</span>
           </h1>
 
-          <p className="hero-subtitle mx-auto mb-8 max-w-2xl text-xl text-white/90">
+          {/* <p className="hero-subtitle mx-auto mb-8 max-w-2xl text-xl text-white/90">
             Welcome to Bethel, the House of Bread, where heaven meets earth.
+          </p> */}
+          <p className="hero-subtitle mx-auto mb-8 max-w-2xl text-xl text-white/90 min-h-[2rem] flex items-center justify-center">
+            <span>{displayedText}</span>
+            <span
+              className="ml-1 inline-block w-[2px] h-[1.2em] bg-white/90 align-middle"
+              style={{ animation: 'blink 1s step-end infinite' }}
+            ></span>
           </p>
 
           <div className="hero-buttons mb-10 flex justify-center gap-4">
@@ -139,6 +185,12 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 };
