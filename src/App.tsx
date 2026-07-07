@@ -17,6 +17,7 @@ import AboutCAC from "./pages/AboutCAC";
 import AboutItedo from "./pages/AboutItedo";
 import Ministries from "./pages/Ministries";
 import { LiveStatusProvider } from "../src/contexts/LiveStatusContext";
+import Books from "@/pages/Books";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,6 +47,7 @@ const App = () => (
               <Route path="/events" element={<Events />} />
               <Route path="/ministries" element={<Ministries />} />
               <Route path="/sermons" element={<Sermons />} />
+              <Route path="/books" element={<Books />} />
               <Route path="/give" element={<Give />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
