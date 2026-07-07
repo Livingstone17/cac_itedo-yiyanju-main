@@ -335,7 +335,7 @@ export default function AboutItedoPage() {
         <section className="mb-20">
           <div className="container mx-auto max-w-4xl px-4">
             <h2 className="mb-4 text-center text-4xl font-bold text-church-text">
-              Meet Our <span className="text-church-gold">Pastorate</span>
+              Meet Our <span className="text-church-gold">Pastors</span>
             </h2>
             <p className="mx-auto mb-12 max-w-2xl text-center text-church-text-light">Dedicated leaders serving CAC Itedo Yiyanju with passion, integrity, and apostolic vision</p>
           </div>
@@ -415,7 +415,7 @@ export default function AboutItedoPage() {
         {/* Connection CTA */}
         <div className="container mx-auto max-w-4xl px-4 cta-reveal">
           <div className="rounded-lg border border-church-gold/20 bg-gradient-to-r from-church-blue/10 to-church-gold/10 p-8 text-center">
-            <h3 className="mb-4 text-2xl font-bold text-church-text">Connect With Our Community</h3>
+            <h3 className="mb-4 text-2xl font-bold text-church-text">Connect With Our Church</h3>
             <p className="mx-auto mb-6 max-w-2xl text-church-text-light">Experience the warmth of Christian fellowship and the power of apostolic ministry at CAC Itedo Yiyanju. You are warmly invited to join us in worship, prayer, and service.</p>
             <a href="/events" className="inline-block rounded-lg bg-church-gold px-8 py-3 font-semibold text-white transition-colors duration-300 hover:bg-church-gold/90">
               View Our Events

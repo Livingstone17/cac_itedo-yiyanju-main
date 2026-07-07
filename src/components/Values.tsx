@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Users, Compass, BookOpen } from "lucide-react";
@@ -38,19 +39,6 @@ export default function ValuesSection() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Animate cards
-            // gsap.from(".value-card", {
-            //     scrollTrigger: {
-            //         trigger: sectionRef.current,
-            //         start: "top 80%",
-            //     },
-            //     opacity: 0,
-            //     y: 50,
-            //     duration: 0.8,
-            //     ease: "power3.out",
-            //     stagger: 0.2,
-            // });
-
             // Animate icons (pop effect)
             gsap.from(".value-icon", {
                 scrollTrigger: {
@@ -84,7 +72,7 @@ export default function ValuesSection() {
 
         <div
             ref={sectionRef}
-            className="mb-2 py-12 bg-blue-50  border-y border-border/60 reveal"
+            className="mb-2 py-20 bg-blue-50  border-y border-border/60 reveal"
             style={{
                 marginLeft: "calc(-50vw + 50%)",
                 marginRight: "calc(-50vw + 50%)",
@@ -105,10 +93,10 @@ export default function ValuesSection() {
                     return (
                         <div
                             key={index}
-                            className="value-card group transition-transform duration-300 hover:-translate-y-2 stagger-item"
+                            className="value-card group transition-transform duration-300 hover:-translate-y-2 stagger-item h-full"
                         >
-                            <Card className="text-center bg-card text-card-foreground shadow-soft hover:shadow-medium transition-all duration-300 border border-border">
-                                <CardContent className="p-6">
+                            <Card className="text-center bg-card text-card-foreground shadow-soft hover:shadow-medium transition-all duration-300 border border-border h-full flex flex-col">
+                                <CardContent className="p-6 flex flex-col flex-grow">
                                     {/* Icon */}
                                     <div
                                         className={`value-icon w-16 h-16 ${value.color} rounded-full flex items-center justify-center mx-auto mb-4`}
@@ -122,7 +110,7 @@ export default function ValuesSection() {
                                     </h4>
 
                                     {/* Description */}
-                                    <p className="text-church-text-light text-sm">
+                                    <p className="text-church-text-light text-sm flex-grow">
                                         {value.description}
                                     </p>
                                 </CardContent>

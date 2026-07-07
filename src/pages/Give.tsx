@@ -914,13 +914,13 @@ const GivePage: React.FC = () => {
                     bank: "Globus Bank",
                     logo: globusLogo,
                     accountNumber: "1000229170",
-                    accountName: "CAC Itedo Yiyanju Main",
+                    accountName: "Christ Apostolic Church - Itedo Yiyanju",
                 },
                 {
                     bank: "GTB",
                     logo: gtbLogo,
                     accountNumber: "0019268524",
-                    accountName: "CAC Itedo Yiyanju Main",
+                    accountName: "Christ Apos Chr Itedo Yiyanju",
                 },
             ],
         },
@@ -950,7 +950,7 @@ const GivePage: React.FC = () => {
                     bank: "Globus Bank",
                     logo: globusLogo,
                     accountNumber: "1000229172",
-                    accountName: "CAC Itedo Yiyanju Ifo",
+                    accountName: "Christ Apostolic Church - Itedo Yiyanju Ifo Branch",
                 },
             ],
         },
@@ -1408,7 +1408,7 @@ const GivePage: React.FC = () => {
                                                                 alt={account.bank}
                                                                 className="h-8 w-8 object-contain"
                                                             />
-                                                            <span className="font-bold text-church-text">
+                                                            <span className="font-bold text-black/50">
                                                                 {account.bank}
                                                             </span>
                                                         </div>
@@ -1451,7 +1451,7 @@ const GivePage: React.FC = () => {
                                                                 <p className="mb-1 text-xs uppercase tracking-wider text-church-text-light">
                                                                     Account Name
                                                                 </p>
-                                                                <p className="font-medium text-church-text">
+                                                                <p className="font-medium text-black">
                                                                     {account.accountName}
                                                                 </p>
                                                             </div>
