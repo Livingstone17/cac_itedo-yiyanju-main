@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Play, Calendar, User, Search, ChevronLeft, ChevronRight, RefreshCcw } from "lucide-react";
 import Footer from "@/components/Footer";
 import { apiUrl } from "@/lib/api";
@@ -27,6 +28,48 @@ interface SermonsApiResponse {
   videos?: SermonVideo[];
   source?: string;
 }
+
+// Skeleton card — mirrors the real card's structure exactly
+const SermonCardSkeleton = () => (
+  <Card className="relative overflow-hidden shadow-soft">
+    {/* Thumbnail */}
+    <Skeleton className="h-[250px] w-full rounded-b-none rounded-t-lg" />
+
+    <CardHeader className="flex flex-col justify-between gap-3 px-2 py-3">
+      {/* Badge + date row */}
+      <div className="flex items-center justify-between">
+        <Skeleton className="h-5 w-24 rounded-full" />
+        <Skeleton className="h-4 w-20 rounded" />
+      </div>
+
+      {/* Title */}
+      <div className="space-y-1.5">
+        <Skeleton className="h-3.5 w-full rounded" />
+        <Skeleton className="h-3.5 w-3/4 rounded" />
+      </div>
+
+      {/* Channel */}
+      <div className="flex items-center gap-1.5">
+        <Skeleton className="h-4 w-4 rounded-full" />
+        <Skeleton className="h-3.5 w-28 rounded" />
+      </div>
+    </CardHeader>
+  </Card>
+);
+
+// Grid of skeleton cards shown while loading
+const SermonSkeletonGrid = () => (
+  <div className="w-full space-y-6">
+    {/* Mimic the "Showing X–Y of Z" label */}
+    <Skeleton className="h-4 w-48 rounded" />
+
+    <div className="grid h-fit w-full gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+      {Array.from({ length: SERMONS_PAGE_SIZE }).map((_, i) => (
+        <SermonCardSkeleton key={i} />
+      ))}
+    </div>
+  </div>
+);
 
 const Sermons = () => {
   const [allVideos, setAllVideos] = useState<SermonVideo[]>([]);
@@ -89,9 +132,7 @@ const Sermons = () => {
     return videos.filter((video) => {
       try {
         const title = video.snippet?.title?.toLowerCase() || "";
-        const date = video.snippet?.publishedAt
-          ? new Date(video.snippet.publishedAt).toLocaleDateString()
-          : "";
+        const date = video.snippet?.publishedAt ? new Date(video.snippet.publishedAt).toLocaleDateString() : "";
         return title.includes(query) || date.toLowerCase().includes(query);
       } catch (e) {
         console.warn("⚠️ Skipping malformed video entry:", e);
@@ -123,7 +164,7 @@ const Sermons = () => {
       <section id="sermons" className="bg-background py-20">
         <div className="container mx-auto px-4">
           <div className="grid gap-10 md:grid-cols-3 lg:grid-cols-5">
-            <div className="md:col-span-2 lg:col-span-5">
+            <div className="md:col-span-3 lg:col-span-5">
               <h2 className="mb-8 text-3xl font-bold text-church-text">
                 Recent <span className="text-church-gold">Sermons</span>
               </h2>
@@ -140,6 +181,7 @@ const Sermons = () => {
                 )}
               </div>
 
+              {/* ── Error state ───────────────────────────────────────────── */}
               {error && !loading && (
                 <div className="flex flex-col items-center justify-center rounded-xl border border-red-200/50 bg-gradient-to-b from-red-50/50 to-background px-6 py-16 dark:border-red-900/30 dark:from-red-950/20">
                   {/* Error Icon */}
@@ -194,12 +236,10 @@ const Sermons = () => {
                 </div>
               )}
 
-              {loading && (
-                <div className="py-12 text-center">
-                  <p className="text-church-text-light">Loading sermons...</p>
-                </div>
-              )}
+              {/* ── Skeleton loading state ────────────────────────────────── */}
+              {loading && <SermonSkeletonGrid />}
 
+              {/* ── Empty state ───────────────────────────────────────────── */}
               {!loading && !error && filteredVideos.length === 0 && (
                 <div className="py-12 text-center">
                   <p className="mb-2 text-church-text-light">No sermons found</p>
@@ -207,20 +247,21 @@ const Sermons = () => {
                 </div>
               )}
 
+              {/* ── Sermons grid ──────────────────────────────────────────── */}
               {!loading && !error && filteredVideos.length > 0 && (
                 <>
-                  <div className="space-y-6" id="sermons-list-top">
+                  <div className="w-full space-y-6" id="sermons-list-top">
                     <p className="text-sm text-church-text-light">
                       Showing <span className="font-medium text-church-text">{showingFrom}</span>
                       {"–"}
                       <span className="font-medium text-church-text">{showingTo}</span> of <span className="font-medium text-church-text">{totalCount}</span> {totalCount === 1 ? "sermon" : "sermons"}
                     </p>
 
-                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="grid h-fit w-full gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                       {paginatedVideos.map((video) => (
-                        <Card key={video.id.videoId} className="overflow-hidden border-0 shadow-soft">
-                          <div className="relative aspect-video">
-                            <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} className="h-full w-full object-cover" />
+                        <Card key={video.id.videoId} className="relative overflow-hidden shadow-soft">
+                          <div className="relative aspect-video h-fit border-b">
+                            <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} className="h-[250px] w-full rounded-t-lg object-center" />
                             <div className="absolute inset-0 flex items-center justify-center bg-church-blue/20 opacity-0 transition hover:opacity-100">
                               <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`} target="_blank" rel="noopener noreferrer">
                                 <Button variant="hero" size="lg">
@@ -230,25 +271,27 @@ const Sermons = () => {
                             </div>
                           </div>
 
-                          <CardHeader>
-                            <Badge variant="secondary" className="text-xs">
-                              YouTube Sermon
-                            </Badge>
-                            <CardTitle className="line-clamp-2 text-church-text">{video.snippet.title}</CardTitle>
-                            <CardDescription className="flex items-center gap-3 text-sm">
+                          <CardHeader className="h[160px] flex flex-col justify-between px-2 py-3">
+                            <div className="flex flex-col gap-3">
+                              <div className="flow-row flex items-center justify-between">
+                                <Badge variant="secondary" className="text-xs">
+                                  YouTube Sermon
+                                </Badge>
+                                <span className="flex items-center text-xs">
+                                  <Calendar className="mr-1 h-4 w-4" />
+                                  {new Date(video.snippet.publishedAt).toLocaleDateString()}
+                                </span>
+                              </div>
+                              <CardTitle className="line-clamp2 text-xs text-church-text md:text-sm">{video.snippet.title}</CardTitle>
+                            </div>
+                            <CardDescription className="flex flex-col gap-3 text-sm">
                               <span className="flex items-center">
                                 <User className="mr-1 h-4 w-4" />
-                                {video.snippet.channelTitle}
-                              </span>
-                              <span className="flex items-center">
-                                <Calendar className="mr-1 h-4 w-4" />
-                                {new Date(video.snippet.publishedAt).toLocaleDateString()}
+                                <span>{video.snippet.channelTitle}</span>
                               </span>
                             </CardDescription>
                           </CardHeader>
-                          <CardContent>
-                            <p className="line-clamp-2 text-sm text-church-text-light">{video.snippet.description}</p>
-                          </CardContent>
+                          {/* <CardContent className="p-2"><p className="line-clamp-2 text-sm text-church-text-light">{video.snippet.description}</p></CardContent> */}
                         </Card>
                       ))}
                     </div>
@@ -341,3 +384,4 @@ const Sermons = () => {
 };
 
 export default Sermons;
+// all good
