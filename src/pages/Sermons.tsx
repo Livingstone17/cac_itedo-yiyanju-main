@@ -35,31 +35,6 @@ const Sermons = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // const fetchAllVideos = async () => {
-  //   setLoading(true);
-  //   setError(null);
-  //   try {
-  //     const res = await fetch(apiUrl("/api/sermons"));
-
-  //     if (!res.ok) {
-  //       throw new Error(`Failed to load sermons: ${res.status} ${res.statusText}`);
-  //     }
-
-  //     // const data = (await res.json()) as SermonsApiResponse;
-  //     const data = (await res.json());
-  //     // Extract the array from the new nested structure
-  //     const videosArray = data?.videos?.allVideos ?? [];
-  //     // setAllVideos(data.videos ?? []);
-  //     setAllVideos(videosArray);
-  //   } catch (err: unknown) {
-  //     console.error("Error fetching sermons:", err);
-  //     const message = err instanceof Error ? err.message : "Unable to load sermons. Please try again later.";
-  //     setError(message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const fetchAllVideos = async () => {
     setLoading(true);
     setError(null);

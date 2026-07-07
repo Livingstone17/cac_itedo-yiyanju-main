@@ -109,7 +109,7 @@ const Hero = () => {
     <section
       ref={heroRef}
       id="home"
-      className="relative h-screen w-full overflow-hidden"
+      className="relative h-screen flex justify-center w-full overflow-hidden"
     >
       {/* Background */}
       <div ref={imageRef} className="absolute inset-0 scale-110">

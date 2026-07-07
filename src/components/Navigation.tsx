@@ -804,7 +804,7 @@ const Navigation = () => {
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-3 lg:flex">
             <div className="relative flex items-center space-x-8">
               {navigationItems.map(renderDesktopItem)}
             </div>
@@ -812,7 +812,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile: theme + menu */}
-          <div className="flex items-center gap-1 md:hidden">
+          <div className="flex items-center gap-1 lg:hidden">
             <ThemeToggle />
             <Button
               variant="ghost"
