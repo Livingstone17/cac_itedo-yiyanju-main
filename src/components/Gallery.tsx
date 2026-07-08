@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Heart, X } from "lucide-react";
@@ -103,22 +102,15 @@ const Gallery = () => {
   }
 
   return (
-    <section
-      ref={sectionRef}
-      id="gallery"
-      className="reveal bg-gradient-to-b from-background to-muted/30 py-20"
-    >
+    <section ref={sectionRef} id="gallery" className="reveal bg-gradient-to-b from-background to-muted/30 py-20">
       <div className="container mx-auto px-4">
-
         {/* Header */}
-        <div className="mb-16 text-center stagger">
-          <h2 className="gallery-title mb-4 text-4xl font-bold text-church-text md:text-5xl stagger-item">
+        <div className="stagger mb-16 text-center">
+          <h2 className="gallery-title stagger-item mb-4 text-4xl font-bold text-church-text md:text-5xl">
             Gallery <span className="text-church-gold">.</span>
           </h2>
 
-          <p className="gallery-subtitle mx-auto max-w-2xl text-lg text-church-text-light stagger-item">
-            Moments of faith, fellowship, and transformation from our church family
-          </p>
+          <p className="gallery-subtitle stagger-item mx-auto max-w-2xl text-lg text-church-text-light">Moments of faith, fellowship, and transformation from our church family</p>
         </div>
 
         {/* Swiper */}
@@ -141,28 +133,14 @@ const Gallery = () => {
           >
             {galleryImages.map((image, index) => (
               <SwiperSlide key={image.id} className="gallery-slide">
-                <div
-                  className="group relative h-48 cursor-pointer overflow-hidden sm:h-60 md:h-72 lg:h-[480px]"
-                  onClick={() => handleImageClick(image)}
-                >
-                  <LazyLoadImage
-                    src={image.src}
-                    alt={image.title}
-                    visibleByDefault={index < 2}
-                    effect="blur"
-                    wrapperClassName="h-full w-full"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    onContextMenu={handleContextMenu}
-                    draggable={false}
-                  />
+                <div className="group relative h-48 cursor-pointer overflow-hidden sm:h-60 md:h-72 lg:h-[480px]" onClick={() => handleImageClick(image)}>
+                  <LazyLoadImage src={image.src} alt={image.title} visibleByDefault={index < 2} effect="blur" wrapperClassName="h-full w-full" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" onContextMenu={handleContextMenu} draggable={false} />
 
                   {/* overlays */}
                   <div className="absolute inset-0 bg-black/40 transition-all duration-500 group-hover:bg-black/60"></div>
                   <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
                     <Heart className="mb-2 h-8 w-8 text-church-gold opacity-0 transition-all duration-500 group-hover:opacity-100" />
-                    <h3 className="text-lg font-bold text-white opacity-0 transition-all duration-500 group-hover:opacity-100">
-                      {image.title}
-                    </h3>
+                    <h3 className="text-lg font-bold text-white opacity-0 transition-all duration-500 group-hover:opacity-100">{image.title}</h3>
                   </div>
                 </div>
               </SwiperSlide>
@@ -178,22 +156,12 @@ const Gallery = () => {
         <DialogContent className="h-[100dvh] w-full max-w-4xl overflow-visible border-0 bg-black/90 p-0 md:h-auto">
           {selectedImage && (
             <div className="relative flex h-full w-full items-center justify-center">
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="absolute right-4 top-[env(safe-area-inset-top,1rem)] z-20 rounded-full bg-black/50 p-2 backdrop-blur"
-              >
+              <button onClick={() => setIsModalOpen(false)} className="absolute right-4 top-[env(safe-area-inset-top,1rem)] z-20 rounded-full bg-black/50 p-2 backdrop-blur">
                 <X className="h-6 w-6 text-white" />
               </button>
 
-              <div className="flex h-full w-full flex-col items-center justify-center px-4 pt-20 pb-12">
-                <LazyLoadImage
-                  src={selectedImage.src}
-                  alt={selectedImage.title}
-                  effect="blur"
-                  className="pointer-events-none max-h-[80vh] object-contain"
-                  onContextMenu={handleContextMenu}
-                  draggable={false}
-                />
+              <div className="flex h-full w-full flex-col items-center justify-center px-4 pb-12 pt-20">
+                <LazyLoadImage src={selectedImage.src} alt={selectedImage.title} effect="blur" className="pointer-events-none max-h-[80vh] object-contain" onContextMenu={handleContextMenu} draggable={false} />
 
                 <div className="mt-6 text-center text-white">
                   <h3 className="mb-2 text-2xl font-bold">{selectedImage.title}</h3>

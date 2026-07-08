@@ -232,7 +232,7 @@ export default function AboutItedoPage() {
   return (
     <>
       <section ref={pageRef} className="bg-background pb-20 pt-32" id="itedo-history">
-        <div className="container mx-auto max-w-4xl px-4">
+        <div className="2xl:container mx-auto max-w-4xl px-4">
           {/* Page Title */}
           <div className="mb-16 hero-reveal">
             <h1 className="mb-6 text-5xl font-bold text-church-text md:text-6xl">
