@@ -1,5 +1,3 @@
-
-
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Play, Calendar } from "lucide-react";
@@ -35,13 +33,11 @@ const openMaps = () => {
 };
 
 const goToLivestream = () => {
-  window.location.href = '/listen/video';
-}
-const phrases = [
-  "Welcome to Bethel, the House of Bread, where heaven meets earth.",
-  "A place of Worship, Love, Revelatory Teachings and Prayers.",
-  "Join us as we learn Christ, experience transformation and manifest the GOD Life here on earth."
-];
+  window.location.href = "/listen/video";
+};
+
+const phrases = ["Welcome to Bethel, the House of Bread, where heaven meets earth.", "A place of Worship, Love, Revelatory Teachings and Prayers.", "Join us as we learn Christ, experience transformation and manifest the GOD Life here on earth."];
+
 const useTypewriter = (texts, typingSpeed = 75, deletingSpeed = 30, pauseTime = 2000) => {
   const [displayedText, setDisplayedText] = useState("");
   const [textIndex, setTextIndex] = useState(0);
@@ -52,22 +48,25 @@ const useTypewriter = (texts, typingSpeed = 75, deletingSpeed = 30, pauseTime = 
     if (texts.length === 0) return;
     const currentText = texts[textIndex];
 
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        setDisplayedText(currentText.substring(0, charIndex + 1));
-        setCharIndex(prev => prev + 1);
-        if (charIndex + 1 === currentText.length) {
-          setTimeout(() => setIsDeleting(true), pauseTime);
+    const timeout = setTimeout(
+      () => {
+        if (!isDeleting) {
+          setDisplayedText(currentText.substring(0, charIndex + 1));
+          setCharIndex((prev) => prev + 1);
+          if (charIndex + 1 === currentText.length) {
+            setTimeout(() => setIsDeleting(true), pauseTime);
+          }
+        } else {
+          setDisplayedText(currentText.substring(0, charIndex - 1));
+          setCharIndex((prev) => prev - 1);
+          if (charIndex - 1 === 0) {
+            setIsDeleting(false);
+            setTextIndex((prev) => (prev + 1) % texts.length);
+          }
         }
-      } else {
-        setDisplayedText(currentText.substring(0, charIndex - 1));
-        setCharIndex(prev => prev - 1);
-        if (charIndex - 1 === 0) {
-          setIsDeleting(false);
-          setTextIndex(prev => (prev + 1) % texts.length);
-        }
-      }
-    }, isDeleting ? deletingSpeed : typingSpeed);
+      },
+      isDeleting ? deletingSpeed : typingSpeed,
+    );
 
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, textIndex, texts, typingSpeed, deletingSpeed, pauseTime]);
@@ -106,40 +105,22 @@ const Hero = () => {
   }, []);
 
   return (
-    <section
-      ref={heroRef}
-      id="home"
-      className="relative h-screen w-full overflow-hidden"
-    >
+    <section ref={heroRef} id="home" className="relative h-screen w-full overflow-hidden">
       {/* Background */}
       <div ref={imageRef} className="absolute inset-0 scale-110">
-        <Swiper
-          modules={[Autoplay, Navigation]}
-          slidesPerView={1}
-          autoplay={{ delay: 6000, disableOnInteraction: false }}
-          loop
-          className="h-full w-full"
-        >
-          {[heroImage1, heroImage2, heroImage4, heroImage5, heroImage6, heroImage7, heroImage8].map(
-            (image, idx) => (
-              <SwiperSlide key={idx}>
-                <img
-                  src={image}
-                  className="h-full w-full object-cover"
-                />
-                {/* bg-church-blue/70 */}
-                <div className="absolute inset-0 bg-black/70" />
-              </SwiperSlide>
-            )
-          )}
+        <Swiper modules={[Autoplay, Navigation]} slidesPerView={1} autoplay={{ delay: 6000, disableOnInteraction: false }} loop className="h-full w-full">
+          {[heroImage1, heroImage2, heroImage4, heroImage5, heroImage6, heroImage7, heroImage8].map((image, idx) => (
+            <SwiperSlide key={idx}>
+              <img src={image} className="h-full w-full object-cover" />
+              {/* bg-church-blue/70 */}
+              <div className="absolute inset-0 bg-black/70" />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
 
       {/* Content */}
-      <div
-        ref={contentRef}
-        className="relative z-10 flex h-full items-center justify-center"
-      >
+      <div ref={contentRef} className="relative z-10 flex h-full items-center justify-center">
         <div className="container mx-auto px-4 text-center">
           <h1 className="hero-title mb-6 text-5xl font-bold text-white md:text-7xl">
             Welcome to <span className="text-church-gold">CAC, Itedo Yiyanju</span>
@@ -148,12 +129,9 @@ const Hero = () => {
           {/* <p className="hero-subtitle mx-auto mb-8 max-w-2xl text-xl text-white/90">
             Welcome to Bethel, the House of Bread, where heaven meets earth.
           </p> */}
-          <p className="hero-subtitle mx-auto mb-8 max-w-2xl text-xl text-white/90 min-h-[2rem] flex items-center justify-center">
+          <p className="hero-subtitle mx-auto mb-8 flex min-h-[2rem] max-w-2xl items-center justify-center text-xl text-white/90">
             <span>{displayedText}</span>
-            <span
-              className="ml-1 inline-block w-[2px] h-[1.2em] bg-white/90 align-middle"
-              style={{ animation: 'blink 1s step-end infinite' }}
-            ></span>
+            <span className="ml-1 inline-block h-[1.2em] w-[2px] bg-white/90 align-middle" style={{ animation: "blink 1s step-end infinite" }}></span>
           </p>
 
           <div className="hero-buttons mb-10 flex justify-center gap-4">
@@ -169,7 +147,7 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className="hero-stats mx-auto grid max-w-2xl grid-cols-1 gap-8 md:grid-cols-3 text-white">
+          <div className="hero-stats mx-auto grid max-w-2xl grid-cols-1 gap-8 text-white md:grid-cols-3">
             <div>
               <div className="text-3xl font-bold text-church-gold">1000+</div>
               <div>Members</div>

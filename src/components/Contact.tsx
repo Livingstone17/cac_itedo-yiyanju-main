@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -47,15 +46,13 @@ const Contact = () => {
   const otherBranches = [
     {
       name: "CAC Itedo Yiyanju – Ikorodu Worship Centre",
-      address:
-        "Beside Dampress Secondary School, New Covenant Estate, Eyebeere, Gbaga off Ijede Road, Ikorodu Lagos",
+      address: "Beside Dampress Secondary School, New Covenant Estate, Eyebeere, Gbaga off Ijede Road, Ikorodu Lagos",
       mapUrl: "https://maps.app.goo.gl/q2e2kC3fWugVhw7y7",
       serviceTime: "Service Time: 8:00 AM every Sunday",
     },
     {
       name: "CAC Itedo Yiyanju – Ifo Worship Centre",
-      address:
-        "Ayoola Street,After Better land school,Balogun Tuntun,Gasline Ososun road, Ifo Ogun State",
+      address: "Ayoola Street,After Better land school,Balogun Tuntun,Gasline Ososun road, Ifo Ogun State",
       mapUrl: "https://maps.app.goo.gl/aD42amXhC632U6GX7",
       serviceTime: "Service Time: 8:00 AM every Sunday",
     },
@@ -174,24 +171,19 @@ const Contact = () => {
   return (
     <section ref={sectionRef} id="contact" className="reveal bg-gradient-subtle py-8">
       <div className="container mx-auto px-4">
-
         {/* Header */}
-        <div className="mb-16 text-center stagger">
-          <h2 className="contact-title mb-6 text-3xl font-bold text-church-text md:text-4xl stagger-item">
+        <div className="stagger mb-16 text-center">
+          <h2 className="contact-title stagger-item mb-6 text-3xl font-bold text-church-text md:text-4xl">
             Need Prayers <span className="text-church-gold">?</span>
           </h2>
 
-          <p className="contact-subtitle mx-auto max-w-2xl text-base text-church-text-light stagger-item">
-            When life feels overwhelming, prayer changes everything. We are here to stand with you.
-          </p>
+          <p className="contact-subtitle stagger-item mx-auto max-w-2xl text-base text-church-text-light">When life feels overwhelming, prayer changes everything. We are here to stand with you.</p>
         </div>
 
         {/* Main grid */}
         <div className="grid gap-8 lg:grid-cols-3">
-
           {/* LEFT */}
-          <div className="space-y-6 lg:col-span-1 contact-card">
-
+          <div className="contact-card space-y-6 lg:col-span-1">
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               return (
@@ -203,9 +195,7 @@ const Contact = () => {
                       </div>
                       <div>
                         <h4 className="font-semibold text-church-text">{info.title}</h4>
-                        <p className="whitespace-pre-line text-sm text-church-text-light">
-                          {info.content}
-                        </p>
+                        <p className="whitespace-pre-line text-sm text-church-text-light">{info.content}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -234,12 +224,10 @@ const Contact = () => {
           </div>
 
           {/* FORM */}
-          <div className="lg:col-span-2 contact-form">
+          <div className="contact-form lg:col-span-2">
             <Card className="border-0 shadow-large">
               <CardHeader>
-                <CardTitle className="text-2xl text-church-text">
-                  Send us a Message
-                </CardTitle>
+                <CardTitle className="text-2xl text-church-text">Send us a Message</CardTitle>
               </CardHeader>
 
               <CardContent>
@@ -286,24 +274,14 @@ const Contact = () => {
         {/* MAP */}
         <div className="contact-map mt-16">
           <Card className="overflow-hidden border-0 shadow-large">
-            <div className="aspect-video relative">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7992498029625!2d3.2491340759097!3d6.6717791933233155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b99e6e2162077%3A0x510b8a2a2b7e1897!2sChrist%20Apostolic%20Church%2C%20Itedo%20Yiyanju!5e0!3m2!1sen!2sng!4v1782062227366!5m2!1sen!2sng"
-                width="100%" height="100%" style={{ border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"></iframe>
+            <div className="relative aspect-video">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7992498029625!2d3.2491340759097!3d6.6717791933233155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b99e6e2162077%3A0x510b8a2a2b7e1897!2sChrist%20Apostolic%20Church%2C%20Itedo%20Yiyanju!5e0!3m2!1sen!2sng!4v1782062227366!5m2!1sen!2sng" width="100%" height="100%" style={{ border: 0 }} loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
               {/* Overlay with directions button */}
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white transition-opacity hover:opacity-0">
-                <h4 className="text-2xl font-bold mb-2">Find Us</h4>
-                <p className="text-sm mb-6 text-white/80">5, Itedo Yiyanju Close, Alagbado, Lagos</p>
-                <Button
-                  asChild
-                  className="bg-white text-black hover:bg-white/90"
-                >
-                  <a
-                    href="https://www.google.com/maps/dir/?api=1&destination=6.671838,3.251764"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                <h4 className="mb-2 text-2xl font-bold">Find Us</h4>
+                <p className="mb-6 text-sm text-white/80">5, Itedo Yiyanju Close, Alagbado, Lagos</p>
+                <Button asChild className="bg-white text-black hover:bg-white/90">
+                  <a href="https://www.google.com/maps/dir/?api=1&destination=6.671838,3.251764" target="_blank" rel="noopener noreferrer">
                     <MapPin className="mr-2 h-5 w-5" />
                     Get Directions
                   </a>
@@ -315,15 +293,13 @@ const Contact = () => {
 
         {/* BRANCHES */}
         <div className="mt-16 text-center">
-          <h3 className="mb-8 text-2xl font-bold text-church-text">
-            Our Worship Centres
-          </h3>
+          <h3 className="mb-8 text-2xl font-bold text-church-text">Our Worship Centres</h3>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
           {otherBranches.map((b, i) => (
             <a key={i} href={b.mapUrl} target="_blank" className="contact-branch">
-              <Card className="transition-transform hover:scale-105">
+              <Card className="h-full transition-transform hover:scale-105">
                 <CardContent className="p-6 text-center">
                   <h4 className="font-semibold">{b.name}</h4>
                   <p className="text-sm text-church-text-light">{b.address}</p>
@@ -336,7 +312,6 @@ const Contact = () => {
             </a>
           ))}
         </div>
-
       </div>
     </section>
   );
