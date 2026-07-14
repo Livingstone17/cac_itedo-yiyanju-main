@@ -16,7 +16,7 @@ import Events from "./pages/Events";
 import AboutCAC from "./pages/AboutCAC";
 import AboutItedo from "./pages/AboutItedo";
 import Ministries from "./pages/Ministries";
-import { LiveStatusProvider } from "../src/contexts/LiveStatusContext";
+import { LiveStatusProvider } from "./contexts/LiveStatusContext";
 import Books from "@/pages/Books";
 
 const queryClient = new QueryClient({
@@ -32,7 +32,7 @@ const queryClient = new QueryClient({
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false} storageKey="cac-theme">
       <TooltipProvider>
         <LiveStatusProvider>
           <Toaster />

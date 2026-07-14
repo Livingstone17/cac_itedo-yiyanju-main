@@ -24,45 +24,29 @@ interface SermonVideo {
   };
 }
 
-interface SermonsApiResponse {
-  videos?: SermonVideo[];
-  source?: string;
-}
-
-// Skeleton card — mirrors the real card's structure exactly
 const SermonCardSkeleton = () => (
-  <Card className="relative overflow-hidden shadow-soft">
-    {/* Thumbnail */}
-    <Skeleton className="h-[250px] w-full rounded-b-none rounded-t-lg" />
-
+  <Card className="border-light-400 bg-light shadow-soft dark:border-dark-500 dark:bg-dark-400 relative overflow-hidden border">
+    <Skeleton className="bg-light-400 dark:bg-dark-500 h-62.5 w-full rounded-t-lg rounded-b-none" />
     <CardHeader className="flex flex-col justify-between gap-3 px-2 py-3">
-      {/* Badge + date row */}
       <div className="flex items-center justify-between">
-        <Skeleton className="h-5 w-24 rounded-full" />
-        <Skeleton className="h-4 w-20 rounded" />
+        <Skeleton className="bg-light-400 dark:bg-dark-500 h-5 w-24 rounded-full" />
+        <Skeleton className="bg-light-400 dark:bg-dark-500 h-4 w-20 rounded" />
       </div>
-
-      {/* Title */}
       <div className="space-y-1.5">
-        <Skeleton className="h-3.5 w-full rounded" />
-        <Skeleton className="h-3.5 w-3/4 rounded" />
+        <Skeleton className="bg-light-400 dark:bg-dark-500 h-3.5 w-full rounded" />
+        <Skeleton className="bg-light-400 dark:bg-dark-500 h-3.5 w-3/4 rounded" />
       </div>
-
-      {/* Channel */}
       <div className="flex items-center gap-1.5">
-        <Skeleton className="h-4 w-4 rounded-full" />
-        <Skeleton className="h-3.5 w-28 rounded" />
+        <Skeleton className="bg-light-400 dark:bg-dark-500 h-4 w-4 rounded-full" />
+        <Skeleton className="bg-light-400 dark:bg-dark-500 h-3.5 w-28 rounded" />
       </div>
     </CardHeader>
   </Card>
 );
 
-// Grid of skeleton cards shown while loading
 const SermonSkeletonGrid = () => (
   <div className="w-full space-y-6">
-    {/* Mimic the "Showing X–Y of Z" label */}
-    <Skeleton className="h-4 w-48 rounded" />
-
+    <Skeleton className="bg-light-400 dark:bg-dark-500 h-4 w-48 rounded" />
     <div className="grid h-fit w-full gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
       {Array.from({ length: SERMONS_PAGE_SIZE }).map((_, i) => (
         <SermonCardSkeleton key={i} />
@@ -89,16 +73,9 @@ const Sermons = () => {
       }
 
       const data = await res.json();
-
-      // Extract the array from the exact path in your JSON response
       const rawVideos = data?.videos?.allVideos;
-
-      // Guarantee we only set a true array to state
       setAllVideos(Array.isArray(rawVideos) ? rawVideos : []);
-
-      console.log("✅ Sermons loaded:", Array.isArray(rawVideos) ? rawVideos.length : "Invalid format");
     } catch (err: unknown) {
-      console.error("Error fetching sermons:", err);
       const message = err instanceof Error ? err.message : "Unable to load sermons. Please try again later.";
       setError(message);
     } finally {
@@ -110,22 +87,8 @@ const Sermons = () => {
     fetchAllVideos();
   }, []);
 
-  // const filteredVideos = useMemo(() => {
-  //   const query = searchQuery.toLowerCase().trim();
-  //   if (!query) return allVideos;
-  //   return allVideos.filter((video) => {
-  //     const title = video.snippet.title.toLowerCase();
-  //     const date = new Date(video.snippet.publishedAt).toLocaleDateString();
-  //     return title.includes(query) || date.toLowerCase().includes(query);
-  //   });
-  // }, [allVideos, searchQuery]);
-
   const filteredVideos = useMemo(() => {
-    // Ensure we always work with an array
     const videos = Array.isArray(allVideos) ? allVideos : [];
-
-    console.log("📊 Filtering videos. Total:", videos.length);
-
     const query = searchQuery.toLowerCase().trim();
     if (!query) return videos;
 
@@ -134,8 +97,7 @@ const Sermons = () => {
         const title = video.snippet?.title?.toLowerCase() || "";
         const date = video.snippet?.publishedAt ? new Date(video.snippet.publishedAt).toLocaleDateString() : "";
         return title.includes(query) || date.toLowerCase().includes(query);
-      } catch (e) {
-        console.warn("⚠️ Skipping malformed video entry:", e);
+      } catch {
         return false;
       }
     });
@@ -161,73 +123,68 @@ const Sermons = () => {
 
   return (
     <>
-      <section id="sermons" className="bg-background py-20">
+      <section id="sermons" className="bg-light-200 dark:bg-dark-300 py-20 pt-32">
         <div className="container mx-auto px-4">
           <div className="grid gap-10 md:grid-cols-3 lg:grid-cols-5">
             <div className="md:col-span-3 lg:col-span-5">
-              <h2 className="mb-8 text-3xl font-bold text-church-text">
-                Recent <span className="text-church-gold">Sermons</span>
+              <h2 className="text-text dark:text-light mb-8 text-3xl font-bold">
+                Recent <span className="text-church-gold-400">Sermons</span>
               </h2>
 
+              {/* Search */}
               <div className="mb-8">
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 transform text-church-text-light" />
-                  <Input type="text" placeholder="Search sermons by title or date..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="rounded-md border-church-blue/20 py-2 pl-12 outline-none focus:border-church-blue" />
+                  <Search className="text-text-300 dark:text-text-400 absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform" />
+                  <Input type="text" placeholder="Search sermons by title or date..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="border-light-400 bg-light text-text placeholder:text-text-400 focus:border-church-gold-400 dark:border-dark-500 dark:bg-dark-500 dark:text-light dark:placeholder:text-text-400 rounded-md py-2 pl-12 outline-none" />
                 </div>
                 {filteredVideos.length > 0 && (
-                  <p className="mt-2 text-sm text-church-text-light">
+                  <p className="text-text-300 dark:text-text-400 mt-2 text-sm">
                     Found {filteredVideos.length} {filteredVideos.length === 1 ? "sermon" : "sermons"}
                   </p>
                 )}
               </div>
 
-              {/* ── Error state ───────────────────────────────────────────── */}
+              {/* Error */}
               {error && !loading && (
-                <div className="flex flex-col items-center justify-center rounded-xl border border-red-200/50 bg-gradient-to-b from-red-50/50 to-background px-6 py-16 dark:border-red-900/30 dark:from-red-950/20">
-                  {/* Error Icon */}
+                <div className="to-light-200 dark:to-dark-300 flex flex-col items-center justify-center rounded-xl border border-red-200/50 bg-linear-to-b from-red-50/50 px-6 py-16 dark:border-red-900/30 dark:from-red-950/20">
                   <div className="relative mb-6">
                     <div className="flex h-20 w-20 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-10 w-10 text-red-500 dark:text-red-400">
                         <path d="M18 6L6 18M6 6l12 12" />
                       </svg>
                     </div>
-                    {/* Decorative pulse ring */}
                     <div className="absolute inset-0 animate-ping rounded-full bg-red-200/40 dark:bg-red-800/20" style={{ animationDuration: "2s" }} />
                   </div>
 
-                  {/* Error Title */}
-                  <h3 className="mb-2 text-xl font-bold text-church-text">Unable to Load Sermons</h3>
+                  <h3 className="text-text dark:text-light mb-2 text-xl font-bold">Unable to Load Sermons</h3>
 
-                  {/* Error Message */}
-                  <p className="mb-2 max-w-md text-center text-sm leading-relaxed text-church-text-light">{error}</p>
+                  <p className="text-text-300 dark:text-text-400 mb-2 max-w-md text-center text-sm leading-relaxed">{error}</p>
 
-                  {/* Helpful Suggestions */}
                   <div className="mb-8 flex flex-col items-center gap-1">
-                    <p className="text-xs text-church-text-light/70">This could be due to:</p>
-                    <ul className="mt-1 space-y-1 text-xs text-church-text-light/70">
+                    <p className="text-text-400 dark:text-text-500 text-xs">This could be due to:</p>
+                    <ul className="text-text-400 dark:text-text-500 mt-1 space-y-1 text-xs">
                       <li className="flex items-center gap-2">
-                        <span className="h-1 w-1 rounded-full bg-church-text-light/50" />A temporary network issue
+                        <span className="bg-text-400 h-1 w-1 rounded-full" />A temporary network issue
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="h-1 w-1 rounded-full bg-church-text-light/50" />
+                        <span className="bg-text-400 h-1 w-1 rounded-full" />
                         Server maintenance in progress
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="h-1 w-1 rounded-full bg-church-text-light/50" />
+                        <span className="bg-text-400 h-1 w-1 rounded-full" />
                         Your internet connection being unstable
                       </li>
                     </ul>
                   </div>
 
-                  {/* Action Buttons */}
                   <div className="flex flex-wrap items-center justify-center gap-3">
-                    <Button onClick={fetchAllVideos} variant="default" className="gap-2 bg-red-600 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600">
+                    <Button onClick={fetchAllVideos} className="gap-2 bg-red-600 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600">
                       <RefreshCcw size={24} strokeWidth={2} />
                       Try Again
                     </Button>
 
                     <a href="https://www.youtube.com/@YourChannel" target="_blank" rel="noopener noreferrer">
-                      <Button variant="outline" className="gap-2">
+                      <Button variant="outline" className="border-light-400 text-text hover:bg-light-300 dark:border-dark-500 dark:text-light dark:hover:bg-dark-500 gap-2">
                         <Play className="h-4 w-4" />
                         Watch on YouTube
                       </Button>
@@ -236,67 +193,65 @@ const Sermons = () => {
                 </div>
               )}
 
-              {/* ── Skeleton loading state ────────────────────────────────── */}
+              {/* Loading */}
               {loading && <SermonSkeletonGrid />}
 
-              {/* ── Empty state ───────────────────────────────────────────── */}
+              {/* Empty */}
               {!loading && !error && filteredVideos.length === 0 && (
                 <div className="py-12 text-center">
-                  <p className="mb-2 text-church-text-light">No sermons found</p>
-                  <p className="text-sm text-church-text-light">Try searching with different keywords or dates</p>
+                  <p className="text-text-300 dark:text-text-400 mb-2">No sermons found</p>
+                  <p className="text-text-300 dark:text-text-400 text-sm">Try searching with different keywords or dates</p>
                 </div>
               )}
 
-              {/* ── Sermons grid ──────────────────────────────────────────── */}
+              {/* Sermons grid */}
               {!loading && !error && filteredVideos.length > 0 && (
                 <>
                   <div className="w-full space-y-6" id="sermons-list-top">
-                    <p className="text-sm text-church-text-light">
-                      Showing <span className="font-medium text-church-text">{showingFrom}</span>
+                    <p className="text-text-300 dark:text-text-400 text-sm">
+                      Showing <span className="text-text dark:text-light font-medium">{showingFrom}</span>
                       {"–"}
-                      <span className="font-medium text-church-text">{showingTo}</span> of <span className="font-medium text-church-text">{totalCount}</span> {totalCount === 1 ? "sermon" : "sermons"}
+                      <span className="text-text dark:text-light font-medium">{showingTo}</span> of <span className="text-text dark:text-light font-medium">{totalCount}</span> {totalCount === 1 ? "sermon" : "sermons"}
                     </p>
 
                     <div className="grid h-fit w-full gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                       {paginatedVideos.map((video) => (
-                        <Card key={video.id.videoId} className="relative overflow-hidden shadow-soft">
-                          <div className="relative aspect-video h-fit border-b">
-                            <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} className="h-[250px] w-full rounded-t-lg object-center" />
-                            <div className="absolute inset-0 flex items-center justify-center bg-church-blue/20 opacity-0 transition hover:opacity-100">
+                        <Card key={video.id.videoId} className="border-light-400 bg-light shadow-soft dark:border-dark-500 dark:bg-dark-400 relative overflow-hidden border">
+                          <div className="border-light-400 dark:border-dark-500 relative aspect-video h-fit border-b">
+                            <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} className="h-62.5 w-full rounded-t-lg object-center" />
+                            <div className="bg-church-blue-900/30 absolute inset-0 flex items-center justify-center opacity-0 transition hover:opacity-100">
                               <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`} target="_blank" rel="noopener noreferrer">
-                                <Button variant="hero" size="lg">
+                                <Button size="lg" className="bg-church-gold-400 text-church-blue-900 hover:bg-church-gold-300">
                                   <Play className="mr-2 h-5 w-5" /> Watch
                                 </Button>
                               </a>
                             </div>
                           </div>
 
-                          <CardHeader className="h[160px] flex flex-col justify-between px-2 py-3">
+                          <CardHeader className="flex flex-col justify-between px-2 py-3">
                             <div className="flex flex-col gap-3">
-                              <div className="flow-row flex items-center justify-between">
-                                <Badge variant="secondary" className="text-xs">
-                                  YouTube Sermon
-                                </Badge>
-                                <span className="flex items-center text-xs">
+                              <div className="flex items-center justify-between">
+                                <Badge className="bg-church-gold-50 text-church-gold-700 dark:bg-church-gold-950/30 dark:text-church-gold-300 text-xs">YouTube Sermon</Badge>
+                                <span className="text-text-300 dark:text-text-400 flex items-center text-xs">
                                   <Calendar className="mr-1 h-4 w-4" />
                                   {new Date(video.snippet.publishedAt).toLocaleDateString()}
                                 </span>
                               </div>
-                              <CardTitle className="line-clamp2 text-xs text-church-text md:text-sm">{video.snippet.title}</CardTitle>
+                              <CardTitle className="text-text dark:text-light line-clamp-2 text-xs md:text-sm">{video.snippet.title}</CardTitle>
                             </div>
-                            <CardDescription className="flex flex-col gap-3 text-sm">
+                            <CardDescription className="text-text-300 dark:text-text-400 mt-3 flex flex-col gap-3 text-sm">
                               <span className="flex items-center">
                                 <User className="mr-1 h-4 w-4" />
                                 <span>{video.snippet.channelTitle}</span>
                               </span>
                             </CardDescription>
                           </CardHeader>
-                          {/* <CardContent className="p-2"><p className="line-clamp-2 text-sm text-church-text-light">{video.snippet.description}</p></CardContent> */}
                         </Card>
                       ))}
                     </div>
                   </div>
 
+                  {/* Pagination */}
                   {totalPages > 1 && (
                     <Pagination className="mt-10">
                       <PaginationContent className="flex-wrap justify-center gap-1">
@@ -312,7 +267,15 @@ const Sermons = () => {
                                 block: "start",
                               });
                             }}
-                            className={cn(buttonVariants({ variant: "outline", size: "default" }), "gap-1 pl-2.5", safePage <= 1 && "pointer-events-none opacity-50")}
+                            className={cn(
+                              buttonVariants({
+                                variant: "outline",
+                                size: "default",
+                              }),
+                              "gap-1 pl-2.5",
+                              "border-light-400 text-text hover:bg-light-300 dark:border-dark-500 dark:text-light dark:hover:bg-dark-500",
+                              safePage <= 1 && "pointer-events-none opacity-50",
+                            )}
                           >
                             <ChevronLeft className="h-4 w-4" />
                             <span className="hidden sm:inline">Previous</span>
@@ -322,7 +285,7 @@ const Sermons = () => {
                         {pageItems.map((item, idx) =>
                           item === "ellipsis" ? (
                             <PaginationItem key={`ellipsis-${idx}`}>
-                              <PaginationEllipsis />
+                              <PaginationEllipsis className="text-text-300 dark:text-text-400" />
                             </PaginationItem>
                           ) : (
                             <PaginationItem key={item}>
@@ -343,6 +306,7 @@ const Sermons = () => {
                                     size: "icon",
                                   }),
                                   "min-w-10",
+                                  item === safePage ? "border-church-gold-400 bg-church-gold-50 text-church-gold-500 dark:bg-church-gold-950/30 dark:text-church-gold-300" : "text-text-300 hover:bg-light-300 dark:text-text-400 dark:hover:bg-dark-500",
                                 )}
                               >
                                 {item}
@@ -363,7 +327,15 @@ const Sermons = () => {
                                 block: "start",
                               });
                             }}
-                            className={cn(buttonVariants({ variant: "outline", size: "default" }), "gap-1 pr-2.5", safePage >= totalPages && "pointer-events-none opacity-50")}
+                            className={cn(
+                              buttonVariants({
+                                variant: "outline",
+                                size: "default",
+                              }),
+                              "gap-1 pr-2.5",
+                              "border-light-400 text-text hover:bg-light-300 dark:border-dark-500 dark:text-light dark:hover:bg-dark-500",
+                              safePage >= totalPages && "pointer-events-none opacity-50",
+                            )}
                           >
                             <span className="hidden sm:inline">Next</span>
                             <ChevronRight className="h-4 w-4" />
@@ -384,4 +356,3 @@ const Sermons = () => {
 };
 
 export default Sermons;
-// all good
