@@ -1,4 +1,3 @@
-import React from "react";
 import Prayer from "@/assets/program.jpg";
 import { FaChalkboardUser, FaUsers, FaBookBible, FaHandsPraying } from "react-icons/fa6";
 
@@ -29,66 +28,55 @@ const ProgramsSection = () => {
       icon: FaHandsPraying,
     },
   ];
-  // bg-church-cream
-  return (
-    <section className="reveal py-16 bg-blue-50 border-y border-border/60">
-      <div className="container mx-auto px-6">
 
-        <div className="text-center mb-16 fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black">
-            Our <span className="text-church-gold">Weekly Meetings</span>
+  return (
+    <section className="reveal border-light-400/60 bg-light dark:border-dark-500/60 dark:bg-dark-300 border-y py-16">
+      <div className="container mx-auto px-6">
+        <div className="fade-in mb-16 text-center">
+          <h2 className="text-text dark:text-light mb-6 text-3xl font-bold md:text-4xl">
+            Our <span className="text-church-gold-400">Weekly Meetings</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 stagger">
-
-          <div></div>
+        <div className="stagger grid grid-cols-1 gap-8 lg:grid-cols-5">
+          <div />
 
           <div className="lg:col-span-3">
-            <div className="grid lg:grid-cols-2 gap-8 items-start">
-
+            <div className="grid items-start gap-8 lg:grid-cols-2">
               <div className="stagger-item">
-                <img
-                  src={Prayer}
-                  className="rounded-lg shadow-lg w-full object-cover parallax"
-                />
+                <img src={Prayer} alt="Weekly programs" className="parallax shadow-large w-full rounded-lg object-cover" />
               </div>
 
               <div>
                 {weeklyMeetings.map((meeting, index) => {
                   const IconComponent = meeting.icon;
+
                   return (
                     <div key={index} className="stagger-item">
-                      <div className="py-4 flex gap-4">
-                        <div className="w-12 h-12 bg-church-gold/15 rounded-lg flex items-center justify-center">
-                          <IconComponent className="w-6 h-6 text-church-gold" />
+                      <div className="flex gap-4 py-4">
+                        <div className="bg-church-gold-400/15 flex h-12 w-12 items-center justify-center rounded-lg">
+                          <IconComponent className="text-church-gold-400 h-6 w-6" />
                         </div>
 
                         <div>
-                          <h3 className="text-lg font-semibold text-black/60">
-                            {meeting.title}
-                          </h3>
+                          <h3 className="text-text dark:text-light text-lg font-semibold">{meeting.title}</h3>
+
                           <div className="flex gap-4">
-                            <span className="text-black/60">{meeting.day}</span>
-                            <span className="text-church-gold">
-                              {meeting.time}
-                            </span>
+                            <span className="text-text-300 dark:text-text-400">{meeting.day}</span>
+                            <span className="text-church-gold-400 font-medium">{meeting.time}</span>
                           </div>
                         </div>
                       </div>
 
-                      {index < weeklyMeetings.length - 1 && (
-                        <div className="border-b border-border"></div>
-                      )}
+                      {index < weeklyMeetings.length - 1 && <div className="border-light-400 dark:border-dark-500 border-b" />}
                     </div>
                   );
                 })}
               </div>
-
             </div>
           </div>
 
-          <div></div>
+          <div />
         </div>
       </div>
     </section>

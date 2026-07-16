@@ -29,7 +29,6 @@ export function FilterSelect({ id, label, value, onChange, options, placeholder 
 
   const selectedOption = allOptions.find((opt) => opt.value === (value ?? "__all__"));
 
-  // Close on click outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -41,7 +40,6 @@ export function FilterSelect({ id, label, value, onChange, options, placeholder 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Close on Escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsOpen(false);
@@ -51,7 +49,6 @@ export function FilterSelect({ id, label, value, onChange, options, placeholder 
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
-  // Scroll highlighted item into view
   useEffect(() => {
     if (isOpen && highlightedIndex >= 0 && listRef.current) {
       const items = listRef.current.querySelectorAll("li");
@@ -102,12 +99,10 @@ export function FilterSelect({ id, label, value, onChange, options, placeholder 
 
   return (
     <div className={cn("space-y-2", className)} ref={containerRef}>
-      {/* Label */}
-      <label htmlFor={id} className="block text-sm font-medium text-church-text">
+      <label htmlFor={id} className="text-text dark:text-light block text-sm font-medium">
         {label}
       </label>
 
-      {/* Trigger */}
       <div className="relative">
         <button
           id={id}
@@ -123,40 +118,24 @@ export function FilterSelect({ id, label, value, onChange, options, placeholder 
             }
           }}
           onKeyDown={handleKeyDown}
-          className={cn("flex w-full items-center justify-between rounded-lg border border-border bg-background px-4 py-2.5 text-left text-sm transition-all", "hover:border-church-gold/50", "focus:border-church-gold focus:outline-none focus:ring-2 focus:ring-church-gold/30", isOpen && "border-church-gold ring-2 ring-church-gold/30", capitalize && "capitalize")}
+          className={cn("flex w-full items-center justify-between rounded-lg border px-4 py-2.5 text-left text-sm transition-all", "border-light-400 bg-light dark:border-dark-500 dark:bg-dark-500", "hover:border-church-gold-400/50", "focus:border-church-gold-400 focus:ring-church-gold-400/30 focus:ring-2 focus:outline-none", "focus-visible:shadow-none", isOpen && "border-church-gold-400 ring-church-gold-400/30 ring-2", capitalize && "capitalize")}
         >
-          <span className={cn(selectedOption?.value === "__all__" ? "text-church-text-light" : "text-church-text")}>{selectedOption?.label ?? placeholder}</span>
+          <span className={cn(selectedOption?.value === "__all__" ? "text-text-300 dark:text-text-400" : "text-text dark:text-light")}>{selectedOption?.label ?? placeholder}</span>
 
-          <ChevronDown className={cn("ml-2 h-4 w-4 shrink-0 text-church-text-light transition-transform duration-200", isOpen && "rotate-180")} />
+          <ChevronDown className={cn("text-text-300 dark:text-text-400 ml-2 h-4 w-4 shrink-0 transition-transform duration-200", isOpen && "rotate-180")} />
         </button>
 
-        {/* Dropdown Panel */}
         {isOpen && (
-          <ul ref={listRef} role="listbox" aria-labelledby={id} className={cn("absolute z-50 mt-2 max-h-60 w-full overflow-auto rounded-lg border border-border bg-background py-1 shadow-lg", "duration-150 animate-in fade-in-0 zoom-in-95")}>
+          <ul ref={listRef} role="listbox" aria-labelledby={id} className={cn("shadow-medium absolute z-50 mt-2 max-h-60 w-full overflow-auto rounded-lg border py-1", "border-light-400 bg-light dark:border-dark-500 dark:bg-dark-400", "animate-in fade-in-0 zoom-in-95 duration-150")}>
             {allOptions.map((option, index) => {
               const isSelected = option.value === (value ?? "__all__");
               const isHighlighted = index === highlightedIndex;
 
               return (
-                <li
-                  key={option.value}
-                  role="option"
-                  aria-selected={isSelected}
-                  onClick={() => handleSelect(option.value)}
-                  onMouseEnter={() => setHighlightedIndex(index)}
-                  className={cn(
-                    "flex cursor-pointer items-center justify-between px-4 py-2.5 text-sm transition-colors",
-                    isHighlighted && "bg-church-gold/10",
-                    isSelected ? "font-medium text-church-gold" : "text-church-text",
-                    !isSelected && !isHighlighted && "hover:bg-muted",
-                    capitalize && "capitalize",
-                    // Divider after "All" option
-                    index === 0 && "mb-1 border-b border-border pb-2.5",
-                  )}
-                >
+                <li key={option.value} role="option" aria-selected={isSelected} onClick={() => handleSelect(option.value)} onMouseEnter={() => setHighlightedIndex(index)} className={cn("flex cursor-pointer items-center justify-between px-4 py-2.5 text-sm transition-colors", isHighlighted && "bg-church-gold-400/10 dark:bg-church-gold-400/10", isSelected ? "text-church-gold-400 font-medium" : "text-text dark:text-light", !isSelected && !isHighlighted && "hover:bg-light-300 dark:hover:bg-dark-500", capitalize && "capitalize", index === 0 && "border-light-400 dark:border-dark-500 mb-1 border-b pb-2.5")}>
                   <span>{option.label}</span>
 
-                  {isSelected && <Check className="h-4 w-4 shrink-0 text-church-gold" />}
+                  {isSelected && <Check className="text-church-gold-400 h-4 w-4 shrink-0" />}
                 </li>
               );
             })}
