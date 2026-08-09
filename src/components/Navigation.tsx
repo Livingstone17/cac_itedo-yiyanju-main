@@ -1005,8 +1005,8 @@ const Navigation = () => {
             className={
               "mx-auto flex items-center transition-all duration-500 " +
               (isScrolled
-                ? "h-14 justify-center gap-6 my-1"
-                : "h-16 justify-between")
+                ? "h-12 justify-center gap-6 my-1"
+                : "h-12 justify-between")
             }
           >
             {/* Logo */}
@@ -1124,7 +1124,7 @@ const Navigation = () => {
       </nav>
 
       {/* Spacer so content isn't hidden behind fixed nav */}
-      <div className={isScrolled ? "h-6" : "h-16"} />
+      {/* <div className={isScrolled ? "h-12" : "h-12"} /> */}
     </>
   );
 };
