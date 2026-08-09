@@ -615,8 +615,8 @@ const Hero = () => {
       />
 
       {/* Radial glow behind the 3D section */}
-      <div className="pointer-events-none absolute right-0 top-1/2 h-[600px] w-[600px] -translate-y-1/2 translate-x-1/4 rounded-full bg-[#d4a843]/5 blur-[120px]" />
-      <div className="pointer-events-none absolute left-0 top-1/3 h-[400px] w-[400px] -translate-x-1/4 rounded-full bg-[#1a2f5a]/20 blur-[100px]" />
+      {/* <div className="pointer-events-none absolute right-0 top-1/2 h-[600px] w-[600px] -translate-y-1/2 translate-x-1/4 rounded-full bg-[#d4a843]/5 blur-[120px]" />
+      <div className="pointer-events-none absolute left-0 top-1/3 h-[400px] w-[400px] -translate-x-1/4 rounded-full bg-[#1a2f5a]/20 blur-[100px]" /> */}
 
       {/* ── Two-Column Layout ── */}
       <div className="relative z-10 flex min-h-screen items-center">
@@ -660,11 +660,11 @@ const Hero = () => {
             <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:gap-6">
               <div className="hero-info-item flex items-center gap-2 text-sm text-white/50">
                 <Clock className="h-4 w-4 text-[#d4a843]" />
-                <span>Sundays — 8:00 AM & 10:30 AM</span>
+                <span>Sundays — 8:00 AM</span>
               </div>
               <div className="hero-info-item flex items-center gap-2 text-sm text-white/50">
                 <MapPin className="h-4 w-4 text-[#d4a843]" />
-                <span>Sango-Ota, Ogun State</span>
+                <span>Alagbado, Lagos State</span>
               </div>
             </div>
 
