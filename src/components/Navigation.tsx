@@ -979,8 +979,8 @@ const Navigation = () => {
         ref={navRef}
         className={
           "fixed top-0 z-50 w-full transition-all duration-500 " +
-          (isScrolled
-            ? "bg-white/80 dark:bg-[#050a18]/80 shadow-[0_1px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_30px_rgba(0,0,0,0.4)]"
+          (isScrolled //bg-white/80
+            ? "dark:bg-[#050a18]/80 shadow-[0_1px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_30px_rgba(0,0,0,0.4)]"
             : "bg-transparent")
         }
         style={{
