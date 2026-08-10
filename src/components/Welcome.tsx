@@ -83,93 +83,6 @@ const WelcomeSection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [imageHovered, setImageHovered] = useState(false);
 
-  // useEffect(() => {
-  //   if (!sectionRef.current) return;
-
-  //   const ctx = gsap.context(() => {
-  //     // Image reveal
-  //     gsap.from(".welcome-image-wrapper", {
-  //       scrollTrigger: {
-  //         trigger: ".welcome-image-wrapper",
-  //         start: "top 80%",
-  //         end: "top 30%",
-  //         toggleActions: "play none none reverse",
-  //       },
-  //       x: -80,
-  //       opacity: 0,
-  //       duration: 1.2,
-  //       ease: "power3.out",
-  //     });
-
-  //     // Image overlay wipe
-  //     gsap.from(".welcome-image-overlay", {
-  //       scrollTrigger: {
-  //         trigger: ".welcome-image-wrapper",
-  //         start: "top 75%",
-  //         toggleActions: "play none none reverse",
-  //       },
-  //       scaleX: 1,
-  //       transformOrigin: "left center",
-  //       duration: 1,
-  //       ease: "power3.inOut",
-  //     });
-
-  //     // Content stagger
-  //     gsap.from(".welcome-content-item", {
-  //       scrollTrigger: {
-  //         trigger: contentRef.current,
-  //         start: "top 80%",
-  //         toggleActions: "play none none reverse",
-  //       },
-  //       y: 50,
-  //       opacity: 0,
-  //       duration: 0.8,
-  //       stagger: 0.15,
-  //       ease: "power3.out",
-  //     });
-
-  //     // Decorative line grow
-  //     gsap.from(".welcome-accent-line", {
-  //       scrollTrigger: {
-  //         trigger: ".welcome-accent-line",
-  //         start: "top 85%",
-  //         toggleActions: "play none none reverse",
-  //       },
-  //       scaleX: 0,
-  //       transformOrigin: "left center",
-  //       duration: 1,
-  //       ease: "power3.out",
-  //     });
-
-  //     // Stats counter animation
-  //     gsap.from(".welcome-stat", {
-  //       scrollTrigger: {
-  //         trigger: ".welcome-stats",
-  //         start: "top 85%",
-  //         toggleActions: "play none none reverse",
-  //       },
-  //       y: 30,
-  //       opacity: 0,
-  //       duration: 0.6,
-  //       stagger: 0.1,
-  //       ease: "power3.out",
-  //     });
-
-  //     // Parallax on the image
-  //     gsap.to(".welcome-parallax-img", {
-  //       scrollTrigger: {
-  //         trigger: ".welcome-image-wrapper",
-  //         start: "top bottom",
-  //         end: "bottom top",
-  //         scrub: 1,
-  //       },
-  //       y: -40,
-  //       ease: "none",
-  //     });
-  //   }, sectionRef);
-
-  //   return () => ctx.revert();
-  // }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -283,12 +196,14 @@ const WelcomeSection = () => {
 
             {/* Image container */}
             <div className="relative overflow-hidden rounded-xl">
-              <div className="aspect-[3/4] w-full overflow-hidden md:aspect-[4/5]">
+              {/* <div className="aspect-[3/4] w-full overflow-hidden md:aspect-[3/4]"> */}
+              <div className="aspect-[4/3] w-full overflow-hidden md:aspect-[5/4]">
                 <img
                   src={pastorImg}
                   alt="Pastor Samson Akin-Olugbade"
                   className={
-                    "welcome-parallax-img h-full w-full object-cover object-top transition-all duration-700 " +
+                    // "welcome-parallax-img h-full w-full object-cover object-top transition-all duration-700 " +
+                    "welcome-parallax-img h-full w-full object-cover object-[center_0%] transition-all duration-700 " +
                     (imageHovered
                       ? "scale-105 grayscale-0"
                       : "scale-100 grayscale")

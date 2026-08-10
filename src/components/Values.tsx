@@ -223,7 +223,7 @@ export default function ValuesSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-gray-50 py-14 dark:bg-[#050a18] md:py-28"
+      className="relative overflow-hidden bg-gray-50  dark:bg-[#050a18] md:py-28"
     >
       {/* Background */}
       <div className="pointer-events-none absolute inset-0">
