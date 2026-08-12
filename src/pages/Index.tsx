@@ -19,7 +19,7 @@ const Index = () => {
     <div className="min-h-screen">
       <HomeContentPrefetch />
       {/* <AnnouncementBanner /> */}
-      <div className="pt-16">
+      <div>
         <Hero />
         <WelcomeSection />
         <ProgramsSection />
