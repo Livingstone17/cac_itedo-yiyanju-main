@@ -5,6 +5,7 @@
 
 @theme {
   --font-sans: "Albert Sans", system-ui, sans-serif;
+  --font-display: "Fraunces", "Albert Sans", Georgia, serif;
 
   --radius-sm: 0.25rem;
   --radius-md: 0.375rem;
