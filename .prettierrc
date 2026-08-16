@@ -2,9 +2,9 @@
   "tabWidth": 2,
   "printWidth": 1000,
   "trailingComma": "all",
-  "semi": false,
-  "singleQuote": false,
-  "bracketSpacing": false,
+  "semi": true,
+  "singleQuote": true,
+  "bracketSpacing": true,
   "arrowParens": "always",
   "endOfLine": "auto",
   "plugins": ["prettier-plugin-tailwindcss"]

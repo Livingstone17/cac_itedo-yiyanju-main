@@ -75,7 +75,7 @@ const Navigation = () => {
 
   const {isLive} = useLiveStatus()
 
-  // ── Scroll state → frosted glass ────────────────────────────────
+  // Scroll state → shrink nav into a floating pill
   const handleScroll = useCallback(() => {
     setIsScrolled(window.scrollY > 40)
   }, [])
@@ -86,7 +86,7 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [handleScroll])
 
-  // ── Dropdown helpers ────────────────────────────────────────────
+  // Dropdown helpers
   const getDropdownType = (label: string): DropdownType => {
     if (label === "About Us") return "about"
     if (label === "Live Stream") return "live"
@@ -120,7 +120,7 @@ const Navigation = () => {
     }
   }
 
-  // ── Click outside to close dropdowns ────────────────────────────
+  // Click outside to close dropdowns
   useEffect(() => {
     if (window.innerWidth < 1024) return
     const handleClickOutside = (event: MouseEvent) => {
@@ -133,8 +133,8 @@ const Navigation = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [openDropdown])
 
-  // ── Minimal class tokens ────────────────────────────────────────
-  const navLinkClass = "nav-link-item group relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-300 " + "text-[#55565c] hover:text-[#17181c] " + "dark:text-stone-400 dark:hover:text-white"
+  // Minimal class tokens
+  const navLinkClass = "nav-link-item group relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-300 " + "text-foreground hover:text[#17181c] " + "dark:textstone400 dark:hover:textwhite"
 
   const linkUnderline = "after:absolute after:inset-x-3.5 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-[#a16207] after:transition-transform after:duration-300 after:ease-out dark:after:bg-[#d4a843] group-hover:after:scale-x-100"
 
@@ -150,7 +150,7 @@ const Navigation = () => {
 
   const mobileSubLinkClass = "flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm transition-all duration-200 " + "text-[#6f7076] dark:text-stone-500 " + "hover:bg-[#17181c]/[0.04] hover:text-[#17181c] " + "dark:hover:bg-white/5 dark:hover:text-white"
 
-  // ── Desktop nav item renderer ───────────────────────────────────
+  // Desktop nav item renderer
   const renderDesktopItem = (item: NavItem) => {
     if (item.dropdown) {
       const dropdownType = getDropdownType(item.label)
@@ -270,7 +270,7 @@ const Navigation = () => {
     return null
   }
 
-  // ── Mobile nav item renderer ────────────────────────────────────
+  // Mobile nav item renderer
   const renderMobileItem = (item: NavItem) => {
     const IconComponent = item.icon
 
@@ -279,7 +279,7 @@ const Navigation = () => {
       return (
         <div key={item.label}>
           <button onClick={() => toggleDropdown(dropdownType)} className={mobileNavButtonClass}>
-            <IconComponent className="h-[18px] w-[18px] text-[#a16207] dark:text-[#d4a843]" />
+            <IconComponent className="h-4.5 w-4.5 text-[#a16207] dark:text-[#d4a843]" />
             <span>{item.label}</span>
             {item.label === "Live Stream" && isLive && (
               <span className="flex items-center gap-1 rounded-full bg-[#e5484d]/10 px-2 py-0.5">
@@ -295,7 +295,7 @@ const Navigation = () => {
 
           {/* About - Mobile */}
           {dropdownType === "about" && openDropdown === "about" && (
-            <div className="mt-1 ml-[30px] flex flex-col gap-0.5 border-l border-[#a16207]/20 pl-3 dark:border-[#d4a843]/20">
+            <div className="mt-1 ml-7.5 flex flex-col gap-0.5 border-l border-[#a16207]/20 pl-3 dark:border-[#d4a843]/20">
               {aboutItems.map((aboutItem) => (
                 <Link key={aboutItem.label} to={aboutItem.href} className={mobileSubLinkClass} onClick={closeAllMenus}>
                   {aboutItem.label}
@@ -306,7 +306,7 @@ const Navigation = () => {
 
           {/* Live - Mobile */}
           {dropdownType === "live" && openDropdown === "live" && (
-            <div className="mt-1 ml-[30px] flex flex-col gap-0.5 border-l border-[#a16207]/20 pl-3 dark:border-[#d4a843]/20">
+            <div className="mt-1 ml-7.5 flex flex-col gap-0.5 border-l border-[#a16207]/20 pl-3 dark:border-[#d4a843]/20">
               <Link to="/listen/video" className={mobileSubLinkClass} onClick={closeAllMenus}>
                 <Video className="h-4 w-4 text-[#a16207] dark:text-[#d4a843]" /> Watch Live
               </Link>
@@ -318,7 +318,7 @@ const Navigation = () => {
 
           {/* Resources - Mobile */}
           {dropdownType === "resources" && openDropdown === "resources" && (
-            <div className="mt-1 ml-[30px] flex flex-col gap-0.5 border-l border-[#a16207]/20 pl-3 dark:border-[#d4a843]/20">
+            <div className="mt-1 ml-7.5 flex flex-col gap-0.5 border-l border-[#a16207]/20 pl-3 dark:border-[#d4a843]/20">
               {resourceItems.map((resourceItem) => {
                 const IconComp = resourceItem.icon
                 if (resourceItem.external) {
@@ -345,18 +345,18 @@ const Navigation = () => {
 
     return (
       <Link key={item.label} to={item.href || "/"} className={mobileNavLinkClass} onClick={closeAllMenus}>
-        <IconComponent className="h-[18px] w-[18px] text-[#a16207] dark:text-[#d4a843]" />
+        <IconComponent className="h-4.5 w-4.5 text-[#a16207] dark:text-[#d4a843]" />
         <span>{item.label}</span>
       </Link>
     )
   }
 
-  // ── RENDER ──────────────────────────────────────────────────────
+  // RENDER — full-width at top (max-w-500 ≈ 2000px) tweens smoothly down to the max-w-6xl pill on scroll
   return (
-    <>
-      <nav ref={navRef} className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${isScrolled ? "border-b border-[#17181c]/[0.06] bg-[#faf9f7]/80 shadow-[0_8px_40px_-16px_rgba(23,24,28,0.15)] backdrop-blur-xl dark:border-white/[0.06] dark:bg-[#0a0d14]/80 dark:shadow-[0_8px_40px_-16px_rgba(0,0,0,0.6)]" : "bg-transparent"}`}>
-        <div className="container mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex h-16 items-center justify-between lg:h-[4.5rem]">
+    <nav ref={navRef} className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${isScrolled ? "px-3 py-3 sm:px-6" : ""}`}>
+      <div className={`mx-auto flex flex-col transition-all duration-700 ${isScrolled ? "bg-background/80 dark:bg-background/80 max-w-6xl rounded-2xl border border-[#17181c]/6 shadow-[0_8px_40px_-16px_rgba(23,24,28,0.15)] backdrop-blur-xl dark:border-white/6 dark:shadow-[0_8px_40px_-16px_rgba(0,0,0,0.6)]" : "max-w-500 border-transparent bg-transparent shadow-none"}`}>
+        <div className="container mx-auto px-3 md:px-6">
+          <div className="flex h-16 items-center justify-between lg:h-18">
             {/* Logo */}
             <button
               ref={logoRef}
@@ -376,7 +376,7 @@ const Navigation = () => {
             </button>
 
             {/* Desktop Navigation */}
-            <div className="hidden items-center gap-0.5 lg:flex">{navigationItems.map(renderDesktopItem)}</div>
+            <div className="hidden items-center gap-0.5 xl:flex">{navigationItems.map(renderDesktopItem)}</div>
 
             {/* Desktop right cluster */}
             <div className="hidden items-center gap-2.5 lg:flex">
@@ -402,7 +402,7 @@ const Navigation = () => {
                 variant="ghost"
                 size="icon"
                 aria-label="Toggle menu"
-                className="relative h-10 w-10 overflow-hidden rounded-xl text-[#17181c] hover:bg-[#17181c]/[0.05] dark:text-white dark:hover:bg-white/5"
+                className="relative h-10 w-10 overflow-hidden rounded-xl text-[#17181c] hover:bg-[#17181c]/5 dark:text-white dark:hover:bg-white/5"
                 onClick={() => {
                   setIsMenuOpen((prev) => {
                     const next = !prev
@@ -422,11 +422,11 @@ const Navigation = () => {
 
         {/* Mobile Navigation Panel */}
         <div className={`overflow-hidden transition-all duration-500 ease-in-out lg:hidden ${isMenuOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"}`}>
-          <div className="mx-auto max-w-7xl border-t border-[#17181c]/[0.06] bg-[#faf9f7]/95 px-6 py-4 backdrop-blur-xl sm:px-8 dark:border-white/[0.06] dark:bg-[#0a0d14]/95">
+          <div className="bg-background/95 dark:bg-background/95 mx-auto max-w-7xl rounded-b-2xl border-t border-[#17181c]/6 px-6 py-4 backdrop-blur-xl sm:px-8 dark:border-white/6">
             <div className="flex flex-col gap-0.5">{navigationItems.map(renderMobileItem)}</div>
 
             {/* Mobile bottom accent */}
-            <div className="mt-4 border-t border-[#17181c]/[0.06] pt-4 dark:border-white/[0.06]">
+            <div className="mt-4 border-t border-[#17181c]/6 pt-4 dark:border-white/6">
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2 text-xs tracking-wide text-[#8a8b90] dark:text-stone-500">
                   <span className="relative flex h-1.5 w-1.5">
@@ -443,8 +443,8 @@ const Navigation = () => {
             </div>
           </div>
         </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   )
 }
 
