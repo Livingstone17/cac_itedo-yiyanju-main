@@ -143,17 +143,17 @@ const Hero = () => {
   }, [])
 
   return (
-    <section ref={sectionRef} id="home" className="relative overflow-hidden bg-[#faf9f7] dark:bg-[#0a0d14]">
+    <section ref={sectionRef} id="home" className="bg-background relative overflow-hidden">
       {/* ── Atmosphere: soft light + hairline grid ── */}
       <div className="pointer-events-none absolute inset-0">
         <div
-          className="absolute inset-0 opacity-[0.5] dark:opacity-[0.25]"
+          className="absolute inset-0 opacity-50 dark:opacity-25"
           style={{
             backgroundImage: "radial-gradient(ellipse 80% 60% at 20% 10%, rgba(217,119,6,0.06), transparent 60%), radial-gradient(ellipse 60% 50% at 90% 90%, rgba(120,113,108,0.05), transparent 60%)",
           }}
         />
         <div
-          className="absolute inset-0 opacity-[0.35] dark:opacity-[0.12]"
+          className="absolute inset-0 opacity-35 dark:opacity-12"
           style={{
             backgroundImage: "linear-gradient(to right, rgba(168,162,158,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(168,162,158,0.12) 1px, transparent 1px)",
             backgroundSize: "72px 72px",
@@ -163,7 +163,7 @@ const Hero = () => {
         />
       </div>
 
-      <div className="relative z-10 container mx-auto flex min-h-screen flex-col justify-center px-6 pt-28 pb-16 sm:px-8 lg:px-12 lg:pt-32 lg:pb-20">
+      <div className="relative z-10 container mx-auto flex min-h-[max(600px,30vh)] flex-col justify-center px-6 pt-28 pb-16 sm:px-8 lg:px-12 lg:pt-32 lg:pb-20">
         <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
           {/* ── Left: Typography ── */}
           <div className="hero-content lg:col-span-7 xl:col-span-6">
@@ -189,10 +189,10 @@ const Hero = () => {
             </h1>
 
             {/* Subline — typewriter effect */}
-            <p className="hero-sub mt-7 min-h-[5.5rem] max-w-md text-lg leading-relaxed text-[#55565c] dark:text-stone-400">
+            <p className="hero-sub mt-7 min-h-22 max-w-md text-lg leading-relaxed text-[#55565c] dark:text-stone-400">
               <span>
                 {displayedSubline}
-                <span className="ml-0.5 inline-block h-[1.15em] w-[2px] translate-y-[0.18em] bg-[#a16207] dark:bg-[#d4a843]" style={{animation: "cursor-blink 1s step-end infinite"}} />
+                <span className="ml-0.5 inline-block h-[1.15em] w-0.5 translate-y-[0.18em] bg-[#a16207] dark:bg-[#d4a843]" style={{animation: "cursor-blink 1s step-end infinite"}} />
               </span>
             </p>
 
@@ -206,7 +206,7 @@ const Hero = () => {
                 {isLive ? "Watch Live Now" : "Watch Live"}
               </button>
 
-              <button onClick={openMaps} className="hero-cta group inline-flex items-center justify-center gap-2 rounded-full border border-[#17181c]/15 px-7 py-4 text-sm font-semibold text-[#17181c] transition-all duration-300 hover:border-[#17181c]/35 hover:bg-[#17181c]/[0.03] dark:border-white/20 dark:text-white dark:hover:border-white/40 dark:hover:bg-white/5">
+              <button onClick={openMaps} className="hero-cta group inline-flex items-center justify-center gap-2 rounded-full border border-[#17181c]/15 px-7 py-4 text-sm font-semibold text-[#17181c] transition-all duration-300 hover:border-[#17181c]/35 hover:bg-[#17181c]/3 dark:border-white/20 dark:text-white dark:hover:border-white/40 dark:hover:bg-white/5">
                 Plan Your Visit
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
@@ -231,7 +231,7 @@ const Hero = () => {
               {/* Image — no frame, no rounded shape, edges melt into the hero */}
               <div className="hero-media relative overflow-hidden">
                 <div
-                  className="relative aspect-[4/3] w-full overflow-hidden lg:aspect-[4/5]"
+                  className="relative aspect-4/3 w-full overflow-hidden lg:aspect-4/5"
                   style={{
                     maskImage: "linear-gradient(to bottom, transparent, black 3.5%, black 96.5%, transparent), linear-gradient(to right, transparent, black 3.5%, black 96.5%, transparent)",
                     maskComposite: "intersect",
@@ -240,14 +240,9 @@ const Hero = () => {
                   }}
                 >
                   {churchImages.map((img, i) => (
-                    <img
-                      key={img}
-                      src={img}
-                      alt={`CAC Itedo Yiyanju church ${i + 1}`}
-                      className={`hero-img absolute inset-0 h-full w-full scale-[1.12] object-cover transition-opacity duration-[2200ms] ease-in-out ${i === active ? "opacity-100" : "opacity-0"}`}
-                    />
+                    <img key={img} src={img} alt={`CAC Itedo Yiyanju church ${i + 1}`} className={`hero-img absolute inset-0 h-full w-full scale-112 object-cover transition-opacity duration-2200 ease-in-out ${i === active ? "opacity-100" : "opacity-0"}`} />
                   ))}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#17181c]/30 via-transparent to-transparent dark:from-black/50" />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#17181c]/30 via-transparent to-transparent dark:from-black/50" />
                 </div>
 
                 {/* Glass chip */}
